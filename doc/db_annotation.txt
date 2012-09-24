@@ -1,0 +1,33 @@
+user:
+-three types
+-settings will be saved as JSON/JavaScript
+
+jobs:
+-different stages
+-links to the creator, responsible and the client
+
+materials:
+-links to the job
+-different states (ordered, delivered, used)
+-don't know wether to add link to responsible user
+
+shedule:
+-links to job
+-start and end
+-don't know wether to add notes to an event?
+
+comments:
+-links to job
+-links to user (creator)
+
+client:
+-only infos
+
+history:
+-different types 
+-links to job
+-links to all other needed tables
+
+updates:
+-links history with users
+
