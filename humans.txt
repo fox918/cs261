@@ -1,0 +1,5 @@
+Hello human
+
+this is a small website built in a project at university
+
+goodbye and thanks for all the fish

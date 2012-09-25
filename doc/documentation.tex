@@ -1,0 +1,104 @@
+%Vorlage Uni, made by Oliver Wisler 25.20.2011
+
+%set document language to german, standard font size and document size
+\documentclass[ngerman, 12pt, pdftex]{scrartcl}[2006/07/30]
+
+%encoding and input
+\usepackage[ngerman]{babel} %spell correction
+\usepackage[utf8]{inputenc} 
+\usepackage[T1]{fontenc}
+
+%bugfixes
+\usepackage{fixltx2e} 
+
+%Font Symbols and Colors
+\usepackage{textcomp} %more symbols
+\usepackage{xcolor}
+
+%Math
+\usepackage{amsmath}
+\usepackage{mathtools} %extends amsmath
+
+%Programming
+\usepackage{listingsutf8} %in utf8
+\lstset{language=Java,captionpos=b,tabsize=3,frame=lines,keywordstyle=\color{blue},commentstyle=\color{teal},stringstyle=\color{red},numbers=left,numberstyle=\tiny,numbersep=5pt,breaklines=true,showstringspaces=false,basicstyle=\footnotesize,emph={label},upquote=true} %Syntax highlighting
+
+%Verbatim extension (with line numbers and tab-expansion)
+\usepackage{moreverb} 
+
+%Headers and Footer
+\usepackage{fancyhdr}
+
+%title
+\title{CS261 Webprojekt}
+\author{Frank Müller, Oliver Wisler}
+
+\begin{document}
+%declare  Header
+\pagestyle{fancy}
+\fancyhf{} 
+\fancyhead[L]{cs261 Webprojekt} %left header
+\fancyhead[C]{} %centered header
+\fancyhead[R]{Frank Müller, Oliver Wisler}  % right header
+\renewcommand{\headrulewidth}{0.1pt} 	%upper separating line
+\fancyfoot[C]{\thepage} 				%centered footer, line number
+%\renewcommand{\footrulewidth}{0.1pt} 	%lower separating line
+
+
+
+
+%%%%%CONTENT%%%%%
+%you might want to enable come features:
+%\maketitle
+\tableofcontents
+\newpage
+
+
+\section{Installation}
+
+
+% section  (end)
+
+\section{Umsetzung}
+\subsection{Funktionsumfang}
+
+
+% subsection  (end)
+\subsection{Aufbau}
+
+
+% subsection  (end)
+\subsection{Datenbank}
+
+
+% subsection  (end)
+% section  (end)
+
+\section{Benutzeroberfläche}
+\subsection{Verwaltung}
+
+% subsection  (end)
+\subsection{Lagerist}
+
+
+% subsection  (end)
+
+\subsection{Arbeiter}
+
+
+% subsection  (end)
+% section  (end)
+
+\section{Fazit}
+\subsection{Einschränkungen}
+
+% subsection  (end)
+\subsection{Problemstellen}
+
+% subsection  (end)
+\subsection{Lessons learned}
+
+% subsection  (end)
+
+% section  (end)
+\end{document}
