@@ -58,7 +58,7 @@ if(isset($_GET['page']))
 
 
 <!doctype html>
-
+<html>
 <head>
     <meta charset="utf-8">
     <meta name="title" content="Auftragsverwaltung">
@@ -105,38 +105,11 @@ if(isset($_GET['page']))
         </div>
         <div style="clear:both"></div>
         <nav>
-        <ul>
-            <li><a class="active" href="index.php?page=create">Erfassung</a></li>
-            <li><a href="index.php?page=list">Aufträge</a></li>
-            <li><a href="index.php?page=archive">Archiv</a></li>
-            <li><a href="index.php?page=admin">Verwaltung</a></li>
-        </ul>
+            <?php $page->printMenu() ?>
         </nav>
         </header>
 
-        <article id="create">
-        <fieldset>
-            <legend>Kunde</legend>
-            asfasf
-        </fieldset>
-        <fieldset>
-            <legend>Auftrag</legend>
-
-        </fieldset>
-        <fieldset>
-            <legend>Kalender</legend>
-        </fieldset>
-        <fieldset>
-            <legend>angehängte Dateien</legend>
-        </fieldset>
-        <div class="control">
-            <button type="submit">Erstellen</button>
-        </div>
-        </article>
-
-        <aside>
-
-        </aside>
+        <?php $page->printArticle(); ?>
 
         <footer>
 
@@ -149,4 +122,4 @@ if(isset($_GET['page']))
 <script src="./js/main.js"></script>
 
 </body>
-    </html>
+</html>

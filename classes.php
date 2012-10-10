@@ -20,14 +20,14 @@ class user
         'store'=>'Lagerist',
         'guest'=>'nicht angemeldet'
     );
-    
-    
+
+
     //log the user in
     public function login($username,$password)
     {
         //TODO real auth
     }
-    
+
     // wether a user is validated or not, false if not logged in, true otherwise
     public function isLoggedIn()
     {
@@ -42,7 +42,7 @@ class user
     }
 
     //printing
-    
+
     //print username
     public function printUsername()
     {
@@ -70,11 +70,11 @@ class page
 
     private $user;
 
-    
-    
-    
-    
-    
+
+
+
+
+
     //language things
     private $lang_pages = Array(
         'login'=>'Anmelden',
@@ -85,7 +85,7 @@ class page
         'edit'=>'Auftragsansicht'
     );
     //setters
-    
+
     //set the page to display
     public function setPage($input)
     {
@@ -125,17 +125,46 @@ class page
     }
 
     //printing functions
-    
+
     //print the page title
     public function printTitle()
     {
         echo $this->lang_pages[$this->page]." | Auftragsverwaltung";
     }
 
+    //print the menu
+    public function printMenu()
+    {
+        $menuentries = Array(
+            'create'=>'Erfassen',
+            'list'=>'Aufträge',
+            'archive'=>'Archiv',
+            'admin'=>'Verwaltung',
+        );
+
+        echo '<ul>';
+        foreach($menuentries as $key => $title)
+        {
+            $class='';
+            if($key == $this->page){$class='class="active"';}
+            if($this->user->hasAuth($key))
+            {
+                echo '<li>'.
+                    '<a '.$class.' href="index.php?page='.$key.'"> '.
+                    $title.
+                    '</a>'.
+                    '</li>';
+            }    
+        }
+        echo '</ul>';
+    }
+
     //print the article of the page
     public function printArticle()
     {
-
+        $check = true; //required because of security reasons 
+        //(included page won't display anything if not set)
+        include './templates/'.$this->page.'.php';
     } 
 }
 
