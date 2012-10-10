@@ -146,15 +146,64 @@ nav ul li a.active{
 article{
     margin: 5px 15px 5px 15px;
 }
-#create fieldset{
+fieldset{
     background-color: #fff;
     border-radius: 15px;
     border:2px #DDD solid;
     margin: 5px 10px 10px 10px;
     padding: 0 10px 5px 10px;
 }
-#create fieldset legend{
+fieldset legend{
     font-size: 17px;
     margin: 0 0 5px 10px;
 }
+/* Article create*/
 
+/* Article login*/
+#login{
+    display: block;
+    margin: 30px auto 20px auto;
+}
+#login fieldset{
+    width: 400px;
+    margin: 0 auto 0 auto;
+}
+#login div{
+    display: block;
+    margin: 0 auto 0 auto;
+}
+#login p{
+    position:relative;
+    left: 25px;
+    margin:15px;
+}
+#login p input{
+    position:absolute;
+    left: 130px;
+}
+#login p label{
+    position:relative;
+    top:7px;
+    padding:5px;
+}
+#login input{
+    border-radius: 5px;
+    padding:3px;
+    border: none;
+}
+#login input[type=text]{
+    background-color: #ff9;
+    border: 1px #990 solid;
+}
+#login input[type=password]{
+    background-color: #ff9;
+    border: 1px #990 solid;
+}
+#login input[type=submit]{
+    margin: 30px auto 0 auto;
+    display: block;
+    padding: 10px;
+}
+#login label{
+    padding:5px;
+}

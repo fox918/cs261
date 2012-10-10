@@ -18,10 +18,8 @@ ini_set('display_errors', '1');
 include_once 'classes.php';
 
 /*
- * Processing of GET-Requests
- * Following get requests exist:
+ * GET-Requests:
  * Name     Action
- * 
  * page     display the designated page
  * subpage  display the designated subpage of the page
  * order    specify an order for the page
@@ -30,13 +28,59 @@ include_once 'classes.php';
  * Example:
  * index.php?page=edit&order=123    Edit order nr. 123
  * index.php?action=logout          log me out
+ *
+ * SESSION variables:
+ * Name     Action 
+ * user     username of the momentary user
+ * auth     authentication token
+ *
+ * COOKIE variables:
+ * Name     Action
+ * 
+ * POST variables:
+ * Name             Action
+ * login_username   username for login
+ * login_password   password for login
+ *
+ *
  */
+
+if(isset($_GET['action']))
+{
+    switch($_GET['action']){
+        case 'logout':
+            session_destroy();
+            header('Location: index.php');
+            die;
+        break;
+    }
+}
+
 
 /*
  * initialize user
  */
 $user = new user();
 
+//either user is logged in or needs to do so:
+if(isset($_SESSION['user']) && isset($_SESSION['auth']))
+{
+    //user already logged in
+    $user->authenticate($_SESSION['user'], $_SESSION['auth']);
+} else {
+    //user is not logged in
+    //try login
+    if(isset($_POST['login_username']) && isset($_POST['login_password']))
+    {
+        $user->login($_POST['login_username'],$_POST['login_password']);
+    }
+    //set sessionvars
+    if($user->isLoggedIn())
+    {
+        $_SESSION['user'] = $user->getUsername();
+        $_SESSION['auth'] = $user->getAuthToken();
+    }
+}
 /*
  * initialize page
  */
@@ -84,8 +128,8 @@ if(isset($_GET['page']))
     <title><?php $page->printTitle() ?></title>
 </head>
 
-<body onload="setTimeout('location.reload(true)',5000)">
-
+<body>
+  <!--onload="setTimeout('location.reload(true)',5000)"-->
     <div id="content"> 
         <header>
         <div>
@@ -94,8 +138,8 @@ if(isset($_GET['page']))
                 <h1>Auftragverwaltung</h1>
             </div>
             <div id="logininfo">
-            <p id="username"><?php $user->printUsername() ?></p>
-            <p id="department"><?php $user->printDepartment() ?></p>
+            <p id="username"><?php echo $user->getUsername(); ?></p>
+            <p id="department"><?php echo $user->getDepartment(); ?></p>
                 <?php if($user->isLoggedIn()) { ?>
                     <form action="./index.php?action=logout" method="post">
                         <input type="submit" value="Ausloggen" />

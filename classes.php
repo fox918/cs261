@@ -9,7 +9,8 @@ class user
 {
     //variables
     private $name = 'Gast';
-    private $loggedIn = true; //TODO DEBUG ONLY
+    private $loggedIn = false; //TODO DEBUG ONLY
+    private $authToken = null;
     private $role = 'guest';  //current role the user has
     private $roles = array('admin','worker','store','guest');
 
@@ -21,11 +22,32 @@ class user
         'guest'=>'nicht angemeldet'
     );
 
+    /*
+     *  Security functions:
+     */
 
     //log the user in
     public function login($username,$password)
     {
         //TODO real auth
+        $this->loggedIn = true;
+        $this->authToken = 'asdf';
+        $this->name = $username;
+    }
+
+    //check if user is valid (when he already is logged in)
+    public function authenticate($username,$authtoken)
+    {
+        //TODO real auth
+        //TODO evtl. implement second authtoken with COOKIE
+        $this->loggedIn = true;
+        $this->name = $username;
+        return true;
+    }
+
+    //returns the authToken of the current session
+    public function getAuthToken(){
+        return $this->authToken;
     }
 
     // wether a user is validated or not, false if not logged in, true otherwise
@@ -41,18 +63,20 @@ class user
         return true;
     }
 
-    //printing
+    /*
+     * getter functions
+     */
 
-    //print username
-    public function printUsername()
+    //get username
+    public function getUsername()
     {
-        echo $this->name;
+        return $this->name;
     }
 
-    //print department
-    public function printDepartment()
+    //get department
+    public function getDepartment()
     {
-        echo $this->lang_roles[$this->role];
+        return $this->lang_roles[$this->role];
     }
 
 
