@@ -8,9 +8,9 @@
 class user
 {
     //variables
-    private $name = 'Gast';
-    private $loggedIn = false; //TODO DEBUG ONLY
-    private $authToken = null;
+    private $name = 'Gast'; //username
+    private $loggedIn = false; //if logged in 
+    private $authToken = null; //auth token of the current session
     private $role = 'guest';  //current role the user has
     private $roles = array('admin','worker','store','guest');
 
@@ -45,11 +45,6 @@ class user
         return true;
     }
 
-    //returns the authToken of the current session
-    public function getAuthToken(){
-        return $this->authToken;
-    }
-
     // wether a user is validated or not, false if not logged in, true otherwise
     public function isLoggedIn()
     {
@@ -79,7 +74,10 @@ class user
         return $this->lang_roles[$this->role];
     }
 
-
+    //returns the authToken of the current session
+    public function getAuthToken(){
+        return $this->authToken;
+    }
 }
 
 /*
@@ -91,15 +89,15 @@ class page
     //variables
     private $page = 'login'; //current page, default is login
     private $pages = Array('login','create','list','archive','admin','edit');
+    private $subpage; //current subpage
+    private $subpages;
 
-    private $user;
-
-
-
+    private $user; 
 
 
 
     //language things
+    //titles of the pages
     private $lang_pages = Array(
         'login'=>'Anmelden',
         'create'=>'Erfassen',
@@ -124,13 +122,13 @@ class page
     }
 
     //set subpage if necessary
-    public function setSubPage()
+    public function setSubPage($input)
     {
 
     }
 
     //set the order (necessary for edit)
-    public function setOrder()
+    public function setOrder($input)
     {
 
     }

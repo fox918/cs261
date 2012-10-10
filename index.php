@@ -4,20 +4,18 @@
  * compression, sessionhandler
  */
 ob_start("ob_gzhandler"); //compression
-session_start(); 
-
-///DEBUG
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
-///DEBUG
-
+session_start(); //session mgmt 
 
 /*
  * Includes
  */
-include_once 'classes.php';
+//TODO include_once 'db.php'; //db class
+include_once 'classes.php'; //all the other classes
 
 /*
+ * Please note all the Requests you are creating in here:
+ *
+ ****************
  * GET-Requests:
  * Name     Action
  * page     display the designated page
@@ -28,15 +26,25 @@ include_once 'classes.php';
  * Example:
  * index.php?page=edit&order=123    Edit order nr. 123
  * index.php?action=logout          log me out
+ * 
+ * Values:
+ *      page        create, edit, list, archive, admin, login
+ *      subpage     
+ *      action      logout
+ *      order       numerical
  *
+ *
+ ****************
  * SESSION variables:
  * Name     Action 
  * user     username of the momentary user
  * auth     authentication token
  *
+ ****************
  * COOKIE variables:
  * Name     Action
  * 
+ ****************
  * POST variables:
  * Name             Action
  * login_username   username for login
@@ -45,17 +53,19 @@ include_once 'classes.php';
  *
  */
 
+/*
+ * Actions
+ */
 if(isset($_GET['action']))
 {
     switch($_GET['action']){
-        case 'logout':
+        case 'logout': //do a logout, destroy session and reload
             session_destroy();
             header('Location: index.php');
-            die;
-        break;
+            die; //live and let die
+            break;
     }
 }
-
 
 /*
  * initialize user
@@ -90,6 +100,7 @@ if(isset($_GET['page']))
 {
     $page->setPage($_GET['page']);
 }
+//TODO setSubPage setOrder...
 
 /*
  * POST-Requests
@@ -129,7 +140,8 @@ if(isset($_GET['page']))
 </head>
 
 <body>
-  <!--onload="setTimeout('location.reload(true)',5000)"-->
+  <!--onload="setTimeout('location.reload(true)',5000)" 
+        autoreload for debugging css, insert in body tag -->
     <div id="content"> 
         <header>
         <div>

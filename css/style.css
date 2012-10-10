@@ -165,31 +165,31 @@ fieldset legend{
     margin: 30px auto 20px auto;
 }
 #login fieldset{
-    width: 400px;
     margin: 0 auto 0 auto;
+    width: 400px;
 }
 #login div{
     display: block;
     margin: 0 auto 0 auto;
 }
 #login p{
-    position:relative;
     left: 25px;
     margin:15px;
+    position:relative;
 }
 #login p input{
-    position:absolute;
     left: 130px;
+    position:absolute;
 }
 #login p label{
+    padding:5px;
     position:relative;
     top:7px;
-    padding:5px;
 }
 #login input{
     border-radius: 5px;
-    padding:3px;
     border: none;
+    padding:3px;
 }
 #login input[type=text]{
     background-color: #ff9;
@@ -200,8 +200,8 @@ fieldset legend{
     border: 1px #990 solid;
 }
 #login input[type=submit]{
-    margin: 30px auto 0 auto;
     display: block;
+    margin: 30px auto 0 auto;
     padding: 10px;
 }
 #login label{
