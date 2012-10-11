@@ -151,11 +151,15 @@ fieldset{
     border-radius: 15px;
     border:2px #DDD solid;
     margin: 5px 10px 10px 10px;
-    padding: 0 10px 5px 10px;
+    padding: 0 10px 10px 10px;
 }
 fieldset legend{
     font-size: 17px;
     margin: 0 0 5px 10px;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #666;
+    color: #fff;
 }
 /* Article create*/
 

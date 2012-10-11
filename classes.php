@@ -8,6 +8,7 @@
 class user
 {
     //variables
+    private $id = 0; //user id
     private $name = 'Gast'; //username
     private $loggedIn = false; //if logged in 
     private $authToken = null; //auth token of the current session
