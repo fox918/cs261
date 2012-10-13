@@ -154,12 +154,12 @@ fieldset{
     padding: 0 10px 10px 10px;
 }
 fieldset legend{
+    background-color: #666;
+    border-radius: 5px;
+    color: #fff;
     font-size: 17px;
     margin: 0 0 5px 10px;
     padding: 5px;
-    border-radius: 5px;
-    background-color: #666;
-    color: #fff;
 }
 input{
     background-color: #DDD;
@@ -194,7 +194,7 @@ column-gap: 3em;
     left: 130px;
     position:absolute;
 }
-#login p label{
+glogin p label{
     padding:5px;
     position:relative;
     top:7px;
@@ -222,28 +222,33 @@ column-gap: 3em;
 }
 /* Article create*/
 #create .address{
-   margin: 5px auto 5px auto; 
-   display:block;
-   width: 300px;
     font-size: 15px;
+   display:block;
+   margin: 5px auto 5px auto; 
+   width: 300px;
 }
-#create .address span{
+#create p span{
     display:block;
     margin:10px;
     position:relative;
 }
-#create .address span input{
-    position:absolute;
-    width:170px;
+#create p span input,#create p span select{
     left: 100px;
-    top:-5px;
     padding:2px;
+    position:absolute;
+    top:-5px;
 }
-#create #notes{
+#create p span input{
+    width:170px;
+}
+#create #order_details p span *{
+    left: 150px;
+}
+#create #order_details textarea{
+    display: block;
     width:100%;
     max-width:100%;
-    height: 100px
-    
+    resize:vertical;
 }
 #create .floatright{
     float:right;
@@ -251,5 +256,17 @@ column-gap: 3em;
 }
 #create .floatleft{
     float:left;
+}
+#create #materials p{
+    position:relative;
+    height: 30px;
+}
+#create #materials p span{
+    display:inline;
+    position:absolute;
+}
+#create #materials p input,#create #materials p select{
+    display:inline;
+    position:absolute;
 }
 
