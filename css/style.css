@@ -246,9 +246,9 @@ glogin p label{
 }
 #create #order_details textarea{
     display: block;
-    width:100%;
     max-width:100%;
     resize:vertical;
+    width:100%;
 }
 #create .floatright{
     float:right;
@@ -258,8 +258,8 @@ glogin p label{
     float:left;
 }
 #create #materials p{
-    position:relative;
     height: 30px;
+    position:relative;
 }
 #create #materials p span{
     display:inline;
@@ -268,5 +268,53 @@ glogin p label{
 #create #materials p input,#create #materials p select{
     display:inline;
     position:absolute;
+}
+
+/* List of all Articles*/
+#list {
+
+}
+#list .sortsearch{
+    background-color: #ADD8E6;
+    border-radius: 7px;
+    margin: 10px auto 20px auto;
+    padding: 15px;
+    width: 70%;
+}
+#list .sortsearch *{
+    display: inline;
+}
+#list ul li{
+    background-color: #fff;
+    border-radius: 5px;
+    margin: 5px 10px 5px 10px;
+    padding: 7px 15px 7px 15px;
+    position:relative;
+}
+#list ul li p{
+    display: inline;
+}
+#list ul li div{
+    background-color: red;
+    display: inline;
+    float: right;
+    margin: 0 10px 0 10px;
+    width: 60px;
+}
+#list ul li .street{
+    left: 180px;
+    position:absolute;
+}
+#list ul li .location{
+    left: 370px;
+    position:absolute;
+}
+#list ul li .title{
+    left: 480px;
+    position:absolute;
+}
+#list ul li .id{
+    position:absolute;
+    right: 100px;
 }
 

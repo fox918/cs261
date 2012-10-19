@@ -53,19 +53,32 @@ class user
     }
 
     // returns true if the user has the authority to do $input
-    public function hasAuth($input)
+    public function hasAuth($page, $action)
     {
-        //TODO implement
-        return true;
-    }
-
+        if($this->role == 'admin'){
+            return true;
+        }
     /*
-     * getter functions
+     * Actions:
+     * view, change
      */
 
-    //get username
-    public function getUsername()
-    {
+
+
+
+        //TODO implement interaction
+
+        //TODO delete after DB implementation
+        return true;
+    } 
+
+        /*
+         * getter functions
+         */
+
+        //get username
+        public function getUsername()
+        {
         return $this->name;
     }
 
@@ -89,7 +102,7 @@ class page
 {   
     //variables
     private $page = 'login'; //current page, default is login
-    private $pages = Array('login','create','list','archive','admin','edit');
+    private $pages = Array('login','create','list','archive','admin','edit','error');
     private $subpage; //current subpage
     private $subpages;
 
@@ -105,7 +118,8 @@ class page
         'list'=>'Aufträge',
         'archive'=>'Archiv',
         'admin'=>'Verwaltung',
-        'edit'=>'Auftragsansicht'
+        'edit'=>'Auftragsansicht',
+        'error'=>'Fehler'
     );
     //setters
 
@@ -115,10 +129,16 @@ class page
         $input = strtolower($input);
         if(isset($input) && in_array($input,$this->pages,TRUE))
         {
-            if($this->user->isLoggedIn() && $this->user->hasAuth($input))
+            if($this->user->isLoggedIn() && $this->user->hasAuth($input,'view'))
             {
                 $this->page = $input;
             }
+            else
+            {
+                $this->page = 'error';
+            }
+
+
         }
     }
 
@@ -170,7 +190,7 @@ class page
         {
             $class='';
             if($key == $this->page){$class='class="active"';}
-            if($this->user->hasAuth($key))
+            if($this->user->hasAuth($key,'view'))
             {
                 echo '<li>'.
                     '<a '.$class.' href="index.php?page='.$key.'"> '.
@@ -187,8 +207,8 @@ class page
     {
         $check = true; //required because of security reasons 
         //(included page won't display anything if not set)
-        //TODO check if user has the right to do so
-        include './templates/'.$this->page.'.php';
+        
+        require './templates/'.$this->page.'.php';
     } 
 }
 

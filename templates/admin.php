@@ -12,3 +12,16 @@ if(!isset($check))
  */
 
 ?>
+<article>
+    <fieldset>
+        <legend>Benutzer</legend>
+            <ul>
+                <li>ROOT</li>
+                <li>HANS</li>
+            </ul>
+    </fieldset>
+<fieldset>
+    <legend>Einstellungen</legend>
+    <p>BLABLABLABLA</p>
+</fieldset>
+</article>
