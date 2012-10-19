@@ -9,8 +9,21 @@ session_start(); //session mgmt
 /*
  * Includes
  */
-//TODO include_once 'db.php'; //db class
-include_once 'classes.php'; //all the other classes
+require_once 'config.php';//constants
+require_once 'db.php'; //db class
+require_once 'classes.php'; //all the other classes
+
+/*
+ * Check requirements
+ */
+if(INSTALL==1)
+{
+    //INSTALL flag set, db probably not set up
+    echo 'Please install the database first or check your config.php';
+    die;
+}
+    //TODO maybe check if DB connection works
+
 
 /*
  * Please note all the Requests you are creating in here:

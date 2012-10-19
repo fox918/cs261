@@ -187,6 +187,7 @@ class page
     {
         $check = true; //required because of security reasons 
         //(included page won't display anything if not set)
+        //TODO check if user has the right to do so
         include './templates/'.$this->page.'.php';
     } 
 }
