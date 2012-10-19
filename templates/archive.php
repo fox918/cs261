@@ -1,7 +1,12 @@
 <?php 
 //die if not called by ../classes.php
-if(!isset($check)){echo 'and now for something completely different';die;}
-
+if(!isset($check))
+{
+    $errorTitle='Unerlaubter Zugriff';
+    $error='Dieser Zugriff ist nicht erlaubt';
+    include 'error.php';
+    die;
+}
 /*
  * Archive page
  */
