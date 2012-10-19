@@ -126,20 +126,30 @@ class page
     //set the page to display
     public function setPage($input)
     {
-        $input = strtolower($input);
-        if(isset($input) && in_array($input,$this->pages,TRUE))
-        {
-            if($this->user->isLoggedIn() && $this->user->hasAuth($input,'view'))
-            {
-                $this->page = $input;
-            }
-            else
-            {
-                $this->page = 'error';
-            }
+        $result = 'list';
 
-
+        if( isset($input)){
+            $result = $input;
         }
+
+        //not valid input
+        $result = strtolower($result);
+        if( !in_array($result,$this->pages,TRUE))
+        {
+            $result = 'error';
+        }
+        //no auth
+        if( !$this->user->hasAuth($input,'view'))
+        {
+            $result = 'error';        
+        }
+
+        //not logged in
+        if( !$this->user->isLoggedIn()){
+            $result = 'login';
+        }
+
+        $this->page = $result;
     }
 
     //set subpage if necessary
@@ -160,10 +170,6 @@ class page
         if(isset($input))
         {
             $this->user = $input;
-            if($this->user->isLoggedIn())
-            {
-                $this->page = 'list';
-            }
         }
     }
 
