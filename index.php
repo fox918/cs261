@@ -112,6 +112,8 @@ $page->setUser($user);
 if(isset($_GET['page']))
 {
     $page->setPage($_GET['page']);
+}else{
+        $page->setPage(NULL);
 }
 //TODO setSubPage setOrder...
 

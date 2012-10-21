@@ -139,7 +139,7 @@ class page
             $result = 'error';
         }
         //no auth
-        if( !$this->user->hasAuth($input,'view'))
+        if( !$this->user->hasAuth($result,'view'))
         {
             $result = 'error';        
         }

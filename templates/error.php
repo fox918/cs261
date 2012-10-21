@@ -29,6 +29,7 @@ if(isset($error))
     </p>
 </fieldset>
 <fieldset class='quote'>
+<legend>Random Quote</legend>
     <p>
 <?php
 $quotes = array(
