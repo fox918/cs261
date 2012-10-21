@@ -17,7 +17,7 @@
  * 1    Installation not completed, db not set up yet.
  */
 
-define('INSTALL', 0);
+define('INSTALL', 1);
 
 /* DATABASE
  *
@@ -28,7 +28,7 @@ define('DB_USER', 'root');                //db user
 define('DB_PASSWORD', 'IamSoSecure');     //db password
 
 define('DB_HOST', 'localhost');           //db host, usually localhost
-define('DB_DATABASE', 'database');        //which database on the host
+define('DB_DATABASE', 'testing');        //which database on the host
 
 /* DEBUG
  *

@@ -2,13 +2,16 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ;
-USE `mydb` ;
+DROP SCHEMA IF EXISTS `ordermgmt` ;
+CREATE SCHEMA IF NOT EXISTS `ordermgmt` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ;
+USE `ordermgmt` ;
 
 -- -----------------------------------------------------
--- Table `mydb`.`users`
+-- Table `ordermgmt`.`users`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `mydb`.`users` (
+DROP TABLE IF EXISTS `ordermgmt`.`users` ;
+
+CREATE  TABLE IF NOT EXISTS `ordermgmt`.`users` (
   `uId` INT NOT NULL AUTO_INCREMENT ,
   `uName` VARCHAR(30) NOT NULL ,
   `uPw` VARCHAR(45) NOT NULL ,
@@ -28,17 +31,19 @@ COLLATE = utf8_unicode_ci;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`clients`
+-- Table `ordermgmt`.`clients`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `mydb`.`clients` (
-  `cId` INT NOT NULL ,
-  `cName` VARCHAR(45) NULL ,
-  `cType` ENUM('business','retail') NULL ,
-  `cGender` ENUM('m','f','b') NULL ,
+DROP TABLE IF EXISTS `ordermgmt`.`clients` ;
+
+CREATE  TABLE IF NOT EXISTS `ordermgmt`.`clients` (
+  `cId` INT NOT NULL AUTO_INCREMENT ,
+  `cName` VARCHAR(45) NOT NULL ,
+  `cType` ENUM('business','retail') NOT NULL ,
+  `cGender` ENUM('m','f','b') NOT NULL ,
   `cPhone` VARCHAR(45) NULL ,
   `cMobile` VARCHAR(45) NULL ,
   `cStreet` VARCHAR(45) NULL ,
-  `cPLZ` INT NULL ,
+  `cCity` VARCHAR(45) NULL ,
   PRIMARY KEY (`cId`) )
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
@@ -46,16 +51,19 @@ COLLATE = utf8_unicode_ci;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`jobs`
+-- Table `ordermgmt`.`jobs`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `mydb`.`jobs` (
-  `jId` INT NOT NULL ,
-  `jName` VARCHAR(45) NULL ,
+DROP TABLE IF EXISTS `ordermgmt`.`jobs` ;
+
+CREATE  TABLE IF NOT EXISTS `ordermgmt`.`jobs` (
+  `jId` INT NOT NULL AUTO_INCREMENT ,
+  `jName` VARCHAR(45) NOT NULL ,
   `jDesc` TEXT NULL ,
   `jStage` ENUM('evaluation','processing','billing','finished') NULL ,
   `jResp` INT NOT NULL ,
   `clients_cId` INT NOT NULL ,
   `Creator users_uId` INT NOT NULL ,
+  `jCreationDate` DATE NOT NULL ,
   PRIMARY KEY (`jId`, `clients_cId`, `Creator users_uId`) ,
   INDEX `fk_jobs_users1_idx` (`jResp` ASC) ,
   INDEX `fk_jobs_clients1_idx` (`clients_cId` ASC) ,
@@ -63,17 +71,17 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`jobs` (
   UNIQUE INDEX `jId_UNIQUE` (`jId` ASC) ,
   CONSTRAINT `fk_jobs_users1`
     FOREIGN KEY (`jResp` )
-    REFERENCES `mydb`.`users` (`uId` )
+    REFERENCES `ordermgmt`.`users` (`uId` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_jobs_clients1`
     FOREIGN KEY (`clients_cId` )
-    REFERENCES `mydb`.`clients` (`cId` )
+    REFERENCES `ordermgmt`.`clients` (`cId` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_jobs_users2`
     FOREIGN KEY (`Creator users_uId` )
-    REFERENCES `mydb`.`users` (`uId` )
+    REFERENCES `ordermgmt`.`users` (`uId` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -82,12 +90,14 @@ COLLATE = utf8_unicode_ci;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`shedule`
+-- Table `ordermgmt`.`shedule`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `mydb`.`shedule` (
-  `sId` INT NOT NULL ,
-  `sStart` DATETIME NULL ,
-  `sStop` DATETIME NULL ,
+DROP TABLE IF EXISTS `ordermgmt`.`shedule` ;
+
+CREATE  TABLE IF NOT EXISTS `ordermgmt`.`shedule` (
+  `sId` INT NOT NULL AUTO_INCREMENT ,
+  `sStart` DATETIME NOT NULL ,
+  `sStop` DATETIME NOT NULL ,
   `jobs_jId` INT NOT NULL ,
   `sComment` TEXT NULL ,
   `users_uId` INT NOT NULL ,
@@ -96,12 +106,12 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`shedule` (
   INDEX `fk_shedule_users1_idx` (`users_uId` ASC) ,
   CONSTRAINT `fk_shedule_jobs1`
     FOREIGN KEY (`jobs_jId` )
-    REFERENCES `mydb`.`jobs` (`jId` )
+    REFERENCES `ordermgmt`.`jobs` (`jId` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_shedule_users1`
     FOREIGN KEY (`users_uId` )
-    REFERENCES `mydb`.`users` (`uId` )
+    REFERENCES `ordermgmt`.`users` (`uId` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -110,22 +120,24 @@ COLLATE = utf8_unicode_ci;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`materials`
+-- Table `ordermgmt`.`materials`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `mydb`.`materials` (
-  `mId` INT NOT NULL ,
-  `mName` VARCHAR(45) NULL ,
+DROP TABLE IF EXISTS `ordermgmt`.`materials` ;
+
+CREATE  TABLE IF NOT EXISTS `ordermgmt`.`materials` (
+  `mId` INT NOT NULL AUTO_INCREMENT ,
+  `mName` VARCHAR(45) NOT NULL ,
   `mDesc` TEXT NULL ,
   `mState` ENUM('order','arrived','used') NULL ,
   `mDelDate` DATE NULL ,
   `mPrice` FLOAT NULL ,
-  `mQuantity` INT NULL ,
+  `mQuantity` INT NOT NULL ,
   `jobs_jId` INT NOT NULL ,
   PRIMARY KEY (`mId`, `jobs_jId`) ,
   INDEX `fk_materials_jobs1_idx` (`jobs_jId` ASC) ,
   CONSTRAINT `fk_materials_jobs1`
     FOREIGN KEY (`jobs_jId` )
-    REFERENCES `mydb`.`jobs` (`jId` )
+    REFERENCES `ordermgmt`.`jobs` (`jId` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -134,11 +146,13 @@ COLLATE = utf8_unicode_ci;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`comText`
+-- Table `ordermgmt`.`comText`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `mydb`.`comText` (
-  `coTextId` INT NOT NULL ,
-  `coTitle` VARCHAR(45) NULL ,
+DROP TABLE IF EXISTS `ordermgmt`.`comText` ;
+
+CREATE  TABLE IF NOT EXISTS `ordermgmt`.`comText` (
+  `coTextId` INT NOT NULL AUTO_INCREMENT ,
+  `coTitle` VARCHAR(45) NOT NULL ,
   `coText` TEXT NULL ,
   `coDate` DATETIME NULL ,
   `coChange` DATETIME NULL ,
@@ -149,12 +163,12 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`comText` (
   INDEX `fk_comments_users1_idx` (`users_uId` ASC) ,
   CONSTRAINT `fk_comments_jobs1`
     FOREIGN KEY (`jobs_jId` )
-    REFERENCES `mydb`.`jobs` (`jId` )
+    REFERENCES `ordermgmt`.`jobs` (`jId` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_comments_users1`
     FOREIGN KEY (`users_uId` )
-    REFERENCES `mydb`.`users` (`uId` )
+    REFERENCES `ordermgmt`.`users` (`uId` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -163,11 +177,13 @@ COLLATE = utf8_unicode_ci;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`comWork`
+-- Table `ordermgmt`.`comWork`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `mydb`.`comWork` (
-  `coWorkId` INT NOT NULL ,
-  `coTitle` VARCHAR(45) NULL ,
+DROP TABLE IF EXISTS `ordermgmt`.`comWork` ;
+
+CREATE  TABLE IF NOT EXISTS `ordermgmt`.`comWork` (
+  `coWorkId` INT NOT NULL AUTO_INCREMENT ,
+  `coTitle` VARCHAR(45) NOT NULL ,
   `coDesc` TEXT NULL ,
   `coTime` INT NULL ,
   `coDate` DATETIME NULL ,
@@ -181,23 +197,25 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`comWork` (
   INDEX `fk_comWork_jobs1_idx` (`jobs_jId` ASC, `jobs_clients_cId` ASC, `jobs_Creator users_uId` ASC) ,
   CONSTRAINT `fk_comWork_users1`
     FOREIGN KEY (`users_uId` )
-    REFERENCES `mydb`.`users` (`uId` )
+    REFERENCES `ordermgmt`.`users` (`uId` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_comWork_jobs1`
     FOREIGN KEY (`jobs_jId` , `jobs_clients_cId` , `jobs_Creator users_uId` )
-    REFERENCES `mydb`.`jobs` (`jId` , `clients_cId` , `Creator users_uId` )
+    REFERENCES `ordermgmt`.`jobs` (`jId` , `clients_cId` , `Creator users_uId` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`comAttach`
+-- Table `ordermgmt`.`comAttach`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `mydb`.`comAttach` (
-  `coAtId` INT NOT NULL ,
-  `coTitle` VARCHAR(45) NULL ,
+DROP TABLE IF EXISTS `ordermgmt`.`comAttach` ;
+
+CREATE  TABLE IF NOT EXISTS `ordermgmt`.`comAttach` (
+  `coAtId` INT NOT NULL AUTO_INCREMENT ,
+  `coTitle` VARCHAR(45) NOT NULL ,
   `coDesc` TEXT NULL ,
   `coDate` DATETIME NULL ,
   `coChange` DATETIME NULL ,
@@ -211,24 +229,26 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`comAttach` (
   INDEX `fk_comAttach_jobs1_idx` (`jobs_jId` ASC, `jobs_clients_cId` ASC, `jobs_Creator users_uId` ASC) ,
   CONSTRAINT `fk_comAttach_users1`
     FOREIGN KEY (`users_uId` )
-    REFERENCES `mydb`.`users` (`uId` )
+    REFERENCES `ordermgmt`.`users` (`uId` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_comAttach_jobs1`
     FOREIGN KEY (`jobs_jId` , `jobs_clients_cId` , `jobs_Creator users_uId` )
-    REFERENCES `mydb`.`jobs` (`jId` , `clients_cId` , `Creator users_uId` )
+    REFERENCES `ordermgmt`.`jobs` (`jId` , `clients_cId` , `Creator users_uId` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`history`
+-- Table `ordermgmt`.`history`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `mydb`.`history` (
-  `hTime` DATETIME NULL ,
-  `hType` VARCHAR(45) NULL ,
-  `hText` TEXT NULL ,
+DROP TABLE IF EXISTS `ordermgmt`.`history` ;
+
+CREATE  TABLE IF NOT EXISTS `ordermgmt`.`history` (
+  `hTime` DATETIME NOT NULL ,
+  `hType` VARCHAR(45) NOT NULL ,
+  `hText` TEXT NOT NULL ,
   `jobs_jId` INT NOT NULL ,
   `materials_mId` INT NOT NULL ,
   `shedule_sId` INT NOT NULL ,
@@ -243,32 +263,32 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`history` (
   INDEX `fk_history_comAttach1_idx` (`comAttach_coAtId` ASC) ,
   CONSTRAINT `fk_history_jobs1`
     FOREIGN KEY (`jobs_jId` )
-    REFERENCES `mydb`.`jobs` (`jId` )
+    REFERENCES `ordermgmt`.`jobs` (`jId` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_history_materials1`
     FOREIGN KEY (`materials_mId` )
-    REFERENCES `mydb`.`materials` (`mId` )
+    REFERENCES `ordermgmt`.`materials` (`mId` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_history_shedule1`
     FOREIGN KEY (`shedule_sId` )
-    REFERENCES `mydb`.`shedule` (`sId` )
+    REFERENCES `ordermgmt`.`shedule` (`sId` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_history_comments1`
     FOREIGN KEY (`comments_coId` )
-    REFERENCES `mydb`.`comText` (`coTextId` )
+    REFERENCES `ordermgmt`.`comText` (`coTextId` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_history_comWork1`
     FOREIGN KEY (`comWork_coWorkId` )
-    REFERENCES `mydb`.`comWork` (`coWorkId` )
+    REFERENCES `ordermgmt`.`comWork` (`coWorkId` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_history_comAttach1`
     FOREIGN KEY (`comAttach_coAtId` )
-    REFERENCES `mydb`.`comAttach` (`coAtId` )
+    REFERENCES `ordermgmt`.`comAttach` (`coAtId` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -277,37 +297,27 @@ COLLATE = utf8_unicode_ci;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`updates`
+-- Table `ordermgmt`.`updates`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `mydb`.`updates` (
+DROP TABLE IF EXISTS `ordermgmt`.`updates` ;
+
+CREATE  TABLE IF NOT EXISTS `ordermgmt`.`updates` (
   `history_jobs_jId` INT NOT NULL ,
   `users_uId` INT NOT NULL ,
   PRIMARY KEY (`history_jobs_jId`, `users_uId`) ,
   INDEX `fk_updates_users1_idx` (`users_uId` ASC) ,
   CONSTRAINT `fk_updates_history1`
     FOREIGN KEY (`history_jobs_jId` )
-    REFERENCES `mydb`.`history` (`jobs_jId` )
+    REFERENCES `ordermgmt`.`history` (`jobs_jId` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_updates_users1`
     FOREIGN KEY (`users_uId` )
-    REFERENCES `mydb`.`users` (`uId` )
+    REFERENCES `ordermgmt`.`users` (`uId` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-
--- -----------------------------------------------------
--- Placeholder table for view `mydb`.`view1`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`view1` (`id` INT);
-
--- -----------------------------------------------------
--- View `mydb`.`view1`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`view1`;
-USE `mydb`;
-;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
