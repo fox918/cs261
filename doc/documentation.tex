@@ -7,6 +7,12 @@
 \usepackage[ngerman]{babel} %spell correction
 \usepackage[utf8]{inputenc} 
 \usepackage[T1]{fontenc}
+\usepackage[
+	colorlinks=true,
+	urlcolor=blue,
+	linkcolor=green
+]{hyperref}
+
 
 %bugfixes
 \usepackage{fixltx2e} 
@@ -55,6 +61,34 @@
 
 
 \section{Installation}
+
+Für die Installation müssen folgende Schritte durchlaufen werden:
+\subsection{Installation der Dateien}
+    Bitte kopieren Sie alle Dateien in das gewünschte Stammverzeichnis.
+    Ihr Webserver muss PHP und MySQL unterstützen, um diese Webseite anbieten zu können.
+\subsection{Setzen der Konstanten}
+    Setzten Sie alle wichtigen Konstanten in \verb+./config.php+.
+    Die Verwendung und Bedeutung der Konstanten wird in der Datei erklärt.
+    Achten Sie darauf, dass die Konstante \verb+INSTALL+ auf den Wert 1 gesetzt wird.
+\subsection{Installation der Datenbank} % (fold)
+\label{sub:Installation der Datenbank}
+    Stellen Sie sicher, dass die in  \verb+./config.php+ angegebene Datenbank existiert.
+    Führen Sie dann die Datei  \verb+./db_setup.php+ mit PHP aus. Alternativ können Sie auch 
+    die URL  \url{http://www.IhreWebsite.ch/Pfad_zu_db_setup.php/db_setup.php} aufrufen.
+% subsection Installation der Datenbank (end)
+\subsection{Einrichten} % (fold)
+\label{sub:Einrichten}
+    Setzen Sie die Konstante \verb+INSTALL+ in \verb+config.php+ auf 0.
+    Sie können sich nun im Webinterface mit folgenden Kenndaten anmelden: \\
+    \begin{center}
+    \begin{tabular}{ll}
+        Benutzername & Passwort \\
+        root & anderson \\
+    \end{tabular}
+    \end{center}
+
+
+% subsection Einrichten (end)
 
 
 % section  (end)
