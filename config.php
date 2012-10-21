@@ -17,7 +17,7 @@
  * 1    Installation not completed, db not set up yet.
  */
 
-define('INSTALL', 1);
+define('INSTALL', 0);
 
 /* DATABASE
  *
