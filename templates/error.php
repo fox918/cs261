@@ -53,7 +53,7 @@ $quotes = array(
     "Sorry, but you have reached the end of the internet",
     "Q: What's tiny and yellow and very, very, dangerous? <br>A: A canary with the super-user password. ",
     "You will be a winner today. Pick a fight with a four-year-old. ",
-    "question = ( to ) ? be : ! be;<br>-- Wm. Shakespeare"
+    "question = (to) ? be : !be;<br>-- Wm. Shakespeare"
 );
 
 echo $quotes[array_rand($quotes,1)];
