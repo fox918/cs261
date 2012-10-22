@@ -20,12 +20,19 @@ else{
 ?>
     </legend>
     <p> 
-<?php 
+<?php
+    $messages = array(
+        '403'=>'Zugriff nicht gestattet',
+        '404'=>'Seite nicht gefunden',
+        '500'=>'Interner Fehler ist aufgetreten'
+    );
+
 if(isset($error))
 {
     echo $error;            
-}elseif(isset($_GET['error'])){
-    echo $_GET['error'];
+}elseif(isset($_GET['error'])&&array_key_exists($_GET['error'],$messages))
+{
+    echo $messages[$_GET['error']];
 }
 ?> 
     </p>
