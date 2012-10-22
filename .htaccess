@@ -1,0 +1,5 @@
+ErrorDocument 404 /cs261/templates/error.php?error=Seite nicht gefunden
+ErrorDocument 403 /cs261/templates/error.php?error=Zugriff nicht erlaubt
+ErrorDocument 500 /cs261/templates/error.php?error=Danger Danger
+
+

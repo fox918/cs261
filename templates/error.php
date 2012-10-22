@@ -24,6 +24,8 @@ else{
 if(isset($error))
 {
     echo $error;            
+}elseif(isset($_GET['error'])){
+    echo $_GET['error'];
 }
 ?> 
     </p>
