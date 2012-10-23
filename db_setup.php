@@ -27,18 +27,20 @@ function processFile($path){
     mysql_real_escape_string($sqlScript);
     $queries = explode(";", $sqlScript);
 
+    $success = true;
     foreach ($queries as $query){
         if ($query != '' && $query != ' '){
-            mysql_query($query);
+            $success=$success&&mysql_query($query);
         }
     } 
-
+    if($success){
+        echo "Erfolg \n";
+    }
 }
-
-echo 'Erstelle Datenbankschema';
+echo "Erstelle Datenbankschema \n";
 processFile('./installfiles/db_create_script.sql');
 
-echo 'Fülle Datenbank mit Daten';
+echo "Fülle Datenbank mit Daten\n";
 processFile('./installfiles/db_insert_script.sql');
 
-echo 'Datenbank Erstellung abgeschlossen, Sie können das Flag INSTALL in der config.php auf 0 setzen.';
+echo "Datenbank Erstellung abgeschlossen, Sie können das Flag INSTALL in der config.php auf 0 setzen. \n";

@@ -35,6 +35,7 @@ if(INSTALL==1)
  * subpage  display the designated subpage of the page
  * order    specify an order for the page
  * action   do something (eg. logout)
+ * error    error message of the error which happened
  * 
  * Example:
  * index.php?page=edit&order=123    Edit order nr. 123
