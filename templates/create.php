@@ -2,10 +2,10 @@
 //die if not called by ../classes.php
 if(!isset($check))
 {
-    $errorTitle='Unerlaubter Zugriff';
-    $error='Dieser Zugriff ist nicht erlaubt';
-    include 'error.php';
-    die;
+$errorTitle='Unerlaubter Zugriff';
+$error='Dieser Zugriff ist nicht erlaubt';
+include 'error.php';
+die;
 }
 
 /*
@@ -18,22 +18,38 @@ if(!isset($check))
     <fieldset class='floatright'>
         <legend>Adresse</legend> 
         <p class='address'>
-        <span>Strasse <input type="text" name="" id="" value="" /></span>
-        <span>Ortschaft <input type="text" name="" id="" value="" /></span>
+        <span>
+            <label for="cr_address">Strasse</label> 
+            <input type="text" name="cr_address" id="cr_address" value="" />
+        </span>
+        <span>
+            <label for="cr_city">Ortschaft</label>
+            <input type="text" name="cr_city" id="cr_city" value="" />
+        </span>
         </p>
     </fieldset>
     <fieldset>
         <legend id='floatleft'>Kontakt</legend>
         <p id="contact">
-        <span>Anrede 
-            <select name="" id="">
+        <span> <label for="cr_gender">Anrede</label>
+            <select name="cr_gender" id="cr_gender">
                 <option>Frau</option>
                 <option>Herr</option>
                 <option>Firma</option>
             </select>
         </span>
-        <span>Mobile <input type="text" name="" id="" value="" /></span>    
-        <span>Telefon <input type="text" name="" id="" value="" /></span>
+        <span>
+            <label for="cr_name">Name</label>
+            <input type="text" name="cr_name" id="cr_name" value="" />
+        </span>
+        <span>
+            <label for="cr_mobile">Mobile</label>
+            <input type="text" name="cr_mobile" id="cr_mobile" value="" />
+        </span>    
+        <span>
+            <label for="cr_phone">Telefon</label>
+            <input type="text" name="cr_phone" id="cr_phone" value="" />
+        </span>
         </p>
     </fieldset>
 </fieldset>
@@ -41,9 +57,13 @@ if(!isset($check))
 <fieldset id="order_details">
     <legend>Auftrag</legend>
     <p>
-    <span>Auftragstitel <input type="text" name="" id="" value="" /></span>
-    <span>Verantwortlicher 
-        <select name="" id="">
+    <span>
+        <label for="cr_title">Auftragstitel</label>         
+        <input type="text" name="cr_title" id="cr_title" value="" />
+    </span>
+    <span>
+        <label for="cr_resp">Verantwortlicher</label>
+        <select name="cr_resp" id="cr_resp">
             <option>Hans</option>
             <option>Muster</option>
             <option>Petrus</option>
@@ -52,67 +72,79 @@ if(!isset($check))
     </p>
     <fieldset>
         <legend>Beschreibung</legend>
-        <textarea name="" id="" rows="15"></textarea>
+        <textarea name="cr_desc" id="" rows="15"></textarea>
     </fieldset>
     <fieldset id="materials">
         <legend>Material</legend>
-        <ul>
-            <li class="material"><span class='amount'>4</span><span class='description'>Fenster</span><span class='price'>34.23 Fr.</span></li>
-        </ul>
         <p>
-        <span>Menge</span>
-        <span style='left:80px'>Was</span>
-        <span style='left:270px'>Notiz</span>
-        <span style='left:460px'>Status</span>
-        <span style='left:560px'>Lieferdatum</span>
-        <span style='left:700px'>Kosten</span>
+            <span>Menge</span>
+            <span style='left:80px'>Was</span>
+            <span style='left:270px'>Notiz</span>
+            <span style='left:460px'>Status</span>
+            <span style='left:560px'>Lieferdatum</span>
+            <span style='left:700px'>Kosten</span>
         </p>
         <p>
-        <input style='width:70px' type="text" name="" id="" value="" />
-        <input style='left:80px' type="text" name="" id="" value="" />
-        <input style='left:270px' type="text" name="" id="" value="" />
-        <select style='left:460px' name="" id="">
-            <option>Bestellt</option>
-            <option>Geliefert</option>
-            <option>Benutzt</option>    
-        </select>
-        <input style='left:560px;width:120px' type="text" name="" id="" value="" />
-        <input style='left:700px;width:100px' type="text" name="" id="" value="" />
+            <input style='width:70px' type="text" name="cr_mat_count_1" />
+            <input style='left:80px' type="text" name="cr_mat_title_1" />
+            <input style='left:270px' type="text" name="cr_mat_note_1" />
+            <select style='left:460px' name="cr_mat_state_1">
+                <option>Bestellt</option>
+                <option>Geliefert</option>
+                <option>Benutzt</option>    
+            </select>
+            <input style='left:560px;width:120px' type="text" name="cr_mat_delivery_1" />
+            <input style='left:700px;width:100px' type="text" name="cr_mat_price_1"/>
         </p>
-        <input type="button" name="" id="" value="Hinzufügen" />
+            <button id="mat_addfield">Hinzufügen</button>
     </fieldset>
     <fieldset>
         <legend>Notizen</legend>
         <div>
-            <p>
-            <span>Titel<input type="text" name="" id="" value="" /></span>
-            </p>
+        <fieldset>
+            <legend>
+                <input type="text" name="cr_note_title_1" />
+            </legend>
             <textarea name="" id="" rows="13" cols="40"></textarea>
+        </fieldset>
         </div>
-        <input type="button" name="" id="" value="Hinzufügen" />
+         <button id="cr_note_addfield">Hinzufügen</button>
     </fieldset>
 </fieldset>
 
-<fieldset>
+<fieldset id="calendar">
     <legend>Kalender</legend>
-    <fieldset>
-        <legend>12.23.45</legend>
-        input here
+        <fieldset class="date">
+            <legend>
+                Datum <input type="text" name="cr_date_1"/>
+            </legend>
+           <p>
+        <span>
+            <label for="cr_date_statime_1">Startzeit</label>
+            <input type="text" name="cr_date_statime_1" id="cr_date_statime_1"/>
+        </span>
+        <span>
+            <label for="cr_date_stotime_1">bis um</label>
+            <input type="text" name="cr_date_stotime_1" id="cr_date_stotime_1"/>
+        </span>
+        <span>
+            <label for="cr_date_desc_1">Notiz</label>
+            <input type="text" name="cr_date_desc_1" id="cr_date_desc_1"/>
+        </span>
+        </p>
     </fieldset>
-    <p><span>Datum</span><span>Zeit</span> - <span>Datum</span><span>Zeit</span> <span>Beschreibung</span></p>
-    <input type="text" name="" id="" value="DATUM" />
-    <input type="text" name="" id="" value="Startzeit" />
-    <input type="text" name="" id="" value="Datum" />
-    <input type="text" name="" id="" value="Beschreibung" />
-    <button type="submit">Termin hinzufuegen</button>
+    <button>Hinzufuegen</button>
 </fieldset>
 
 <fieldset>
     <legend>angehängte Dateien</legend>
-    <div>
+    <fieldset>
         <p><span>hanspeter.doc</span></p>
-    </div>
-    <input type="text" name="" id="" value="FILE" />
+    </fieldset>
+    <p>
+    <label for="cr_file_1">Datei hochladen: </label>
+    <input type="file" name="cr_file_1" style="width:400px"/>
+    </p>
     <button type="submit">Datei hinzufuegen</button>
 </fieldset>
 <div class="control">

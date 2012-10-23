@@ -246,9 +246,9 @@ glogin p label{
 }
 #create #order_details textarea{
     display: block;
+    width:100%;
     max-width:100%;
     resize:vertical;
-    width:100%;
 }
 #create .floatright{
     float:right;
@@ -258,8 +258,8 @@ glogin p label{
     float:left;
 }
 #create #materials p{
-    height: 30px;
     position:relative;
+    height: 30px;
 }
 #create #materials p span{
     display:inline;
@@ -269,49 +269,57 @@ glogin p label{
     display:inline;
     position:absolute;
 }
-
+#create #calendar .date p span{
+    display:inline;
+}
+#create #calendar .date p span input{
+    position: relative;
+    margin:0;
+    left:0;
+    top:0;
+}
 /* List of all Articles*/
 #list {
 
 }
 #list .sortsearch{
+    width: 70%;
     background-color: #ADD8E6;
     border-radius: 7px;
-    margin: 10px auto 20px auto;
     padding: 15px;
-    width: 70%;
+    margin: 10px auto 20px auto;
 }
 #list .sortsearch *{
     display: inline;
 }
 #list ul li{
     background-color: #fff;
+    position:relative;
     border-radius: 5px;
     margin: 5px 10px 5px 10px;
     padding: 7px 15px 7px 15px;
-    position:relative;
 }
 #list ul li p{
     display: inline;
 }
 #list ul li div{
-    background-color: red;
     display: inline;
     float: right;
     margin: 0 10px 0 10px;
     width: 60px;
+    background-color: red;
 }
 #list ul li .street{
-    left: 180px;
     position:absolute;
+    left: 180px;
 }
 #list ul li .location{
-    left: 370px;
     position:absolute;
+    left: 370px;
 }
 #list ul li .title{
-    left: 480px;
     position:absolute;
+    left: 480px;
 }
 #list ul li .id{
     position:absolute;
