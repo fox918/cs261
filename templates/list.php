@@ -30,32 +30,26 @@ die;
             <button type="submit">Los!</button>
         </div>
     </div>
-    <ul>
-        <li>
+    <ul id="joblist">
+        <li id="1233" class="job">
         <p>
-        <span class='client'>Hans Müller</span>
-        <span class='street'>StrassenStrasse 12</span>
-        <span class='location'>Ortschaft</span>
-        <span class='title'>Auftragstitel</span>
-        <span class='id'>1233</span>
+            <span class='client'>Hans Müller</span>
+            <span class='street'>StrassenStrasse 12</span>
+            <span class='location'>Ortschaft</span>
+            <span class='title'>Auftragstitel</span>
+            <span class='id'>1233</span>
         </p>
-        <div>
-            TOOLS
-        </div>
         </li>
         <li>
-        <p>
+        <p id="1234" class="job">
         <span class='client'>Hans PETER AG</span>
         <span class='street'>kurze 12</span>
         <span class='location'>langlanglang</span>
         <span class='title'>Auftragstitel lang lang lang</span>
         <span class='id'>1233</span>
         </p>
-        <div>
-            TOOLS
-        </div>
         </li>
-        <li>
+        <li id="1235" class="job">
         <p>
         <span class='client'>Hans Müller</span>
         <span class='street'>senStrasse 12</span>
@@ -63,9 +57,6 @@ die;
         <span class='title'>Aasfstitel</span>
         <span class='id'>1233</span>
         </p>
-        <div>
-            TOOLS
-        </div>
         </li>
     </ul>
 </article>

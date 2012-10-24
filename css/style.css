@@ -105,6 +105,7 @@ header{
     border:none;
     display:block;
     margin: 5px auto 0 auto;
+    padding: 0 5px 0 5px;
     text-align:center;
 }
 nav{
@@ -165,6 +166,12 @@ input{
     background-color: #DDD;
     border-radius:5px;
     border: 1px #666 solid;
+    padding: 1px 0 1px 5px;
+}
+button{
+    background-color: #DDD;
+    border-radius: 5px;
+    border: 1px #666 solid;
 }
 textarea{
     background-color: #DDD;
@@ -194,7 +201,7 @@ column-gap: 3em;
     left: 130px;
     position:absolute;
 }
-glogin p label{
+#login p label{
     padding:5px;
     position:relative;
     top:7px;
@@ -278,6 +285,18 @@ glogin p label{
     left:0;
     top:0;
 }
+#create .control{
+    width: 70%;
+    margin: 20px auto 20px auto;
+    background-color: #ADD8E6;
+    border-radius:15px;
+    padding:15px;
+}
+#create .control input{
+    padding: 5px;
+    width:100%;
+    margin: 0 auto 0 auto;
+}
 /* List of all Articles*/
 #list {
 
@@ -288,9 +307,14 @@ glogin p label{
     border-radius: 7px;
     padding: 15px;
     margin: 10px auto 20px auto;
+    position: relative;
 }
 #list .sortsearch *{
     display: inline;
+}
+#list .search{
+    position: absolute;
+    right: 10px;
 }
 #list ul li{
     background-color: #fff;
@@ -318,11 +342,12 @@ glogin p label{
     left: 370px;
 }
 #list ul li .title{
+    font-weight:700;
     position:absolute;
-    left: 480px;
+    left: 550px;
 }
 #list ul li .id{
     position:absolute;
-    right: 100px;
+    right: 20px;
 }
 

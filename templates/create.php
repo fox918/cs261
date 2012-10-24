@@ -13,7 +13,8 @@ die;
 */
 ?>
 <article id="create">
-<fieldset>
+<form action="index.php?page=list" method="post" accept-charset="utf-8">
+    <fieldset>
     <legend>Kunde</legend>
     <fieldset class='floatright'>
         <legend>Adresse</legend> 
@@ -133,23 +134,21 @@ die;
         </span>
         </p>
     </fieldset>
-    <button>Hinzufuegen</button>
+    <button>Hinzufügen</button>
 </fieldset>
 
 <fieldset>
     <legend>angehängte Dateien</legend>
-    <fieldset>
-        <p><span>hanspeter.doc</span></p>
-    </fieldset>
     <p>
     <label for="cr_file_1">Datei hochladen: </label>
     <input type="file" name="cr_file_1" style="width:400px"/>
     </p>
-    <button type="submit">Datei hinzufuegen</button>
+        <button type="submit">Datei hinzufügen</button>
 </fieldset>
 <div class="control">
-    <button type="submit">Erstellen</button>
+    <input type="submit" value="Auftrag erstellen" />
 </div>
+</form>
 </article>
 
 <aside>

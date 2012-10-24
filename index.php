@@ -190,8 +190,11 @@ if(isset($_GET['page']))
     </div>
 
     <!-- Javascript -->
-<script src='./js/jquery-1.8.2.min.js'></script>
-<script src="./js/main.js"></script>
-
+<script type="text/javascript" src='./js/jquery-1.8.2.min.js'></script>
+<script type="text/javascript" src='./js/nicEdit.js'></script>
+<script type="text/javascript" src="./js/main.js"></script>
+<script type="text/javascript">
+    bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
+</script>
 </body>
 </html>
