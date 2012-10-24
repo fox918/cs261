@@ -85,7 +85,8 @@ die;
             <span style='left:560px'>Lieferdatum</span>
             <span style='left:700px'>Kosten</span>
         </p>
-        <p>
+        <div>
+        <p class="material" id="mat_1">
             <input style='width:70px' type="text" name="cr_mat_count_1" />
             <input style='left:80px' type="text" name="cr_mat_title_1" />
             <input style='left:270px' type="text" name="cr_mat_note_1" />
@@ -97,17 +98,20 @@ die;
             <input style='left:560px;width:120px' type="text" name="cr_mat_delivery_1" />
             <input style='left:700px;width:100px' type="text" name="cr_mat_price_1"/>
         </p>
-            <button id="mat_addfield">Hinzufügen</button>
+        </div>
+            <button id="cr_mat_addfield">Hinzufügen</button>
     </fieldset>
-    <fieldset>
+    <fieldset id="notes">
         <legend>Notizen</legend>
         <div>
-        <fieldset>
-            <legend>
-                <input type="text" name="cr_note_title_1" />
-            </legend>
-            <textarea name="" id="" rows="13" cols="40"></textarea>
-        </fieldset>
+            <div class="note" id="note_1">
+            <fieldset>
+                <legend>
+                    <input type="text" name="cr_note_title_1" />
+                </legend>
+                <textarea name="cr_note_1" id="" rows="13" cols="40"></textarea>
+            </fieldset>
+            </div>
         </div>
          <button id="cr_note_addfield">Hinzufügen</button>
     </fieldset>
@@ -115,7 +119,8 @@ die;
 
 <fieldset id="calendar">
     <legend>Kalender</legend>
-        <fieldset class="date">
+        <div>
+        <fieldset  id="date_1" class="date">
             <legend>
                 Datum <input type="text" name="cr_date_1"/>
             </legend>
@@ -134,25 +139,23 @@ die;
         </span>
         </p>
     </fieldset>
-    <button>Hinzufügen</button>
+    </div>
+    <button id="cr_date_addfield">Hinzufügen</button>
 </fieldset>
 
-<fieldset>
+<fieldset id="files">
     <legend>angehängte Dateien</legend>
+    <div>
     <p>
     <label for="cr_file_1">Datei hochladen: </label>
     <input type="file" name="cr_file_1" style="width:400px"/>
     </p>
-        <button type="submit">Datei hinzufügen</button>
+    </div>
+        <button id="cr_file_addfield">Datei hinzufügen</button>
 </fieldset>
 <div class="control">
     <input type="submit" value="Auftrag erstellen" />
 </div>
 </form>
 </article>
-
-<aside>
-
-</aside>
-
 

@@ -297,6 +297,17 @@ column-gap: 3em;
     width:100%;
     margin: 0 auto 0 auto;
 }
+#create #materials img{
+    float:right;
+    position:relative;
+    top: 5px;
+    right: 50px;
+}
+#create #notes img{
+    position: relative;
+    top:3px;
+    margin-left: 5px;
+}
 /* List of all Articles*/
 #list {
 

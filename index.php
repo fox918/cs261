@@ -150,54 +150,125 @@ if(isset($_GET['page']))
     <link rel="humans" href="./humans.txt">
 
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="./css/style.css">
+        <link rel="stylesheet" href="./css/style.css">
 
-    <title><?php $page->printTitle() ?></title>
-</head>
+        <title><?php $page->printTitle() ?></title>
+    </head>
 
-<body>
-  <!--onload="setTimeout('location.reload(true)',5000)" 
-        autoreload for debugging css, insert in body tag -->
-    <div id="content"> 
-        <header>
-        <div>
-            <div id="logo">
-                <img src="./img/logo.png" alt="logo" />
-                <h1>Auftragverwaltung</h1>
+    <body>
+      <!--onload="setTimeout('location.reload(true)',5000)" 
+            autoreload for debugging css, insert in body tag -->
+        <div id="content"> 
+            <header>
+            <div>
+                <div id="logo">
+                    <img src="./img/logo.png" alt="logo" />
+                    <h1>Auftragverwaltung</h1>
+                </div>
+                <div id="logininfo">
+                <p id="username"><?php echo $user->getUsername(); ?></p>
+                <p id="department"><?php echo $user->getDepartment(); ?></p>
+                    <?php if($user->isLoggedIn()) { ?>
+                        <form action="./index.php?action=logout" method="post">
+                            <input type="submit" value="Ausloggen" />
+                        </form>
+                    <?php } ?>
+                </div>
             </div>
-            <div id="logininfo">
-            <p id="username"><?php echo $user->getUsername(); ?></p>
-            <p id="department"><?php echo $user->getDepartment(); ?></p>
-                <?php if($user->isLoggedIn()) { ?>
-                    <form action="./index.php?action=logout" method="post">
-                        <input type="submit" value="Ausloggen" />
-                    </form>
-                <?php } ?>
-            </div>
+            <div style="clear:both"></div>
+            <nav>
+                <?php $page->printMenu() ?>
+            </nav>
+            </header>
+
+            <?php $page->printArticle(); ?>
+
+            <footer>
+
+            </footer>
+
         </div>
-        <div style="clear:both"></div>
-        <nav>
-            <?php $page->printMenu() ?>
-        </nav>
-        </header>
 
-        <?php $page->printArticle(); ?>
+        <!-- Javascript -->
+    <script type="text/javascript" src='./js/jquery-1.8.2.min.js'></script>
+    <script type="text/javascript" src='./js/tiny_mce/tiny_mce.js'></script>
+    <script type="text/javascript" src='./js/tiny_mce/jquery.tinymce.js'></script>
+    <script type="text/javascript" src="./js/main.js"></script>
+    <script type="text/javascript">
+    //jQuery
+$(function() {
+    $("textarea").tinymce({
+      script_url : '../js/tinymce/jscripts/tiny_mce/tiny_mce.js',
+          theme : "simple"
+    });
+    function makeDOM(html){
+        var wrapper= document.createElement('div');
+        wrapper.innerHTML= html;
+        return wrapper.firstChild;    
+    }
 
-        <footer>
+    //counters
+    var materials=1;
+    var notes=1;
+    var dates=1;
+    var files=1;
 
-        </footer>
+        //add more material
+    $("#cr_mat_addfield").click(function() {
+            var html="<p class='material' id='mat_##NUMBER##'>" +
+            "<input style='width:70px' type='text' name='cr_mat_count_##NUMBER##' />" +
+            "<input style='left:80px' type='text' name='cr_mat_title_##NUMBER##' />" +
+            "<input style='left:270px' type='text' name='cr_mat_note_##NUMBER##' />" +
+            "<select style='left:460px' name='cr_mat_state_##NUMBER##'>" +
+                "<option>Bestellt</option>" +
+                "<option>Geliefert</option>" +
+                "<option>Benutzt</option>" +
+            "</select>" +
+            "<input style='left:560px;width:120px' type='text' name='cr_mat_delivery_##NUMBER##' />" +
+            "<input style='left:700px;width:100px' type='text' name='cr_mat_price_##NUMBER##'/>" +
+            "<img src='./img/icons/x_alt_16x16.png' onclick='$(this).parent().remove()' />" +
+            "</p>";
+            materials++;
+            html = html.replace(/##NUMBER##/g,""+materials);
+            var dom=makeDOM(html);
+            $("#materials>div").append(dom);
+        return false;
+        });
 
-    </div>
+        //add more notes
+        $("#cr_note_addfield").click(function() {
+            var html = "<div class='note' id='note_##NUMBER##'>" +
+            "<fieldset>" +
+                "<legend>" +
+                    "<input type='text' name='cr_note_title_##NUMBER##' />" +
+                    "<img src='./img/icons/x_alt_16x16.png' onclick='$(this).parent().parent().remove()' />" +
+                "</legend>" +
+                "<textarea name='cr_note_##NUMBER##' rows='13' cols='40'></textarea>" +
+            "</fieldset></div>";
+            notes++;
+            html = html.replace(/##NUMBER##/g,""+notes);
+            var dom=makeDOM(html);
+            $("#notes>div").append(dom);
+            $(dom).find("textarea").tinymce({
+                script_url : '../js/tinymce/jscripts/tiny_mce/tiny_mce.js',
+                theme : "simple"
+            });return false;
+        });
 
-    <!-- Javascript -->
-<script type="text/javascript" src='./js/jquery-1.8.2.min.js'></script>
-<script type="text/javascript" src='./js/tiny_mce/tiny_mce.js'></script>
-<script type="text/javascript" src="./js/main.js"></script>
-<script type="text/javascript">
-tinyMCE.init({
-        theme : "simple",
-        mode : "textareas"
+        //add more appointments
+        $("#cr_date_addfield").click(function() {
+
+        return false;
+        });
+
+        //add more files
+        $("#cr_file_addfield").click(function() {
+
+        return false;
+        });
 });
-</script>
+  
+    
+    </script>
 </body>
 </html>
