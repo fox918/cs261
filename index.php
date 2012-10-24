@@ -191,10 +191,13 @@ if(isset($_GET['page']))
 
     <!-- Javascript -->
 <script type="text/javascript" src='./js/jquery-1.8.2.min.js'></script>
-<script type="text/javascript" src='./js/nicEdit.js'></script>
+<script type="text/javascript" src='./js/tiny_mce/tiny_mce.js'></script>
 <script type="text/javascript" src="./js/main.js"></script>
 <script type="text/javascript">
-    bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
+tinyMCE.init({
+        theme : "simple",
+        mode : "textareas"
+});
 </script>
 </body>
 </html>
