@@ -1,5 +1,5 @@
 <?php
-    if(!isset($check)){
+    if(!defined('ACCESS')){
         echo '<!doctype html><html><head><meta charset="utf-8">
             <link rel="stylesheet" href="./css/style.css"><title>Fehler</title>
             </head><body>';

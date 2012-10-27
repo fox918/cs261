@@ -37,3 +37,8 @@ define('DB_DATABASE', 'testing');        //which database on the host
 
 define('DEBUG', 1);                    //DANGER DANGER HIGH VOLTAGE
 
+
+/*
+ * CONSTANTS
+ */
+define('ACCESS',1);

@@ -210,11 +210,12 @@ class page
 
     //print the article of the page
     public function printArticle()
-    {
-        $check = true; //required because of security reasons 
-        //(included page won't display anything if not set)
-        
+    {    
         require './templates/'.$this->page.'.php';
     } 
+    public function includeJS()
+    {
+        echo '<script type="text/javascript" src="./js/'.$this->page.'.js"></script>';
+    }
 }
 

@@ -1,6 +1,6 @@
 <?php 
 //die if not called by ../classes.php
-if(!isset($check))
+if(!defined('ACCESS'))
 {
     $errorTitle='Unerlaubter Zugriff';
     $error='Dieser Zugriff ist nicht erlaubt';
