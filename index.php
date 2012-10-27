@@ -290,7 +290,7 @@ $(function() {
             var html = "<p>"+
 "    <label for='cr_file_##NUMBER##'>Datei hochladen: </label>       "+
 "    <input type='file' name='cr_file_##NUMBER##' style='width:400px'/>"+
-"    <img src='./img/icons/x_alt_16x16.png' onclick='$(this).parent().parent().remove()' />" +
+"    <img src='./img/icons/x_alt_16x16.png' onclick='$(this).parent().remove()' />" +
 "    </p>";
             files++;
             html = html.replace(/##NUMBER##/g,""+files);
