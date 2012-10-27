@@ -65,7 +65,10 @@ die;
     <span>
         <label for="cr_resp">Verantwortlicher</label>
         <select name="cr_resp" id="cr_resp">
-            <option>Hans</option>
+<?php
+//TODO implement DB to get all users
+?>
+            <option value="userid" >Hans</option>
             <option>Muster</option>
             <option>Petrus</option>
         </select>
