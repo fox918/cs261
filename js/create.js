@@ -15,7 +15,14 @@ $(function() {
     var notes=1;
     var dates=1;
     var files=1;
-
+    
+    //update all counter fields
+    function updateCounters(){
+        $('#cr_mat_counter').val(materials);
+        $('#cr_note_counter').val(notes);
+        $('#cr_date_counter').val(dates);
+        $('#crt_file_counter').val(files);
+    }
         //add more material
     $("#cr_mat_addfield").click(function() {
             var html="<p class='material' id='mat_##NUMBER##'>" +
@@ -35,6 +42,7 @@ $(function() {
             html = html.replace(/##NUMBER##/g,""+materials);
             var dom=makeDOM(html);
             $("#materials>div").append(dom);
+            updateCounters();
         return false;
         });
 
@@ -56,6 +64,7 @@ $(function() {
                 script_url : '../js/tinymce/jscripts/tiny_mce/tiny_mce.js',
                 theme : "simple"
             });
+            updateCounters();
             return false;
         });
 
@@ -85,6 +94,7 @@ $(function() {
             html = html.replace(/##NUMBER##/g,""+dates);
             var dom=makeDOM(html);
             $("#calendar>div").append(dom);
+            updateCounters();
             return false;
         });
 
@@ -99,6 +109,7 @@ $(function() {
             html = html.replace(/##NUMBER##/g,""+files);
             var dom=makeDOM(html);
             $("#files>div").append(dom);
+            updateCounters();
         return false;
         });
 });

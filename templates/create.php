@@ -153,6 +153,11 @@ die;
     </div>
         <button id="cr_file_addfield">Datei hinzufügen</button>
 </fieldset>
+
+<input type="hidden" name="cr_mat_counter" id="cr_mat_counter" value="1" />
+<input type="hidden" name="cr_note_counter" id="cr_note_counter" value="1" />
+<input type="hidden" name="cr_date_counter" id="cr_date_counter" value="1" />
+<input type="hidden" name="cr_file_counter" id="cr_file_counter" value="1" />
 <div class="control">
     <input type="submit" value="Auftrag erstellen" />
 </div>
