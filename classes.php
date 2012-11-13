@@ -106,6 +106,7 @@ class page
     private $subpage; //current subpage
     private $subpages;
 
+    private $order; //order we are currently processing
     private $user; 
 
 
@@ -161,7 +162,9 @@ class page
     //set the order (necessary for edit)
     public function setOrder($input)
     {
-
+        if(preg_match('/^[0-9]{4,10}$/',$input)){
+            $this->order = $input;
+        }
     }
 
     //set the user 
@@ -216,6 +219,11 @@ class page
     public function includeJS()
     {
         echo '<script type="text/javascript" src="./js/'.$this->page.'.js"></script>';
+    }
+
+    public function printFooter(){
+        //TODO insert Footer here
+        echo '';
     }
 }
 

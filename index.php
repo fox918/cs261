@@ -16,6 +16,17 @@ require_once 'classes.php'; //all the other classes
 /*
  * Check requirements
  */
+//thou shalt not enter with Internet Exploder
+if (eregi("MSIE",getenv("HTTP_USER_AGENT")) ||
+    eregi("Internet Explorer",getenv("HTTP_USER_AGENT"))) {
+        //DANGER DANGER, IS USING INTERNET EXPLORER, BACK OFF
+        //DANGER DANGER DANGER
+        Header("Location: ./img/bad_ie.jpg");
+        //DANGER DANGER DANGER
+	die;
+}
+
+//check for install flag
 if(INSTALL==1)
 {
     //INSTALL flag set, db probably not set up
@@ -36,7 +47,9 @@ if(INSTALL==1)
  * order    specify an order for the page
  * action   do something (eg. logout)
  * error    error message of the error which happened
- * 
+ * sortby   which topic is used for sorting
+ * search   searchterm
+ *
  * Example:
  * index.php?page=edit&order=123    Edit order nr. 123
  * index.php?action=logout          log me out
@@ -46,7 +59,8 @@ if(INSTALL==1)
  *      subpage     
  *      action      logout
  *      order       numerical
- *
+ *      sortby      name, city, title, number, creation, change
+ *      search      alphanumeric 
  *
  ****************
  * SESSION variables:
@@ -116,7 +130,11 @@ if(isset($_GET['page']))
 }else{
         $page->setPage(NULL);
 }
-//TODO setSubPage setOrder...
+
+if(isset($_GET['order'])){
+    $page->setOrder($_GET['order']);
+}
+//TODO setSubPage ...
 
 /*
  * POST-Requests
@@ -184,7 +202,7 @@ if(isset($_GET['page']))
             <?php $page->printArticle(); ?>
 
             <footer>
-
+            <?php $page->printFooter(); ?>
             </footer>
 
         </div>
