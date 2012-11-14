@@ -367,4 +367,110 @@ nav ul{
         position:absolute;
         right: 20px;
     }
+/* edit and view */
+        #edit p{
+                color: #AAA;
+        }
+        #edit p .text{
+            font-size:1.1em;
+            color:#000;
+        }
+        #edit input{
+            background-color: #fff;
+            border: none;
+            color: #000;
+            font-size:1.1em;
+        }
+        #edit select{
+            background-color: #fff;
+            border: none;
+            color: #000;
+            font-size: 1.1em;
+            margin: 0;
+            padding: 0;
+        }
+        #edit .address{
+            font-size: 15px;
+           display:block;
+           margin: 5px auto 5px auto; 
+           width: 300px;
+        }
+        #edit p>span{
+            display:block;
+            margin:10px;
+            position:relative;
+        }
+            #edit p span input,#edit p span select,#edit p span span{
+            left: 100px;
+            position:absolute;
+            top:-5px;
+        }
+        #edit p span input{
+            width:170px;
+        }
+        #edit #order_details p span *{
+            left: 150px;
+        }
+        #edit #order_details textarea{
+            display: block;
+            max-width:100%;
+            resize:vertical;
+            width:100%;
+        }
+        #edit .floatright{
+            float:right;
+            width:50%;
+        }
+        #edit .floatleft{
+            float:left;
+        }
+        #edit #materials p{
+            height: 30px;
+            position:relative;
+        }
+        #edit #materials p span{
+            display:inline;
+            position:absolute;
+        }
+        #edit #materials p input,#edit #materials p select{
+            display:inline;
+            position:absolute;
+        }
+        #edit #calendar .date p span{
+            display:inline;
+        }
+        #edit #calendar .date p span input{
+            left:0;
+            margin:0;
+            position: relative;
+            top:0;
+        }
+        #edit .control{
+            background-color: #ADD8E6;
+            border-radius:15px;
+            margin: 20px auto 20px auto;
+            padding:15px;
+            width: 70%;
+        }
+        #edit .control input{
+            margin: 0 auto 0 auto;
+            padding: 5px;
+            width:100%;
+        }
+        #edit #materials img{
+            float:right;
+            position:relative;
+            right: 50px;
+            top: 5px;
+        }
+        #edit #notes img{
+            margin-left: 5px;
+            position: relative;
+            top:3px;
+        }
+        #edit #calendar img{
+        margin-left: 5px;
+        position: relative;
+        top:3px;
+    }
 
