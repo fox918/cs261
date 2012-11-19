@@ -13,7 +13,7 @@ die;
 */
 ?>
 <article id="create">
-<form action="index.php?page=list" method="post" accept-charset="utf-8">
+<form action="vardump.php" method="post" accept-charset="utf-8">
     <fieldset>
     <legend>Kunde</legend>
     <fieldset class='floatright'>

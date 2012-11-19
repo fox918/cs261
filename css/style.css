@@ -375,6 +375,10 @@ nav ul{
             font-size:1.1em;
             color:#000;
         }
+        #edit p.text{
+            font-size:1.1em;
+            color:#000;
+        }
         #edit input{
             background-color: #fff;
             border: none;
