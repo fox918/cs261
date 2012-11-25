@@ -333,7 +333,7 @@ class newOrder
         $i = 1;
         while(isset($_REQUEST["cr_date_$i"]) && $this->success)
         {
-            $this->date[$i] = $this->handle("cr_date_$i"+$i);
+            $this->date[$i] = $this->handle("cr_date_$i");
             $this->date_statime[$i] = $this->handle("cr_date_statime_$i");
             $this->date_stotime[$i] = $this->handle("cr_date_stotime_$i");
             $this->date_desc[$i] = $this->handle("cr_date_desc_$i");
