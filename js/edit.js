@@ -17,30 +17,56 @@ $(function() {
             $(this).find('.closebutton').hide();
         });
 
-    //change note
+    $("#save").click(function(){
+        $('#action_input').val('save');
+        });
+    
 
-    //add material
+    $("#delete").click(function(e){
+        $('#action_input').val('delete');
+        });
+    $("#publish").click(function(){
+        $('#action_input').val('publish');
+        });
+    $("#billing").click(function(){
+        $('#action_input').val('billing');
+        });
+    $("#archive").click(function(){
+        $('#action_input').val('archive');
+        });
 
-    //add note
+    //change update
+    $("form").submit(function(e){
+        e.preventDefault();
 
-    //add date
+        dataString = $("form").serialize();
 
-    //add file
+        $.ajax({
+            type: "POST",
+            url: "./handlers/editHandler.php",
+            data: dataString,
+            dataType: "json",
+            success: function(data) {
+                if(data.errors == false){
+                    var msg=document.createElement("div");
+                    msg.innerHTML="Auftrag erfolgreich erstellt, Sie werden in Kürze weitergeleitet";
+                    msg.className="success";
+                    $('#notifications').append(msg);
+                    $('#edit').slideUp();
+                    window.setTimeout("window.location='index.php?page=list';",1000);
 
+                } else {
+                    data.errormsgs.forEach(
+                        function(item){
+                            var msg=document.createElement("div");
+                            msg.innerHTML=item;
+                            msg.className="error";
+                            $('#notifications').append(msg);
+                            window.scrollTo(0,0);
+                        });
+                }
+            }
+        });         
 
-
-    //delete material
-
-
-    //delete notes
-
-
-    //delete date
-
-
-    //delete file
-
-
-    //reload site
-
+    });
 });
