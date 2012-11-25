@@ -47,7 +47,7 @@ class Validate
      * $error is the error that was encountered (if there was one)
      * returns a true if valid
      */
-    public function check($type, $text, $sanitized, $error)
+    public function check($type, $text, &$sanitized, &$error)
     {
         /*removing all numbers in $type*/
         $type_ = preg_replace('/[0-9]*/', '', $type);
@@ -177,14 +177,14 @@ class Validate
                 
             /*check user enum*/
             case "cr_resp":
-                //TODO implement; check if user exists; don't forget to escape
+                //TODO implement; check if user exists; return user ID;
                 return true;
                 break;
             
             case "cr_mat_delivery_":
             case "cr_date_statime_":
             case "cr_date_stotime_":
-                //TODO check how the date is entered; verify; convert
+                //TODO check how the date is entered; verify; convert to mysql date
                 
                 return true;
                 break;
@@ -218,6 +218,7 @@ class newOrder
     private $date_desc;
     
     private $file;
+    private $file_Ids;
     
     private $note_title;
     private $note;
@@ -232,8 +233,18 @@ class newOrder
     private $success = true;
     private $errmsg;
     
+    private $db;
     
- 
+    
+    function __construct() {
+        $this->db = new Database();
+    }
+
+
+
+
+
+
 
 
     /*processes the post parameter and extracts the data*/
@@ -303,10 +314,79 @@ class newOrder
         //TODO implement
     }
     
+    
+    
     /*writes the contents into the database*/
     private function writeDB()
     {
         //TODO implement
+        $db = $this->db;
+        $user = new user();
+        $datetime = date("Y-m-d  H:i:s",time());
+        
+        if(isset($_SESSION['user']) && isset($_SESSION['auth']))
+        {
+            //user needs to be authenticate
+            if( !$user->authenticate($_SESSION['user'], $_SESSION['auth']))
+            {
+        
+                /*inserting client information into the database*/
+                $type = "retail";
+                if($this->gender == 'b')
+                    $type = "business";
+                $db->run("insert into clients (cName, cType, cGender, cPhone, cMobile, cStreet, cCity)
+                          values ('$this->name','$type','$this->gender','$this->phone','$this->mobile','$this->address','$this->city')");
+
+                $ret = $db->run("select max(cId) from clients");
+                
+                /*insert into jobs table*/
+                $userid = $ret->fetch_assoc()["cId"];
+                $creatorId = $user->getId();
+                $assigneeId = $this->resp;
+                $db->run("insert into jobs (jName, jDesc, jStage, jResp, Creator_uId, jCreationDate, clients_cId)
+                          values ('$this->title','$this->desc','evaluation','$assigneeId','$creatorId','$datetime','$userid')");
+
+                $ret = $db->run("select max(jId) from jobs");
+                $jobId = $ret->fetch_assoc()["jId"];
+                
+                $materialId;
+                
+                $i=1;
+                while(isset($this->mat_title[$i]))
+                {
+                    $db->run("insert into materials (mName, mDesc, mState, mDelDate, mPrice, mQuantity, jobs_jId)
+                          values ('$this->mat_title[$i]','$this->mat_note[$i]','$this->mat_state[$i]','$this->mat_delivery[$i]','$this->mat_price[$i]','$this->mat_count[$i]','$jobId')");
+                }
+                
+                $i=1;
+                while(isset($this->file[$i]))
+                {
+                    $db->run("insert into comAttach (coResource, coDate, users_uId, jobs_jId, jobs_clients_cId)
+                          values ('$this->file[$i]', '$datetime', '$creatorId', '$jobId', '$userid')");
+
+                    $ret = $db->run("select max(coAtId) from comAttach");
+                    $this->file_Ids[$i] = $ret->fetch_assoc()["coAtId"];
+                }
+                
+                
+                $i=1;
+                while(isset($this->note_title[$i]))
+                {
+                    $db->run("insert into comText (coTitle, coText, coDate, jobs_jId, users_uId)
+                          values ('$this->note_title[$i]', '$this->note[$i]', '$datetime', '$jobId', '$creatorId')");
+                }
+
+                $db->run("insert into comText (hTime, hType, hText, jobs_jId)
+                          values ('$datetime', 'Neuer Auftrag', '$user->getUsername() hat einen neuen Auftrag erstellt.', '$jobId')");
+                
+
+            }
+        }
+        
+        
+        
+        
+        
     }
 
 
@@ -318,6 +398,7 @@ class newOrder
         {
             if(Validate::check($name, $val, $sanitized, $error) == true)
             {
+                $sanitized = $this->db->escape($sanitized);
                 return $sanitized;
             }
             else
