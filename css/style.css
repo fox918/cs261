@@ -113,368 +113,400 @@ nav{
     margin: 10px 130px 5px 130px;
 }
 nav ul{
-        background-color:#fff;
-        border-radius:10px;
-        padding: 7px 5px 7px 5px;
-        text-align:center;
-    }
-    nav ul li{
-        display: inline;
-        font-size: 25px;
-        margin: 0 5px 0 5px;
-    }
-    nav ul li:after {
-      color:#aaa;
-      content: "|";
-      margin-left: 12px;
-    }
-    nav ul li:last-child:after {
-      content:"";
-    }
-    nav ul li a{
-        color: #000;
-        text-decoration: none;
-    }
-    nav ul li a.active{
-        background-color:#666;
-        border-radius: 10px;
-        color: #fff;
-        padding:4px 7px;
-    }
-    /*
-     * Article 
-     */
-    article{
-        margin: 5px 15px 5px 15px;
-    }
-    fieldset{
-        background-color: #fff;
-        border-radius: 15px;
-        border:2px #DDD solid;
-        margin: 5px 10px 10px 10px;
-        padding: 0 10px 10px 10px;
-    }
-    fieldset legend{
-        background-color: #666;
-        border-radius: 5px;
-        color: #fff;
-        font-size: 17px;
-        margin: 0 0 5px 10px;
-        padding: 5px;
-    }
-    input{
-        background-color: #DDD;
-        border-radius:5px;
-        border: 1px #666 solid;
-        padding: 1px 0 1px 5px;
-    }
-    button{
-        background-color: #DDD;
-        border-radius: 5px;
-        border: 1px #666 solid;
-    }
-    textarea{
-        background-color: #DDD;
-        border-radius:5px;
-        border: 1px #666 solid;
-    }
-    column-gap: 3em;
-    /* Article login*/
-    #login{
-        display: block;
-        margin: 30px auto 20px auto;
-    }
-    #login fieldset{
-        margin: 0 auto 0 auto;
-        width: 400px;
-    }
-    #login div{
-        display: block;
-        margin: 0 auto 0 auto;
-    }
-    #login p{
-        left: 25px;
-        margin:15px;
-        position:relative;
-    }
-    #login p input{
-        left: 130px;
-        position:absolute;
-    }
-    #login p label{
-        padding:5px;
-        position:relative;
-        top:7px;
-    }
-    #login input{
-        border-radius: 5px;
-        border: none;
-        padding:3px;
-    }
-    #login input[type=text]{
-        background-color: #ff9;
-        border: 1px #990 solid;
-    }
-    #login input[type=password]{
-        background-color: #ff9;
-        border: 1px #990 solid;
-    }
-    #login input[type=submit]{
-        display: block;
-        margin: 30px auto 0 auto;
-        padding: 10px;
-    }
-    #login label{
-        padding:5px;
-    }
-    /* Article create*/
-    #create .address{
-        font-size: 15px;
-       display:block;
-       margin: 5px auto 5px auto; 
-       width: 300px;
-    }
-    #create p span{
-        display:block;
-        margin:10px;
-        position:relative;
-    }
-    #create p span input,#create p span select{
-        left: 100px;
-        padding:2px;
-        position:absolute;
-        top:-5px;
-    }
-    #create p span input{
-        width:170px;
-    }
-    #create #order_details p span *{
-        left: 150px;
-    }
-    #create #order_details textarea{
-        display: block;
-        max-width:100%;
-        resize:vertical;
-        width:100%;
-    }
-    #create .floatright{
-        float:right;
-        width:50%;
-    }
-    #create .floatleft{
-        float:left;
-    }
-    #create #materials p{
-        height: 30px;
-        position:relative;
-    }
-    #create #materials p span{
-        display:inline;
-        position:absolute;
-    }
-    #create #materials p input,#create #materials p select{
-        display:inline;
-        position:absolute;
-    }
-    #create #calendar .date p span{
-        display:inline;
-    }
-    #create #calendar .date p span input{
-        left:0;
-        margin:0;
-        position: relative;
-        top:0;
-    }
-    #create .control{
-        background-color: #ADD8E6;
-        border-radius:15px;
-        margin: 20px auto 20px auto;
-        padding:15px;
-        width: 70%;
-    }
-    #create .control input{
-        margin: 0 auto 0 auto;
-        padding: 5px;
-        width:100%;
-    }
-    #create #materials img{
-        float:right;
-        position:relative;
-        right: 50px;
-        top: 5px;
-    }
-    #create #notes img{
-        margin-left: 5px;
-        position: relative;
-        top:3px;
-    }
-    #create #calendar img{
-        margin-left: 5px;
-        position: relative;
-        top:3px;
-    }
-    /* List of all Articles*/
-    #list {
+    background-color:#fff;
+    border-radius:10px;
+    padding: 7px 5px 7px 5px;
+    text-align:center;
+}
+nav ul li{
+    display: inline;
+    font-size: 25px;
+    margin: 0 5px 0 5px;
+}
+nav ul li:after {
+    color:#aaa;
+    content: "|";
+    margin-left: 12px;
+}
+nav ul li:last-child:after {
+    content:"";
+}
+nav ul li a{
+    color: #000;
+    text-decoration: none;
+}
+nav ul li a.active{
+    background-color:#666;
+    border-radius: 10px;
+    color: #fff;
+    padding:4px 7px;
+}
+/*
+ * Notifications
+ */
+#notifications .info, #notifications .success,#notifications .warning,#notifications .error{
+    border: 1px solid;
+    margin: 10px auto 10px auto;
+    padding:15px 10px 15px 50px;
+    border-radius: 10px;
+    width: 80%;
+    background-repeat: no-repeat;
+    background-position: 15px center;
+}
+ #notifications  .info {
+    color: #00529B;
+    background-color: #BDE5F8;
+    background-image: url('../img/icons/info.png');
+}
+#notifications .success {
+    color: #4F8A10;
+    background-color: #DFF2BF;
+    background-image:url('../img/icons/success.png');
+}
+#notifications .warning {
+    color: #9F6000;
+    background-color: #FEEFB3;
+    background-image: url('../img/icons/warning.png');
+}
+#notifications .error {
+    color: #D8000C;
+    background-color: #FFBABA;
+    background-image: url('../img/icons/error.png');
+}
+/*
+ * Article 
+ */
+article{
+    margin: 5px 15px 5px 15px;
+}
+fieldset{
+    background-color: #fff;
+    border-radius: 15px;
+    border:2px #DDD solid;
+    margin: 5px 10px 10px 10px;
+    padding: 0 10px 10px 10px;
+}
+fieldset legend{
+    background-color: #666;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 17px;
+    margin: 0 0 5px 10px;
+    padding: 5px;
+}
+input{
+    background-color: #DDD;
+    border-radius:5px;
+    border: 1px #666 solid;
+    padding: 1px 0 1px 5px;
+}
+button{
+    background-color: #DDD;
+    border-radius: 5px;
+    border: 1px #666 solid;
+}
+textarea{
+    background-color: #DDD;
+    border-radius:5px;
+    border: 1px #666 solid;
+}
+column-gap: 3em;
+/* Article login*/
+#login{
+    display: block;
+    margin: 30px auto 20px auto;
+}
+#login fieldset{
+    margin: 0 auto 0 auto;
+    width: 400px;
+}
+#login div{
+    display: block;
+    margin: 0 auto 0 auto;
+}
+#login p{
+    left: 25px;
+    margin:15px;
+    position:relative;
+}
+#login p input{
+    left: 130px;
+    position:absolute;
+}
+#login p label{
+    padding:5px;
+    position:relative;
+    top:7px;
+}
+#login input{
+    border-radius: 5px;
+    border: none;
+    padding:3px;
+}
+#login input[type=text]{
+    background-color: #ff9;
+    border: 1px #990 solid;
+}
+#login input[type=password]{
+    background-color: #ff9;
+    border: 1px #990 solid;
+}
+#login input[type=submit]{
+    display: block;
+    margin: 30px auto 0 auto;
+    padding: 10px;
+}
+#login label{
+    padding:5px;
+}
+/* Article create*/
+#create .address{
+    font-size: 15px;
+    display:block;
+    margin: 5px auto 5px auto; 
+    width: 300px;
+}
+#create p span{
+    display:block;
+    margin:10px;
+    position:relative;
+}
+#create p span input,#create p span select{
+    left: 100px;
+    padding:2px;
+    position:absolute;
+    top:-5px;
+}
+#create p span input{
+    width:170px;
+}
+#create #order_details p span *{
+    left: 150px;
+}
+#create #order_details textarea{
+    display: block;
+    max-width:100%;
+    resize:vertical;
+    width:100%;
+}
+#create .floatright{
+    float:right;
+    width:50%;
+}
+#create .floatleft{
+    float:left;
+}
+#create #materials p{
+    height: 30px;
+    position:relative;
+}
+#create #materials p span{
+    display:inline;
+    position:absolute;
+}
+#create #materials p input,#create #materials p select{
+    display:inline;
+    position:absolute;
+}
+#create #calendar .date p span{
+    display:inline;
+}
+#create #calendar .date p span input{
+    left:0;
+    margin:0;
+    position: relative;
+    top:0;
+}
+#create .control{
+    background-color: #ADD8E6;
+    border-radius:15px;
+    margin: 20px auto 20px auto;
+    padding:15px;
+    width: 70%;
+}
+#create .control input{
+    margin: 0 auto 0 auto;
+    padding: 5px;
+    width:100%;
+}
+#create #materials img{
+    float:right;
+    position:relative;
+    right: 50px;
+    top: 5px;
+}
+#create #notes img{
+    margin-left: 5px;
+    position: relative;
+    top:3px;
+}
+#create #calendar img{
+    margin-left: 5px;
+    position: relative;
+    top:3px;
+}
+/* List of all Articles*/
+#list {
 
-    }
-    #list .sortsearch{
-        background-color: #ADD8E6;
-        border-radius: 7px;
-        margin: 10px auto 20px auto;
-        padding: 15px;
-        position: relative;
-        width: 70%;
-    }
-    #list .sortsearch *{
-        display: inline;
-    }
-    #list .search{
-        position: absolute;
-        right: 10px;
-    }
-    #list ul li{
-        background-color: #fff;
-        border-radius: 5px;
-        margin: 5px 10px 5px 10px;
-        padding: 7px 15px 7px 15px;
-        position:relative;
-        cursor: pointer;
-    }
-    #list ul li p{
-        display: inline;
-    }
-    #list ul li div{
-        background-color: red;
-        display: inline;
-        float: right;
-        margin: 0 10px 0 10px;
-        width: 60px;
-    }
-    #list ul li .street{
-        left: 180px;
-        position:absolute;
-    }
-    #list ul li .location{
-        left: 370px;
-        position:absolute;
-    }
-    #list ul li .title{
-        font-weight:700;
-        left: 550px;
-        position:absolute;
-    }
-    #list ul li .id{
-        position:absolute;
-        right: 20px;
-    }
+}
+#list .sortsearch{
+    background-color: #ADD8E6;
+    border-radius: 7px;
+    margin: 10px auto 20px auto;
+    padding: 15px;
+    position: relative;
+    width: 70%;
+}
+#list .sortsearch *{
+    display: inline;
+}
+#list .search{
+    position: absolute;
+    right: 10px;
+}
+#list ul li{
+    background-color: #fff;
+    border-radius: 5px;
+    margin: 5px 10px 5px 10px;
+    padding: 7px 15px 7px 15px;
+    position:relative;
+    cursor: pointer;
+}
+#list ul li p{
+    display: inline;
+}
+#list ul li div{
+    background-color: red;
+    display: inline;
+    float: right;
+    margin: 0 10px 0 10px;
+    width: 60px;
+}
+#list ul li .street{
+    left: 180px;
+    position:absolute;
+}
+#list ul li .location{
+    left: 370px;
+    position:absolute;
+}
+#list ul li .title{
+    font-weight:700;
+    left: 550px;
+    position:absolute;
+}
+#list ul li .id{
+    position:absolute;
+    right: 20px;
+}
 /* edit and view */
-        #edit p{
-                color: #AAA;
-        }
-        #edit p .text{
-            font-size:1.1em;
-            color:#000;
-        }
-        #edit p.text{
-            font-size:1.1em;
-            color:#000;
-        }
-        #edit input{
-            background-color: #fff;
-            border: none;
-            color: #000;
-            font-size:1.1em;
-        }
-        #edit select{
-            background-color: #fff;
-            border: none;
-            color: #000;
-            font-size: 1.1em;
-            margin: 0;
-            padding: 0;
-        }
-        #edit .address{
-            font-size: 15px;
-           display:block;
-           margin: 5px auto 5px auto; 
-           width: 300px;
-        }
-        #edit p>span{
-            display:block;
-            margin:10px;
-            position:relative;
-        }
-            #edit p span input,#edit p span select,#edit p span span{
-            left: 100px;
-            position:absolute;
-            top:-5px;
-        }
-        #edit p span input{
-            width:170px;
-        }
-        #edit #order_details p span *{
-            left: 150px;
-        }
-        #edit #order_details textarea{
-            display: block;
-            max-width:100%;
-            resize:vertical;
-            width:100%;
-        }
-        #edit .floatright{
-            float:right;
-            width:50%;
-        }
-        #edit .floatleft{
-            float:left;
-        }
-        #edit #materials p{
-            height: 30px;
-            position:relative;
-        }
-        #edit #materials p span{
-            display:inline;
-            position:absolute;
-        }
-        #edit #materials p input,#edit #materials p select{
-            display:inline;
-            position:absolute;
-        }
-        #edit #calendar .date p span{
-            display:inline;
-        }
-        #edit #calendar .date p span input{
-            left:0;
-            margin:0;
-            position: relative;
-            top:0;
-        }
-        #edit .control{
-            background-color: #ADD8E6;
-            border-radius:15px;
-            margin: 20px auto 20px auto;
-            padding:15px;
-            width: 70%;
-        }
-        #edit .control input{
-            margin: 0 auto 0 auto;
-            padding: 5px;
-            width:100%;
-        }
-        #edit #materials img{
-            float:right;
-            position:relative;
-            right: 50px;
-            top: 5px;
-        }
-        #edit #notes img{
-            margin-left: 5px;
-            position: relative;
-            top:3px;
-        }
-        #edit #calendar img{
-        margin-left: 5px;
-        position: relative;
-        top:3px;
-    }
+#edit p{
+    color: #AAA;
+}
+#edit p .text{
+    font-size:1.1em;
+    color:#000;
+}
+#edit p.text{
+    font-size:1.1em;
+    color:#000;
+}
+#edit input{
+    background-color: #fff;
+    border: none;
+    color: #000;
+    font-size:1.1em;
+}
+#edit select{
+    background-color: #fff;
+    border: none;
+    color: #000;
+    font-size: 1.1em;
+    margin: 0;
+    padding: 0;
+}
+#edit .address{
+    font-size: 15px;
+    display:block;
+    margin: 5px auto 5px auto; 
+    width: 300px;
+}
+#edit p>span{
+    display:block;
+    margin:10px;
+    position:relative;
+}
+#edit p span input,#edit p span select,#edit p span span{
+    left: 100px;
+    position:absolute;
+    top:-5px;
+}
+#edit p span input{
+    width:170px;
+}
+#edit #order_details p span *{
+    left: 150px;
+}
+#edit #order_details textarea{
+    display: block;
+    max-width:100%;
+    resize:vertical;
+    width:100%;
+}
+#edit .floatright{
+    float:right;
+    width:50%;
+}
+#edit .floatleft{
+    float:left;
+}
+#edit #materials p{
+    height: 30px;
+    position:relative;
+}
+#edit #materials p span{
+    display:inline;
+    position:absolute;
+}
+#edit #materials p input,#edit #materials p select{
+    display:inline;
+    position:absolute;
+}
+#edit #calendar .date p span{
+    display:inline;
+}
+#edit #calendar .date p span input{
+    left:0;
+    margin:0;
+    position: relative;
+    top:0;
+}
+#edit .control{
+    background-color: #ADD8E6;
+    border-radius:15px;
+    margin: 20px auto 20px auto;
+    padding:15px;
+    width: 70%;
+}
+#edit .control input{
+    margin: 0 auto 0 auto;
+    padding: 5px;
+    width:100%;
+}
+#edit #materials img{
+    float:right;
+    position:relative;
+    right: 50px;
+    top: 5px;
+}
+#edit #notes img{
+    margin-left: 5px;
+    position: relative;
+    top:3px;
+}
+#edit #calendar img{
+    margin-left: 5px;
+    position: relative;
+    top:3px;
+}
 

@@ -5,9 +5,9 @@
 /*
  * Includes
  */
-require_once 'config.php';//constants
-require_once 'db.php'; //db class
-require_once 'classes.php'; //all the other classes
+require_once '../config.php';//constants
+require_once '../db.php'; //db class
+    require_once '../classes.php'; //all the other classes
 
 
 /*
@@ -20,13 +20,17 @@ if(isset($_SESSION['user']) && isset($_SESSION['auth']))
 {
     //user needs to be authenticate
     if( !$user->authenticate($_SESSION['user'], $_SESSION['auth'])){
-        die;   
+        // TODO die;   
     }
 } else {
     //user is not logged in
-    die;
+        //TODO die;
 }
 
 
 //insert data into DB
 
+$outputMsgs = array("errors" => false,"errormsgs" => array("hello World","hanspeter")); //no messages yet, no errors either
+
+
+echo json_encode($outputMsgs);
