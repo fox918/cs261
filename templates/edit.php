@@ -50,27 +50,27 @@ $city = $row["cCity"];
 echo "
 <article id=\"edit\">
 <form action=\"index.php?page=list\" method=\"post\" accept-charset=\"utf-8\">
-    <input type=\"hidden\" name=\"job_id\" value=\"$orderid\" />
+    <input type=\"hidden\" name=\"cr_id\" value=\"$orderid\" />
     <fieldset>
         <legend>Kunde</legend>
         <fieldset class='floatright'>
             <legend>Adresse</legend> 
             <p class='address'>
             <span>
-                <label for=\"job_address\">Strasse</label> 
-                <input type=\"text\" name=\"job_address\" id=\"job_address\" value=\"$street\" />
+                <label for=\"cr_address\">Strasse</label> 
+                <input type=\"text\" name=\"cr_address\" id=\"cr_address\" value=\"$street\" />
             </span>
             <span>
-                <label for=\"job_city\">Ortschaft</label>
-                <input type=\"text\" name=\"job_city\" id=\"job_city\" value=\"$city\" />
+                <label for=\"cr_city\">Ortschaft</label>
+                <input type=\"text\" name=\"cr_city\" id=\"cr_city\" value=\"$city\" />
             </span>
             </p>
         </fieldset>
         <fieldset>
             <legend id='floatleft'>Kontakt</legend>
             <p id=\"contact\">
-            <span> <label for=\"job_gender\">Anrede</label>
-                <select name=\"job_gender\" id=\"job_gender\">";
+            <span> <label for=\"cr_gender\">Anrede</label>
+                <select name=\"cr_gender\" id=\"cr_gender\">";
 switch($gender)
 {
     case "m":
@@ -94,16 +94,16 @@ switch($gender)
 echo "                </select>
             </span>
             <span>
-                <label for=\"job_name\">Name</label>
-                <input type=\"text\" name=\"job_name\" id=\"job_name\" value=\"$name\" />
+                <label for=\"cr_name\">Name</label>
+                <input type=\"text\" name=\"cr_name\" id=\"cr_name\" value=\"$name\" />
             </span>
             <span>
-                <label for=\"job_mobile\">Mobile</label>
-                <input type=\"text\" name=\"job_mobile\" id=\"job_mobile\" value=\"$mobile\" />
+                <label for=\"cr_mobile\">Mobile</label>
+                <input type=\"text\" name=\"cr_mobile\" id=\"cr_mobile\" value=\"$mobile\" />
             </span>    
             <span>
-                <label for=\"job_phone\">Telefon</label>
-                <input type=\"text\" name=\"job_phone\" id=\"job_phone\" value=\"$phone\" />
+                <label for=\"cr_phone\">Telefon</label>
+                <input type=\"text\" name=\"cr_phone\" id=\"cr_phone\" value=\"$phone\" />
             </span>
             </p>
         </fieldset>
@@ -130,8 +130,8 @@ echo "    <fieldset id=\"order_details\">
             <span class=\"text\">$creator</span>
         </span>
         <span>
-            <label for=\"job_resp\">Verantwortlicher</label>
-            <select name=\"job_resp\" id=\"job_resp\">";
+            <label for=\"cr_resp\">Verantwortlicher</label>
+            <select name=\"cr_resp\" id=\"cr_resp\">";
 
 while($row = $ret->fetch_assoc())
 {
@@ -151,7 +151,7 @@ echo "            </select>
         </p>
         <fieldset id=\"description\">
             <legend>Beschreibung</legend>
-            <textarea name=\"job_descrption\" id=\"job_desc\" rows=\"8\" cols=\"40\">$desc</textarea>
+            <textarea name=\"cr_descrption\" id=\"cr_desc\" rows=\"8\" cols=\"40\">$desc</textarea>
         </fieldset>";
 /*material*/
 
@@ -180,11 +180,11 @@ while($row = $ret->fetch_assoc())
     $id = $row["mId"];
     
     echo "      <p class=\"material buttoncontainer\" id=\"mat_$i\">
-                <input type=\"hidden\" name=\"job_mat_id_$i\" value=\"$id\" />
-                <input style='width:70px' type=\"text\" name=\"job_mat_count_$i\" value=\"$amount\"/>
-                <input style='left:80px' type=\"text\" name=\"job_mat_title_$i\" value=\"$mname\"/>
-                <input style='left:270px' type=\"text\" name=\"job_mat_note_$i\" value=\"$note\"/>
-                <select style='left:460px' name=\"job_mat_state_$i\" >";
+                <input type=\"hidden\" name=\"cr_mat_id_$i\" value=\"$id\" />
+                <input style='width:70px' type=\"text\" name=\"cr_mat_count_$i\" value=\"$amount\"/>
+                <input style='left:80px' type=\"text\" name=\"cr_mat_title_$i\" value=\"$mname\"/>
+                <input style='left:270px' type=\"text\" name=\"cr_mat_note_$i\" value=\"$note\"/>
+                <select style='left:460px' name=\"cr_mat_state_$i\" >";
     switch($state)
     {
         case "order":
@@ -206,8 +206,8 @@ while($row = $ret->fetch_assoc())
             break;
     }
     echo "      </select>
-                <input style='left:560px;width:120px' type=\"text\" name=\"job_mat_delivery_$i\" value=\"$delDate\"/>
-                <input style='left:700px;width:100px' type=\"text\" name=\"job_mat_price_$i\" value=\"$price\"/>
+                <input style='left:560px;width:120px' type=\"text\" name=\"cr_mat_delivery_$i\" value=\"$delDate\"/>
+                <input style='left:700px;width:100px' type=\"text\" name=\"cr_mat_price_$i\" value=\"$price\"/>
                 <img class=\"closebutton\" src='./img/icons/x_alt_16x16.png' />
                 </p>";
     
@@ -219,7 +219,7 @@ $i=1;
 $ret = $db->run("select * from comText where jobs_jId='$orderid'");
                 
  echo "           </div>
-            <button id=\"job_mat_addfield\">Hinzufügen</button>
+            <button id=\"cr_mat_addfield\">Hinzufügen</button>
         </fieldset>
         <fieldset id=\"notes\">
             <legend>Notizen</legend>";
@@ -238,15 +238,15 @@ $ret = $db->run("select * from comText where jobs_jId='$orderid'");
                             $title
                             <img class=\"closebutton\" src='./img/icons/x_alt_16x16.png' />
                         </legend>
-                        <textarea name=\"job_note_$i\" id= rows=\"8\" cols=\"40\">$text</textarea>
-                        <input type=\"hidden\" name=\"job_note_id_$i\" value=\"$id\" />
+                        <textarea name=\"cr_note_$i\" id= rows=\"8\" cols=\"40\">$text</textarea>
+                        <input type=\"hidden\" name=\"cr_note_id_$i\" value=\"$id\" />
 
                     </fieldset>
                 </div>
             </div>";
 }
             
-  echo "        <button id=\"job_note_addfield\">Hinzufügen</button>
+  echo "        <button id=\"cr_note_addfield\">Hinzufügen</button>
         </fieldset>
     </fieldset>
 
@@ -265,23 +265,23 @@ while($row = $ret->fetch_assoc())
     
 
 echo "          <fieldset  id=\"date_$i\" class=\"date buttoncontainer\">
-                <input type=\"hidden\" name=\"job_date_id_$i\" value=\"$id\" />
+                <input type=\"hidden\" name=\"cr_date_id_$i\" value=\"$id\" />
                 <legend>
                     $start
                     <img class=\"closebutton\" src='./img/icons/x_alt_16x16.png' />
                 </legend>
                 <p>
                 <span>
-                    <label for=\"job_date_statime_$i\">Startzeit</label>
-                    <input type=\"text\" name=\"job_date_statime_1\" id=\"job_date_statime_1\" value=\"$start\"/>
+                    <label for=\"cr_date_statime_$i\">Startzeit</label>
+                    <input type=\"text\" name=\"cr_date_statime_1\" id=\"cr_date_statime_1\" value=\"$start\"/>
                 </span>
                 <span>
-                    <label for=\"job_date_stotime_$i\">bis um</label>
-                    <input type=\"text\" name=\"job_date_stotime_1\" id=\"job_date_stotime_1\" value=\"$stop\"/>
+                    <label for=\"cr_date_stotime_$i\">bis um</label>
+                    <input type=\"text\" name=\"cr_date_stotime_1\" id=\"cr_date_stotime_1\" value=\"$stop\"/>
                 </span>
                 <span>
-                    <label for=\"job_date_desc_$i\">Notiz</label>
-                    <input type=\"text\" name=\"job_date_desc_1\" id=\"job_date_desc_1\" style=\"width:300px\" value=\"$note\"/>
+                    <label for=\"cr_date_desc_$i\">Notiz</label>
+                    <input type=\"text\" name=\"cr_date_desc_1\" id=\"cr_date_desc_1\" style=\"width:300px\" value=\"$note\"/>
                 </span>
                 </p>
             </fieldset>";
@@ -289,18 +289,18 @@ echo "          <fieldset  id=\"date_$i\" class=\"date buttoncontainer\">
 }
             
 echo "  </div>
-        <button id=\"job_date_addfield\">Hinzufügen</button>
+        <button id=\"cr_date_addfield\">Hinzufügen</button>
     </fieldset>
 
     <fieldset id=\"files\">
         <legend>angehängte Dateien</legend>
         <div>
             <p>
-            <label for=\"job_file_1\">Datei hochladen: </label>
-            <input type=\"file\" name=\"job_file_1\" style=\"width:400px\"/>
+            <label for=\"cr_file_1\">Datei hochladen: </label>
+            <input type=\"file\" name=\"cr_file_1\" style=\"width:400px\"/>
             </p>
         </div>
-        <button id=\"job_file_addfield\">Datei hinzufügen</button>
+        <button id=\"cr_file_addfield\">Datei hinzufügen</button>
     </fieldset>
     <div class=\"control\">
         <div>
