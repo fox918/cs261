@@ -12,7 +12,7 @@ session_start(); //session mgmt
 require_once 'config.php';//constants
 require_once 'db.php'; //db class
 require_once 'classes.php'; //all the other classes
-
+date_default_timezone_set('Europe/Zurich');
 /*
  * Check requirements
  */

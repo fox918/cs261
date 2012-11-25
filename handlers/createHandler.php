@@ -7,12 +7,14 @@
  */
 require_once '../config.php';//constants
 require_once '../db.php'; //db class
-    require_once '../classes.php'; //all the other classes
+require_once '../classes.php'; //all the other classes
+
 
 
 /*
  * check if user is logged in
  */
+session_start();
 $user = new user();
 
 //either user is logged in or needs to do so:
@@ -34,10 +36,12 @@ $outputMsgs = array("errors" => false); //no messages yet, no errors either
 $errorMsgs = array();
 
 $order = new newOrder();
-//$order->processAll(); 
+$success;
+$err;
+$order->processAll($success, $err);
 
-$outputMsgs["errors"] = true;
-array_push($errorMsgs, "YOU FAIL");
+$outputMsgs["errors"] = !$success;
+array_push($errorMsgs, "$err");
 
 
 $outputMsgs['errormsgs'] = $errorMsgs;
