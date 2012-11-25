@@ -169,6 +169,7 @@ if(isset($_GET['order'])){
 
     <!-- Stylesheet -->
         <link rel="stylesheet" href="./css/style.css">
+        <link rel="stylesheet" href="./css/jquery.superbox.css">
 
         <title><?php $page->printTitle() ?></title>
     </head>
@@ -220,6 +221,7 @@ if(isset($_GET['order'])){
     <script type="text/javascript" src='./js/jquery-1.8.2.min.js'></script>
     <script type="text/javascript" src='./js/tiny_mce/tiny_mce.js'></script>
     <script type="text/javascript" src='./js/tiny_mce/jquery.tinymce.js'></script>
+    <script type="text/javascript" src='./js/superbox/jquery.superbox-min.js'></script>
     <script type="text/javascript" src="./js/main.js"></script>
     <?php $page->includeJS() ?> 
 </body>

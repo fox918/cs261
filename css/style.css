@@ -487,11 +487,21 @@ column-gap: 3em;
     margin: 20px auto 20px auto;
     padding:15px;
     width: 70%;
+    position: relative;
+    height: 45px;
 }
 #edit .control input{
     margin: 0 auto 0 auto;
     padding: 5px;
     width:100%;
+}
+#edit .control div:first-child{
+    float:left;
+    margin-left:100px;
+}
+#edit .control div:last-child{
+    float:right;
+    margin-right: 100px;
 }
 #edit #materials img{
     float:right;
@@ -508,5 +518,8 @@ column-gap: 3em;
     margin-left: 5px;
     position: relative;
     top:3px;
+}
+#edit  img.closebutton{
+    display: none;
 }
 
