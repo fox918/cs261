@@ -223,7 +223,7 @@ $ret = $db->run("select * from comText where jobs_jId='$orderid'");
         </fieldset>
         <fieldset id=\"notes\">
             <legend>Notizen</legend>";
- 
+  
  while($row = $ret->fetch_assoc())
  {
      $title = $row["coTitle"];
