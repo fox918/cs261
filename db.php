@@ -79,7 +79,7 @@ class Validate
                 }
                 else
                 {
-                    $error = "Nicht genügend gültige Zeichen (string)!";
+                    $error = "Nicht genügend gültige Zeichen (string; $type)!";
                     return false;
                 }
                 break; //useless; I still keep it as it looks better
@@ -101,7 +101,7 @@ class Validate
                 }
                 else
                 {
-                    $error = "Nicht genügend gültige Zeichen (int)!";
+                    $error = "Nicht genügend gültige Zeichen (int;$type)!";
                     return false;
                 }
                 break;
@@ -119,7 +119,7 @@ class Validate
                 }
                 else
                 {
-                    $error = "Nicht genügend gültige Zeichen (float)!";
+                    $error = "Nicht genügend gültige Zeichen (float; $type)!";
                     return false;
                 }
                 break;
@@ -200,7 +200,7 @@ class Validate
                 $time = strtotime($text);
                 if($time == false)
                 {
-                    $error = "unbekanntes Zeitformat";
+                    $error = "Unbekanntes Zeitformat für die Materiallieferung angegeben.";
                     return false;
                 }
                 $sanitized = date("Y-m-d  H:i:s",$time);
@@ -212,7 +212,7 @@ class Validate
                 $time = strtotime($text);
                 if($time == false)
                 {
-                    $error = "unbekanntes Zeitformat";
+                    $error = "Unbekanntes Zeitformat im Kalander.";
                     return false;
                 }
                 $sanitized = date("Y-m-d",$time);
@@ -223,7 +223,7 @@ class Validate
                 $time = strtotime($text);
                 if($time == false)
                 {
-                    $error = "unbekanntes Zeitformat";
+                    $error = "Unbekanntes Zeitformat im Kalender ($type)";
                     return false;
                 }
                 $sanitized = date("H:i:s",$time);
@@ -473,7 +473,7 @@ class newOrder
         $val = $this->retrieve($name);
         if($this->success == true)
         {
-            if(Validate::check($name, $val, $sanitized, $error) == true)
+            if(Validate::check($name, $val, $sanitized, $this->errmsg) == true)
             {
                 $sanitized = $this->db->escape($sanitized);
                 return $sanitized;
