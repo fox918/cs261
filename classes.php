@@ -5,6 +5,8 @@
  * access rights, name, department, etc
  * login and logout
  */
+
+require_once 'db.php';
 class user
 {
     //variables
@@ -30,20 +32,55 @@ class user
     //log the user in
     public function login($username,$password)
     {
-        //TODO real auth
-        $this->loggedIn = true;
-        $this->authToken = 'asdf';
-        $this->name = $username;
+        //TODO real auth; compare password
+        $db = new Database();
+        $qry = $db->escape($username);
+        $statement = "select * from users where uName=\"$qry\";";
+        $ret = $db->run($statement);
+        $row = $ret->fetch_assoc();
+        
+        if(isset($row["uName"]))
+        {
+            $this->role = $row["uType"];
+            $this->id = $row["uId"];
+            $this->loggedIn = true;
+            $this->name = $row["uName"];
+            $this->authToken = md5($this->name.$password.time());
+            
+            /*updating DB*/
+            $datetime = date("Y-m-d  H:i:s",time());
+            $db->run("UPDATE `users` SET `uAuthToken`='$this->authToken', `uLastLogin`='$datetime' WHERE `uId`='$this->id';");
+        }
+        return false;
     }
 
     //check if user is valid (when he already is logged in)
     public function authenticate($username,$authtoken)
     {
-        //TODO real auth
         //TODO evtl. implement second authtoken with COOKIE
-        $this->loggedIn = true;
-        $this->name = $username;
-        return true;
+        $db = new Database();
+        $qry1 = $db->escape($username);
+        $qry2 = $db->escape($authtoken);
+        $statement = "select * from users where uName=\"$qry1\" and uAuthToken=\"$qry2\";";
+        $ret = $db->run($statement);
+        $row = $ret->fetch_assoc();
+        
+        if(isset($row["uName"]))
+        {
+            $this->role = $row["uType"];
+            $this->id = $row["uId"];
+            $this->loggedIn = true;
+            $this->name = $row["uName"];
+            $this->authToken = $row["uAuthToken"];
+            return true;
+        }
+        return false;
+    }
+    
+    /*returns this users ID*/
+    public function getId()
+    {
+        return $this->id;
     }
 
     // wether a user is validated or not, false if not logged in, true otherwise

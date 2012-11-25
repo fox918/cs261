@@ -1,5 +1,7 @@
 <?php
 
+require_once 'config.php';
+
 /* Database class
  *
  * Handles all the Data transfers between the page/php and the database
@@ -7,6 +9,28 @@
 
 class Database
 {
+    private $db;
+    
+    function __construct() {
+        $this->db = new mysqli(DB_HOST,DB_USER,DB_PASSWORD,DB_DATABASE);
+    }
+
+
+    /*Runs the given SQL staement and returns the result*/
+    public function run($statement)
+    {
+        if($this->db->connect_errno > 0)
+        {
+            die("Error: Could not query database: $this->db->error");
+        }
+        return $this->db->query($statement);  
+    }
+    
+    /*returns the escaped string*/
+    public function escape($string)
+    {
+        return $this->db->real_escape_string($string);
+    }
 
 
 }
@@ -230,42 +254,42 @@ class newOrder
         
         /*materials*/
         $i = 1;
-        while(isset($_POST["cr_mat_count_"+$i]) && $this->success)
+        while(isset($_POST["cr_mat_count_$i"]) && $this->success)
         {
-            $this->mat_count[$i] = $this->handle("cr_mat_count_"+$i);
-            $this->mat_title[$i] = $this->handle("cr_mat_title_"+$i);
-            $this->mat_note[$i] = $this->handle("cr_mat_note_"+$i);
-            $this->mat_state[$i] = $this->handle("cr_mat_state_"+$i);
-            $this->mat_delivery[$i] = $this->handle("cr_mat_delivery_"+$i);
-            $this->mat_price[$i] = $this->handle("cr_mat_price_"+$i);
+            $this->mat_count[$i] = $this->handle("cr_mat_count_$i");
+            $this->mat_title[$i] = $this->handle("cr_mat_title_$i");
+            $this->mat_note[$i] = $this->handle("cr_mat_note_$i");
+            $this->mat_state[$i] = $this->handle("cr_mat_state_$i");
+            $this->mat_delivery[$i] = $this->handle("cr_mat_delivery_$i");
+            $this->mat_price[$i] = $this->handle("cr_mat_price_$i");
             $i++;
         }
         
         /*notes*/
         $i = 1;
-        while(isset($_POST["cr_note_title_"+$i]) && $this->success)
+        while(isset($_POST["cr_note_title_$i"]) && $this->success)
         {
-            $this->note_title[$i] = $this->handle("cr_note_title_"+$i);
-            $this->note[$i] = $this->handle("cr_note_"+$i);
+            $this->note_title[$i] = $this->handle("cr_note_title_$i");
+            $this->note[$i] = $this->handle("cr_note_$i");
             $i++;
         }
         
         /*dates*/
         $i = 1;
-        while(isset($_POST["cr_date_"+$i]) && $this->success)
+        while(isset($_POST["cr_date_$i"]) && $this->success)
         {
-            $this->date[$i] = $this->handle("cr_date_"+$i);
-            $this->date_statime[$i] = $this->handle("cr_date_statime_"+$i);
-            $this->date_stotime[$i] = $this->handle("cr_date_stotime_"+$i);
-            $this->date_desc[$i] = $this->handle("cr_date_desc_"+$i);
+            $this->date[$i] = $this->handle("cr_date_$i"+$i);
+            $this->date_statime[$i] = $this->handle("cr_date_statime_$i");
+            $this->date_stotime[$i] = $this->handle("cr_date_stotime_$i");
+            $this->date_desc[$i] = $this->handle("cr_date_desc_$i");
             $i++;
         }
         
          /*files*/
         $i = 1;
-        while(isset($_POST["cr_file_"+$i]) && $this->success)
+        while(isset($_POST["cr_file_$i"]) && $this->success)
         {
-            $this->file[$i] = $this->handle("cr_file_"+$i);
+            $this->file[$i] = $this->handle("cr_file_$i");
             $i++;
         }
         
@@ -317,7 +341,7 @@ class newOrder
              else 
             {
                 $this->success = false;
-                $this->errmsg = "Field not set:"+$name;
+                $this->errmsg = "Field not set: $name";
                 return NULL;
             }
         }
