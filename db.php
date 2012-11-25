@@ -7,6 +7,8 @@ require_once 'config.php';
  * Handles all the Data transfers between the page/php and the database
  */
 
+date_default_timezone_set('Europe/Zurich');
+
 class Database
 {
     private $db;
@@ -23,7 +25,13 @@ class Database
         {
             die("Error: Could not query database: $this->db->error");
         }
-        return $this->db->query($statement);  
+        $ret = $this->db->query($statement);
+        
+        //TODO remove
+        //$err = $this->db->error;
+        //echo "err: '$err'  statement: '$statement' <br>";
+        
+        return  $ret;
     }
     
     /*returns the escaped string*/
@@ -50,6 +58,7 @@ class Validate
     public function check($type, $text, &$sanitized, &$error)
     {
         /*removing all numbers in $type*/
+        
         $type_ = preg_replace('/[0-9]*/', '', $type);
         
         switch ($type_) {
@@ -59,9 +68,7 @@ class Validate
             case "cr_title":
             case "cr_address":
             case "cr_mat_title_":
-            case "cr_note_title_":
             case "cr_date_desc_":
-            case "cr_date_":
             case "cr_mat_note_":
             case "cr_file_":
                 $return = filter_var($text, FILTER_SANITIZE_STRING);
@@ -76,10 +83,15 @@ class Validate
                     return false;
                 }
                 break; //useless; I still keep it as it looks better
-            
+                
+            case "cr_note_title_":
+            case "cr_mat_note_":
+                $sanitized = filter_var($text, FILTER_SANITIZE_STRING);
+                return true;
+                
+                
             /*integers (possibly with whitespaces)*/
             case "cr_mat_count_":
-            case "cr_mobile":
             case "cr_phone":
                 $return = filter_var($text, FILTER_SANITIZE_NUMBER_INT);
                 if(strlen($return) > 1)
@@ -93,11 +105,14 @@ class Validate
                     return false;
                 }
                 break;
+            case "cr_mobile":
+                $sanitized = filter_var($text, FILTER_SANITIZE_NUMBER_INT);
+                return true;
             
             /*float*/
             case "cr_mat_price_":
                 $return = filter_var($text, FILTER_SANITIZE_NUMBER_FLOAT);
-                if(strlen($return) > 1)
+                if(strlen($return) > 0)
                 {
                     $sanitized = $return;
                     return true;
@@ -115,20 +130,9 @@ class Validate
                 /*<from tinymce.com>*/
                 $allowedTags='<p><strong><em><u><h1><h2><h3><h4><h5><h6><img>';
                 $allowedTags.='<li><ol><ul><span><div><br><ins><del>';
-                $return = strip_tags(stripslashes($text),$allowedTags);
+                $sanitized = strip_tags(stripslashes($text),$allowedTags);
                 /*</from tinymce.com>*/
-                
-                if(strlen($return) > 1)
-                {
-                    $sanitized = $return;
-                    return true;
-                }
-                else
-                {
-                    $error = "Nicht genügend gültige Zeichen (html)!";
-                    return false;
-                }
-                
+                return true;
                 break;
                 
             /*gender enum*/
@@ -177,20 +181,59 @@ class Validate
                 
             /*check user enum*/
             case "cr_resp":
+                $db = new Database();
+                $escaped = $db->escape($text);
+                $ret = $db->run("select uId from users where uName='$escaped'");
+                if($ret == false)
+                {
+                    $error = "Benutzer konnte nicht gefunden werden";
+                    return false;
+                }
+                $sanitized = $ret->fetch_assoc()["uId"];
+                return true;
+                
                 //TODO implement; check if user exists; return user ID;
                 return true;
                 break;
             
             case "cr_mat_delivery_":
+                $time = strtotime($text);
+                if($time == false)
+                {
+                    $error = "unbekanntes Zeitformat";
+                    return false;
+                }
+                $sanitized = date("Y-m-d  H:i:s",$time);
+                return true;
+                
+                break;
+            
+            case "cr_date_":
+                $time = strtotime($text);
+                if($time == false)
+                {
+                    $error = "unbekanntes Zeitformat";
+                    return false;
+                }
+                $sanitized = date("Y-m-d",$time);
+                return true;
+                break;
             case "cr_date_statime_":
             case "cr_date_stotime_":
-                //TODO check how the date is entered; verify; convert to mysql date
-                
+                $time = strtotime($text);
+                if($time == false)
+                {
+                    $error = "unbekanntes Zeitformat";
+                    return false;
+                }
+                $sanitized = date("H:i:s",$time);
                 return true;
                 break;
                 
 
             default:
+                $error = "unbekanntes feld";
+                return false;
                 break;
         }
         
@@ -248,7 +291,7 @@ class newOrder
 
 
     /*processes the post parameter and extracts the data*/
-    public function processAll()
+    public function processAll(&$success, &$error)
     {
         /*address related*/
         $this->address = $this->handle("cr_address");
@@ -265,7 +308,8 @@ class newOrder
         
         /*materials*/
         $i = 1;
-        while(isset($_POST["cr_mat_count_$i"]) && $this->success)
+
+        while(isset($_REQUEST["cr_mat_count_$i"]) && $this->success)
         {
             $this->mat_count[$i] = $this->handle("cr_mat_count_$i");
             $this->mat_title[$i] = $this->handle("cr_mat_title_$i");
@@ -278,7 +322,7 @@ class newOrder
         
         /*notes*/
         $i = 1;
-        while(isset($_POST["cr_note_title_$i"]) && $this->success)
+        while(isset($_REQUEST["cr_note_title_$i"]) && $this->success)
         {
             $this->note_title[$i] = $this->handle("cr_note_title_$i");
             $this->note[$i] = $this->handle("cr_note_$i");
@@ -287,7 +331,7 @@ class newOrder
         
         /*dates*/
         $i = 1;
-        while(isset($_POST["cr_date_$i"]) && $this->success)
+        while(isset($_REQUEST["cr_date_$i"]) && $this->success)
         {
             $this->date[$i] = $this->handle("cr_date_$i"+$i);
             $this->date_statime[$i] = $this->handle("cr_date_statime_$i");
@@ -298,7 +342,7 @@ class newOrder
         
          /*files*/
         $i = 1;
-        while(isset($_POST["cr_file_$i"]) && $this->success)
+        while(isset($_REQUEST["cr_file_$i"]) && $this->success)
         {
             $this->file[$i] = $this->handle("cr_file_$i");
             $i++;
@@ -306,6 +350,10 @@ class newOrder
         
         $this->writeDB();
         $this->saveFiles();
+        
+        
+        $success = $this->success;
+        $error = $this->errmsg;
     }
     
     /*saves all the attached files*/
@@ -327,70 +375,99 @@ class newOrder
         if(isset($_SESSION['user']) && isset($_SESSION['auth']))
         {
             //user needs to be authenticate
-            if( !$user->authenticate($_SESSION['user'], $_SESSION['auth']))
+            if($user->authenticate($_SESSION['user'], $_SESSION['auth']))
             {
         
                 /*inserting client information into the database*/
                 $type = "retail";
                 if($this->gender == 'b')
                     $type = "business";
+                
                 $db->run("insert into clients (cName, cType, cGender, cPhone, cMobile, cStreet, cCity)
                           values ('$this->name','$type','$this->gender','$this->phone','$this->mobile','$this->address','$this->city')");
 
+                
                 $ret = $db->run("select max(cId) from clients");
                 
                 /*insert into jobs table*/
-                $userid = $ret->fetch_assoc()["cId"];
+                $userid = $ret->fetch_assoc()["max(cId)"];
                 $creatorId = $user->getId();
                 $assigneeId = $this->resp;
                 $db->run("insert into jobs (jName, jDesc, jStage, jResp, Creator_uId, jCreationDate, clients_cId)
                           values ('$this->title','$this->desc','evaluation','$assigneeId','$creatorId','$datetime','$userid')");
 
                 $ret = $db->run("select max(jId) from jobs");
-                $jobId = $ret->fetch_assoc()["jId"];
+                $jobId = $ret->fetch_assoc()["max(jId)"];
                 
                 $materialId;
                 
                 $i=1;
                 while(isset($this->mat_title[$i]))
                 {
+                    $title = $this->mat_title[$i];
+                    $note = $this->mat_note[$i];
+                    $state = $this->mat_state[$i];
+                    $delivery = $this->mat_delivery[$i];
+                    $price = $this->mat_price[$i];
+                    $count = $this->mat_count[$i];
+                    
                     $db->run("insert into materials (mName, mDesc, mState, mDelDate, mPrice, mQuantity, jobs_jId)
-                          values ('$this->mat_title[$i]','$this->mat_note[$i]','$this->mat_state[$i]','$this->mat_delivery[$i]','$this->mat_price[$i]','$this->mat_count[$i]','$jobId')");
+                          values ('$title','$note','$state','$delivery','$price','$count','$jobId')");
+                    $i++;
                 }
                 
                 $i=1;
                 while(isset($this->file[$i]))
                 {
+                    $file = $this->file[$i];
                     $db->run("insert into comAttach (coResource, coDate, users_uId, jobs_jId, jobs_clients_cId)
-                          values ('$this->file[$i]', '$datetime', '$creatorId', '$jobId', '$userid')");
+                          values ('$file', '$datetime', '$creatorId', '$jobId', '$userid')");
 
                     $ret = $db->run("select max(coAtId) from comAttach");
-                    $this->file_Ids[$i] = $ret->fetch_assoc()["coAtId"];
+                    $this->file_Ids[$i] = $ret->fetch_assoc()["max(coAtId)"];
+                    $i++;
                 }
                 
                 
                 $i=1;
                 while(isset($this->note_title[$i]))
                 {
+                    $title = $this->note_title[$i];
+                    $note = $this->note[$i];
                     $db->run("insert into comText (coTitle, coText, coDate, jobs_jId, users_uId)
-                          values ('$this->note_title[$i]', '$this->note[$i]', '$datetime', '$jobId', '$creatorId')");
+                          values ('$title', '$note', '$datetime', '$jobId', '$creatorId')");
+                    $i++;
                 }
-
-                $db->run("insert into comText (hTime, hType, hText, jobs_jId)
-                          values ('$datetime', 'Neuer Auftrag', '$user->getUsername() hat einen neuen Auftrag erstellt.', '$jobId')");
+                
+                $i = 1;
+                while (isset($this->date[$i]))
+                {
+                    $date = $this->date[$i];
+                    $start = $this->date_statime[$i];
+                    $stop = $this->date_stotime[$i];
+                    $desc = $this->date_desc[$i];
+                    $db->run("insert into shedule (sStart, sStop, sComment, jobs_jId, users_uId)
+                          values ('$date $start', '$date $stop', '$desc', '$jobId', '$creatorId')");
+                    $i++;
+                }
+                
+                //TODO: history reenable; usw
+            //    $uname = $user->getUsername();
+            //    $db->run("insert into history (hTime, hType, hText, jobs_jId)
+            //              values ('$datetime', 'Neuer Auftrag', '$uname hat einen neuen Auftrag erstellt.', '$jobId')");
                 
 
             }
         }
-        
-        
-        
-        
-        
+        else
+        {
+            $this->errmsg = "Autentifizierung benötigt";
+            $this->success = false;
+        }
     }
 
 
-    /*reads a certain value out of $_POST[] and validates it's contents*/
+    /*reads a certain value out of $_REQUEST[] and validates it's contents*/
     public function handle($name)
     {
         $val = $this->retrieve($name);
@@ -410,14 +487,14 @@ class newOrder
         
     }
 
-    /*checks the $_POST for it and returns the value*/
+    /*checks the $_REQUEST for it and returns the value*/
     private function retrieve($name)
     {
         if($this->success == true)
         {
-            if(isset($_POST[$name]))
+            if(isset($_REQUEST[$name]))
             {
-                return $_POST[$name];
+                return $_REQUEST[$name];
             }
              else 
             {

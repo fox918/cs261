@@ -66,11 +66,14 @@ die;
         <label for="cr_resp">Verantwortlicher</label>
         <select name="cr_resp" id="cr_resp">
 <?php
-//TODO implement DB to get all users
+$db = new Database();
+$ret = $db->run("select uName from users");
+while($row = $ret->fetch_assoc())
+{
+    $name = $row["uName"];
+    echo "<option>$name</option>";
+}
 ?>
-            <option value="userid" >Hans</option>
-            <option>Muster</option>
-            <option>Petrus</option>
         </select>
     </span>
     </p>
