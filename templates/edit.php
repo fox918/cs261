@@ -303,6 +303,7 @@ echo "  </div>
         <button id=\"cr_file_addfield\">Datei hinzufügen</button>
     </fieldset>
     <div class=\"control\">
+        <input type=\"hidden\" id='action_input' name=\"action\" value=\"save\" />
         <div>
             <button id=\"save\">Auftrag speichern</button>
             <button id=\"publish\">Auftrag veröffentlichen</button>

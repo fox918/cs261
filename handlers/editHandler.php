@@ -35,10 +35,17 @@ if(isset($_SESSION['user']) && isset($_SESSION['auth']))
 $outputMsgs = array("errors" => false); //no messages yet, no errors either
 $errorMsgs = array();
 
+<<<<<<< HEAD
+$order = new newOrder();
+$success;
+$err;
+$order->processAll($success, $err);
+=======
 $edit = new newEdit();
 $success;
 $err;
 $edit->processAll($success, $err);
+>>>>>>> f08830aa0e4e73be715fee735eb9b2e4bd183c44
 
 $outputMsgs["errors"] = !$success;
 array_push($errorMsgs, "$err");
