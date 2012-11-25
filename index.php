@@ -199,6 +199,15 @@ if(isset($_GET['order'])){
             </nav>
             </header>
 
+            <div id="notifications">
+                <!-- different messages: 
+                <div class="info">Info message</div>
+                <div class="success">success message</div>
+                <div class="warning">warning message</div>
+                <div class="info">error message</div>
+                -->
+            </div>
+
             <?php $page->printArticle(); ?>
 
             <footer>
