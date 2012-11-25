@@ -58,9 +58,7 @@ if(isset($_GET["sortby"]) && isset($_GET["search"]))
             break;
     }
     
-    $user = new user();
-    $user->authenticate($_SESSION['user'], $_SESSION['auth']);
-    $id = $user->getId();
+    $id = $this->user->getId();
     $ret = $db->run("select cName, cStreet, cCity, jName, jId from clients c, jobs j where ((cName like '%$search%' or  cStreet like '%$search%' or cCity like '%$search%' or jName like '%$search%' or  jId like '%$search%') and c.cId = j.clients_cId and j.jResp = '$id' and j.jStage = 'finished') order by $sort asc");
      while($row = $ret->fetch_assoc())
      {
@@ -82,9 +80,7 @@ if(isset($_GET["sortby"]) && isset($_GET["search"]))
 }
 else
 {
-    $user = new user();
-    $user->authenticate($_SESSION['user'], $_SESSION['auth']);
-    $id = $user->getId();
+    $id = $this->user->getId();
     
     $db = new Database();
     $ret = $db->run("select cName, cStreet, cCity, jName, jId from clients c, jobs j where (c.cId = j.clients_cId and j.jResp = '$id' and j.jStage = 'finished')");

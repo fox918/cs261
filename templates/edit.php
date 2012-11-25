@@ -97,13 +97,14 @@ if(!defined('ACCESS'))
                 <input style='width:70px' type="text" name="cr_mat_count_1" value="32"/>
                 <input style='left:80px' type="text" name="cr_mat_title_1" value="herpderp"/>
                 <input style='left:270px' type="text" name="cr_mat_note_1" value="herpderp"/>
-                <select style='left:460px' name="cr_mat_state_1">
+                <select style='left:460px' name="cr_mat_state_1" class="buttoncontainer">
                     <option>Bestellt</option>
                     <option selected="selected">Geliefert</option>
                     <option>Benutzt</option>    
                 </select>
                 <input style='left:560px;width:120px' type="text" name="cr_mat_delivery_1" value="2.2.2012"/>
                 <input style='left:700px;width:100px' type="text" name="cr_mat_price_1" value="34.-"/>
+                <img class="closebutton" src='./img/icons/x_alt_16x16.png' />
                 </p>
             </div>
             <button id="cr_mat_addfield">Hinzufügen</button>
@@ -115,6 +116,7 @@ if(!defined('ACCESS'))
                     <fieldset>
                         <legend>
                             I am a note
+                            <img class="closebutton" src='./img/icons/x_alt_16x16.png' />
                         </legend>
                         <p class="text">
                            Hans peter text note
@@ -132,7 +134,8 @@ if(!defined('ACCESS'))
         <div>
             <fieldset  id="date_1" class="date">
                 <legend>
-                  Do, 25.09.2012 
+                  Do, 25.09.2012  
+                <img class="closebutton" src='./img/icons/x_alt_16x16.png' />
                 </legend>
                 <p>
                 <span>
@@ -164,10 +167,14 @@ if(!defined('ACCESS'))
         <button id="cr_file_addfield">Datei hinzufügen</button>
     </fieldset>
     <div class="control">
-        <button>Auftrag speichern</button>
-        <button>Auftrag veröffentlichen</button>
-        <button>Auftrag ist abgerechnet</button>
-        <button>Auftrag ins Archiv verschieben</button>
+        <div>
+            <button id="save">Auftrag speichern</button> <br />
+            <button id="publish">Auftrag veröffentlichen</button>
+        </div>
+        <div>
+            <button id="billing">Auftrag wird abgerechnet</button> <br />
+            <button id="archive">Auftrag ins Archiv verschieben</button>
+        </div>
     </div>
 </form>
 </article>
