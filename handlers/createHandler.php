@@ -30,7 +30,15 @@ if(isset($_SESSION['user']) && isset($_SESSION['auth']))
 
 //insert data into DB
 
-$outputMsgs = array("errors" => false,"errormsgs" => array("hello World","hanspeter")); //no messages yet, no errors either
+$outputMsgs = array("errors" => false); //no messages yet, no errors either
+$errorMsgs = array();
+
+$order = new newOrder();
+//$order->processAll(); 
+
+$outputMsgs["errors"] = true;
+array_push($errorMsgs, "YOU FAIL");
 
 
+$outputMsgs['errormsgs'] = $errorMsgs;
 echo json_encode($outputMsgs);
