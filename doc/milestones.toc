@@ -1,0 +1,13 @@
+\select@language {ngerman}
+\contentsline {section}{\numberline {1}Meileinstein 1}{2}
+\contentsline {subsection}{\numberline {1.1}Navigation}{2}
+\contentsline {subsection}{\numberline {1.2}Design}{2}
+\contentsline {subsection}{\numberline {1.3}Datenbank}{2}
+\contentsline {section}{\numberline {2}Meilenstein 2}{7}
+\contentsline {subsection}{\numberline {2.1}Datenbank}{7}
+\contentsline {subsection}{\numberline {2.2}Webprototyp}{7}
+\contentsline {section}{\numberline {3}Meilenstein 3}{8}
+\contentsline {subsection}{\numberline {3.1}Datenbank}{8}
+\contentsline {subsection}{\numberline {3.2}Webprototyp}{8}
+\contentsline {section}{\numberline {4}Meilenstein 4}{9}
+\contentsline {section}{\numberline {5}Meilenstein 5}{10}
