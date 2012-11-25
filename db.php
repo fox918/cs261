@@ -28,8 +28,8 @@ class Database
         $ret = $this->db->query($statement);
         
         //TODO remove
-        //$err = $this->db->error;
-        //echo "err: '$err'  statement: '$statement' <br>";
+//        $err = $this->db->error;
+//        echo "err: '$err'  statement: '$statement' <br>";
         
         return  $ret;
     }
@@ -282,16 +282,17 @@ class Validate
             case "cr_mat_count_":
             case "cr_phone":
                 $return = filter_var($text, FILTER_SANITIZE_NUMBER_INT);
-                if(strlen($return) > 1)
-                {
+                //TODO update
+          //      if(strlen($return) > 1)
+           //     {
                     $sanitized = $return;
                     return true;
-                }
+           /*     }
                 else
                 {
                     $error = "Nicht genügend gültige Zeichen (int;$type)!";
                     return false;
-                }
+                }*/
                 break;
             case "cr_mobile":
                 $sanitized = filter_var($text, FILTER_SANITIZE_NUMBER_INT);
@@ -761,7 +762,13 @@ class newEdit
     public function processAll(&$success, &$error)
     {
         
-        //TODO check if action is delete;
+        
+        if(!isset($_REQUEST["action"]))
+        {
+            $success = false;
+            $error = "incomplete post";
+        }
+        
         
         
         /*address related*/
@@ -771,11 +778,24 @@ class newEdit
         $this->name = $this->handle("cr_name");
         $this->mobile = $this->handle("cr_mobile");
         $this->phone = $this->handle("cr_phone");
+        
+        //TODO check why this doesn't work
         $this->jId = $this->handle("cr_id");
+        
+        $this->jId = $_REQUEST["cr_id"];
         
         /*Order & order description*/
         $this->resp = $this->handle("cr_resp");
         $this->desc = $this->handle("cr_desc");
+        
+        switch($_REQUEST["action"])
+        {
+            case "delete":
+                $this->db->run("DELETE FROM jobs WHERE jId = '$this->jId'");
+                $success = true;
+                return;
+            //TODO complete switch statement;
+        }
         
         /*materials*/
         $i = 1;
@@ -857,11 +877,11 @@ class newEdit
                 $type = "retail";
                 if($this->gender == 'b')
                     $type = "business";
-                $ret = $db->run("select clients_cId from jobs where jId = $this->jId");
+                $ret = $db->run("select clients_cId from jobs where jId = '$this->jId'");
                 $cid = $ret->fetch_assoc()["clients_cId"];
                 
-                $db->run("update clients (cName, cType, cGender, cPhone, cMobile, cStreet, cCity)
-                          values ('$this->name','$type','$this->gender','$this->phone','$this->mobile','$this->address','$this->city') 
+                $db->run("update clients 
+                          set cName='$this->name', cType='$type', cGender='$this->gender', cPhone= '$this->phone', cMobile='$this->mobile', cStreet='$this->address', cCity='$this->city'
                           where cId = '$cid'");
 
                 
@@ -873,9 +893,9 @@ class newEdit
                 $userid = $cid;
                 $creatorId = $user->getId();
                 $assigneeId = $this->resp;
-                $db->run("update jobs (jDesc, jResp, Creator_uId, jCreationDate, clients_cId)
-                          values ($this->desc','$assigneeId','$creatorId','$datetime','$userid')
-                        where jId = '$this->jId'");
+                $db->run("update jobs
+                          set jDesc='$this->desc', jResp='$assigneeId', Creator_uId='$creatorId', jCreationDate='$datetime', clients_cId='$userid'
+                          where jId = '$this->jId'");
 
                 $jobId = $this->jId;
                 
@@ -898,8 +918,8 @@ class newEdit
                     }
                     else
                     {
-                        $db->run("  update materials (mDesc, mState, mDelDate, mPrice, mQuantity, jobs_jId)
-                                    values ('$note','$state','$delivery','$price','$count','$jobId')
+                        $db->run("  update materials 
+                                    set mDesc='$note', mState='$state', mDelDate='$delivery', mPrice='$price', mQuantity='$count', jobs_jId='$jobId'
                                     where mId = '$id'");
                     }
                     $i++;
@@ -1007,12 +1027,14 @@ class newEdit
             {
                 return $_REQUEST[$name];
             }
-             else 
+            
+            //TODO
+          /*   else 
             {
                 $this->success = false;
                 $this->errmsg = "Field not set: $name";
                 return NULL;
-            }
+            }*/
         }
     }
 }
