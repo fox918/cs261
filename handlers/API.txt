@@ -3,8 +3,8 @@ The handler will get its data via AJAX/Javascript and will return
 the following:
 in case of success:
 JSON 
-{"errors":true}
+{"errors":false}
 
 in case of erros:
 JSON 
-{"errors":false, "errormsgs":["first errormsg","2nd errormsg"]
+{"errors":true, "errormsgs":["first errormsg","2nd errormsg"]

@@ -117,7 +117,6 @@ $(function() {
     //submit functionality
 
     $("#createForm").submit(function(e){
-        console.log("formular submitted");
         e.preventDefault();
 
         dataString = $("#createForm").serialize();
