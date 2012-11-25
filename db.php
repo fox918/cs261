@@ -760,6 +760,10 @@ class newEdit
     /*processes the post parameter and extracts the data*/
     public function processAll(&$success, &$error)
     {
+        
+        //TODO check if action is delete;
+        
+        
         /*address related*/
         $this->address = $this->handle("cr_address");
         $this->city = $this->handle("cr_city");
