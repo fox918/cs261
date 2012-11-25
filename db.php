@@ -911,6 +911,7 @@ class newEdit
                     $price = $this->mat_price[$i];
                     $count = $this->mat_count[$i];
                     $id = $this->mat_id[$i];
+                    
                     if($id == '')
                     {
                         $db->run("insert into materials (mName, mDesc, mState, mDelDate, mPrice, mQuantity, jobs_jId)
@@ -922,6 +923,7 @@ class newEdit
                                     set mDesc='$note', mState='$state', mDelDate='$delivery', mPrice='$price', mQuantity='$count', jobs_jId='$jobId'
                                     where mId = '$id'");
                     }
+                    
                     $i++;
                 }
                 
