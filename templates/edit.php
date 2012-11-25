@@ -228,7 +228,7 @@ $ret = $db->run("select * from comText where jobs_jId='$orderid'");
  {
      $title = $row["coTitle"];
      $text = $row["coText"];
-     $id = ["coTextId"];
+     $id = $row["coTextId"];
      
  
     echo " <div>
