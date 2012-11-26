@@ -41,6 +41,8 @@ $(function() {
 
         dataString = $("form").serialize();
 
+        $("#notifications").empty();
+
         $.ajax({
             type: "POST",
             url: "./handlers/editHandler.php",
