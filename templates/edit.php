@@ -145,7 +145,7 @@ echo "            </select>
         </p>
         <fieldset id=\"description\">
             <legend>Beschreibung</legend>
-            <textarea name=\"cr_descrption\" id=\"cr_desc\" rows=\"8\" cols=\"40\">$desc</textarea>
+            <textarea name=\"cr_description\" id=\"cr_desc\" rows=\"8\" cols=\"40\">$desc</textarea>
         </fieldset>";
 /*material*/
 
@@ -232,7 +232,7 @@ $ret = $db->run("select * from comText where jobs_jId='$orderid'");
                             $title
                             <img class=\"closebutton\" src='./img/icons/x_alt_16x16.png' />
                         </legend>
-                        <textarea name=\"cr_note_$i\" id= rows=\"8\" cols=\"40\">$text</textarea>
+                        <textarea name=\"cr_note_$i\" id=\"notefield_$i\" rows=\"8\" cols=\"40\">$text</textarea>
                         <input type=\"hidden\" name=\"cr_note_id_$i\" value=\"$id\" />
 
                     </fieldset>
@@ -294,7 +294,7 @@ echo "<input type=\"hidden\" name=\"cr_date_counter\" id=\"cr_date_counter\" val
 
 
 echo " <fieldset id=\"files\">
-        <legend>angehängte Dateien</legend>";
+        <legend>angehängte Dateien</legend><div>";
 $i=1;
 $ret = $db->run("select * from comAttach where jobs_jId='$orderid'");
 while($row = $ret->fetch_assoc())
@@ -302,17 +302,15 @@ while($row = $ret->fetch_assoc())
     $fname = $row["coResource"];
     $fid = $row["coAtId"];
 echo "
-        <div>
-            <p>
+                   <p class=\"file\">
             <label for=\"cr_file_$i\">Datei ersetzen: </label>
             <input type=\"file\" name=\"cr_file_$i\" style=\"width:400px\"/>
             <a href=\"/handlers/download.php?id=$fid\">Download $fname<a>
-            </p>
-            </div>";
+            </p>";
     $i++;
 }
 
-echo "        <button id=\"cr_file_addfield\">Datei hinzufügen</button>";
+echo "        </div><button id=\"cr_file_addfield\">Datei hinzufügen</button>";
 $i--;
 echo "<input type=\"hidden\" name=\"cr_file_counter\" id=\"cr_file_counter\" value=\"$i\" />";
 

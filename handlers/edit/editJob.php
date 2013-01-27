@@ -2,7 +2,6 @@
 /*
  * post/get parameters:
  * cr_id : the job's id
- * cr_title : the  title
  * cr_desc : the description
  * cr_resp : the person responsible to handle it
 */
@@ -40,7 +39,6 @@ if(isset($_SESSION['user']) && isset($_SESSION['auth']))
 $db = new Database();
 
 if(isset($_REQUEST["cr_id"]) 
-        && isset($_REQUEST["cr_title"]) 
         && isset($_REQUEST["cr_resp"]) 
         && isset($_REQUEST["cr_desc"]))
 {
@@ -70,19 +68,10 @@ if(isset($_REQUEST["cr_id"])
     $note = $db->escape(strip_tags(stripslashes($_REQUEST["cr_desc"]),$allowedTags));
     /*</from tinymce.com>*/
     
-    $title = $db->escape(filter_var($_REQUEST["cr_title"], FILTER_SANITIZE_STRING));
     if(isset($row["jId"]))
     {
-        if(strlen($title) == 0)
-        {
-            $outputMsgs["errors"] = "true";
-            array_push($errorMsgs, "Kein Titel gesetzt gefunden");
-            $outputMsgs['errormsgs'] = $errorMsgs;
-            echo json_encode($outputMsgs);
-            die();
-        }
         $db->run("update jobs set 
-                jName='$title', jDesc='$note', jResp='$respId' 
+                jDesc='$note', jResp='$respId' 
                 where jId = '$id'");
         $outputMsgs["errors"] = "false";
         echo json_encode($outputMsgs);

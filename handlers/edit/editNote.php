@@ -2,7 +2,6 @@
 /*
  * post/get parameters:
  * cr_note_id : the note's id
- * cr_note_title : the note title
  * cr_note : the note itself
 */
 
@@ -39,7 +38,7 @@ if(isset($_SESSION['user']) && isset($_SESSION['auth']))
 $db = new Database();
 
 
-if(isset($_REQUEST["cr_note_id"]) && isset($_REQUEST["cr_note_title"]) && isset($_REQUEST["cr_note"]))
+if(isset($_REQUEST["cr_note_id"])&& isset($_REQUEST["cr_note"]))
 {
     $fid = $db->escape($_REQUEST["cr_note_id"]);
     $uid = $db->escape($user->getId());
@@ -65,10 +64,9 @@ if(isset($_REQUEST["cr_note_id"]) && isset($_REQUEST["cr_note_title"]) && isset(
     $note = $db->escape(strip_tags(stripslashes($_REQUEST["cr_note"]),$allowedTags));
     /*</from tinymce.com>*/
     
-    $title = $db->escape(filter_var($_REQUEST["cr_note_title"], FILTER_SANITIZE_STRING));
     if(isset($row["jId"]))
     {
-        if(strlen($note) == 0 && strlen($title) == 0)
+        if(strlen($note) == 0 )
         {
             $outputMsgs["errors"] = "true";
             array_push($errorMsgs, "Kein Text gefunden");
@@ -79,14 +77,14 @@ if(isset($_REQUEST["cr_note_id"]) && isset($_REQUEST["cr_note_title"]) && isset(
         date_default_timezone_set('Europe/Zurich');
         $datetime = date("Y-m-d  H:i:s",time());
         $db->run("update comText set 
-                coTitle='$title', coText='$note', coChange='$datetime' 
+                 coText='$note', coChange='$datetime' 
                 where coTextId = '$fid'");
         $outputMsgs["errors"] = "false";
         echo json_encode($outputMsgs);
         die();
     }
     else 
-    {
+        {
         $outputMsgs["errors"] = "true";
         array_push($errorMsgs, "Ungültige Auftrags ID angegeben");
         $outputMsgs['errormsgs'] = $errorMsgs;
