@@ -67,6 +67,13 @@ if(isset($_REQUEST["cr_id"])
         $db->run("update jobs set 
                 jStage='$state'
                 where jId = '$id'");
+        
+        $uname = $user->getUsername();
+        $datetime = date("Y-m-d  H:i:s",time());
+        $db->run("insert into history (hTime, hType, hText, jobs_jId)
+            values ('$datetime', 'Auftragsstatus geändert', '$uname hat den Auftragsstatus aktualisiert: \"$state\".', '$id')");
+        
+        
         $outputMsgs["errors"] = "false";
         echo json_encode($outputMsgs);
         die();

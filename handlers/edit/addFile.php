@@ -64,7 +64,12 @@ if(isset($_REQUEST["cr_id"]))
         $ret = $db->run("select max(coAtId) from comAttach");
         $fid = $ret->fetch_assoc()["max(coAtId)"];
         
-        move_uploaded_file($_FILES['tmp_name'], "../../uploads/$fid");
+        move_uploaded_file($_FILES['tmp_name'], "../../uploads/$fid"); 
+        
+        $uname = $user->getUsername();
+        $datetime = date("Y-m-d  H:i:s",time());
+        $db->run("insert into history (hTime, hType, hText, jobs_jId)
+            values ('$datetime', 'Neue Datei', '$uname hat eine neue Datei hochgeladen: \"$fname\".', '$id')");
 
         $outputMsgs["errors"] = "false";
         echo json_encode($outputMsgs);

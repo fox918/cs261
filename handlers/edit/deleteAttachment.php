@@ -48,6 +48,12 @@ if(isset($_REQUEST["cr_id"]) && isset($_REQUEST["cr_file_id"]))
     if(isset($row["jId"]))
     {
         $db->run("DELETE FROM comAttach WHERE jobs_jId = '$id' and coAtId = '$nid'");
+        
+        $uname = $user->getUsername();
+        $datetime = date("Y-m-d  H:i:s",time());
+        $db->run("insert into history (hTime, hType, hText, jobs_jId)
+            values ('$datetime', 'Datei entfernt', '$uname hat eine Datei gelöscht.', '$id')");
+        
         $outputMsgs["errors"] = "false";
         echo json_encode($outputMsgs);
         die();

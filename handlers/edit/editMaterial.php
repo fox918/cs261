@@ -122,6 +122,11 @@ if(isset($_REQUEST["cr_mat_id"])
         $db->run("update materials set 
             mName='$title', mDesc='$note', mState='$state', mDelDate='$delivery', mPrice='$price', mQuantity='$count'
             where mId = '$fid'");
+        
+        $uname = $user->getUsername();
+        $datetime = date("Y-m-d  H:i:s",time());
+        $db->run("insert into history (hTime, hType, hText, jobs_jId)
+            values ('$datetime', 'Material aktualisiert', '$uname hat eine Material aktualisiert.', '$id')");
 
         $outputMsgs["errors"] = "false";
         echo json_encode($outputMsgs);

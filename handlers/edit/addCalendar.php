@@ -100,6 +100,11 @@ if(isset($_REQUEST["cr_id"])
         }
         $db->run("insert into shedule (sStart, sStop, sComment, jobs_jId, users_uId) 
             values ('$date $start', '$date $stop', '$desc', '$id', '$uid')");
+        
+        $uname = $user->getUsername();
+        $datetime = date("Y-m-d  H:i:s",time());
+        $db->run("insert into history (hTime, hType, hText, jobs_jId)
+            values ('$datetime', 'Neuer Kalendereintrag', '$uname hat einen neuen Kalendereintrag erstellt: \"$desc\" von $date $start bis $stop .', '$id')");
 
         $outputMsgs["errors"] = "false";
         echo json_encode($outputMsgs);
