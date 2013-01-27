@@ -35,10 +35,6 @@ if(isset($_SESSION['user']) && isset($_SESSION['auth']))
 
 $db = new Database();
 
-//TODO remove
-file_put_contents("../../uploads/info.txt", print_r($_FILES, true));
-file_put_contents("../../uploads/info.txt", print_r($_REQUEST, true), FILE_APPEND);
-
 if(isset($_REQUEST["cr_id"]))
 {
     date_default_timezone_set('Europe/Zurich');
