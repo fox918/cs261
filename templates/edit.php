@@ -293,14 +293,24 @@ echo "  </div>
     </fieldset>
 
     <fieldset id=\"files\">
-        <legend>angehängte Dateien</legend>
+        <legend>angehängte Dateien</legend>";
+$i=1;
+$ret = $db->run("select * from comAttach where jobs_jId='$orderid'");
+while($row = $ret->fetch_assoc())
+{
+    $fname = $row["coResource"];
+    $fid = $row["coAtId"];
+echo "
         <div>
             <p>
-            <label for=\"cr_file_1\">Datei hochladen: </label>
-            <input type=\"file\" name=\"cr_file_1\" style=\"width:400px\"/>
+            <label for=\"cr_file_$i\">Datei ersetzen: </label>
+            <input type=\"file\" name=\"cr_file_$i\" style=\"width:400px\"/>
+            <a href=\"/handlers/download.php?id=$fid\">Download $fname<a>
             </p>
-        </div>
-        <button id=\"cr_file_addfield\">Datei hinzufügen</button>
+        </div>";
+}
+
+echo "        <button id=\"cr_file_addfield\">Datei hinzufügen</button>
     </fieldset>
     <div class=\"control\">
         <input type=\"hidden\" id='action_input' name=\"action\" value=\"save\" />
