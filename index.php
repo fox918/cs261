@@ -105,6 +105,19 @@ if(isset($_SESSION['user']) && isset($_SESSION['auth']))
 {
     //user already logged in
     $user->authenticate($_SESSION['user'], $_SESSION['auth']);
+    if($user->isLoggedIn() == false)
+    {
+        if(isset($_POST['login_username']) && isset($_POST['login_password']))
+        {
+            $user->login($_POST['login_username'],$_POST['login_password']);
+        }
+        //set sessionvars
+        if($user->isLoggedIn())
+        {
+            $_SESSION['user'] = $user->getUsername();
+            $_SESSION['auth'] = $user->getAuthToken();
+        }
+    }
 } else {
     //user is not logged in
     //try login
