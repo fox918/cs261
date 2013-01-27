@@ -1,6 +1,7 @@
 -- create users
+--root PW is 1234
 INSERT INTO `users` (`uId`, `uName`, `uPw`, `uType`, `uLastLogin`, `uSettings`, `uPhone`, `uMobile`, `uRealname`, `uWage`, `uAuthToken`) VALUES
-(1, 'root', 'a9de63af5eb1e4196aba47de6639138a5a7552ac', 'admin', NULL, NULL, '079 123 12 12', '314 156 92 53', 'Hanspeter Müller', 9000, NULL),
+(1, 'root', '628a6aa071ba342dd1e0d25496ce55c7', 'admin', NULL, NULL, '079 123 12 12', '314 156 92 53', 'Hanspeter Müller', 9000, NULL),
 (2, 'helper', 'ce066ede3bdd8bb54816b47f5bdb47497f379965', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 

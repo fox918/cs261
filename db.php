@@ -69,7 +69,6 @@ class Validate
             case "cr_address":
             case "cr_mat_title_":
             case "cr_date_desc_":
-            case "cr_mat_note_":
             case "cr_file_":
                 $return = filter_var($text, FILTER_SANITIZE_STRING);
                 if(strlen($return) > 0)
@@ -85,6 +84,7 @@ class Validate
                 break; //useless; I still keep it as it looks better
                 
             case "cr_note_title_":
+            case "cr_mat_note_":
             case "cr_mat_note_":
                 $sanitized = filter_var($text, FILTER_SANITIZE_STRING);
                 return true;
@@ -467,10 +467,9 @@ class newOrder
                     $i++;
                 }
                 
-                //TODO: history reenable; usw
-            //    $uname = $user->getUsername();
-            //    $db->run("insert into history (hTime, hType, hText, jobs_jId)
-            //              values ('$datetime', 'Neuer Auftrag', '$uname hat einen neuen Auftrag erstellt.', '$jobId')");
+                $uname = $user->getUsername();
+                $db->run("insert into history (hTime, hType, hText, jobs_jId)
+                          values ('$datetime', 'Neuer Auftrag', '$uname hat diesen Auftrag erstellt.', '$jobId')");
                 
 
             }
