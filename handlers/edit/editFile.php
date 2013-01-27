@@ -75,6 +75,11 @@ if(isset($_REQUEST["cr_file_id"]))
             coResource='$fname', coChange='$datetime'
             where coAtId='$fid'");
         
+        $uname = $user->getUsername();
+        $datetime = date("Y-m-d  H:i:s",time());
+        $db->run("insert into history (hTime, hType, hText, jobs_jId)
+            values ('$datetime', 'Datei aktualisiert', '$uname hat eine Datei aktualisiert.', '$id')");
+        
         move_uploaded_file($_FILES['tmp_name'], "../../uploads/$fid");
 
         $outputMsgs["errors"] = "false";

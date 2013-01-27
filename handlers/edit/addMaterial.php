@@ -107,6 +107,11 @@ if(isset($_REQUEST["cr_id"])
         $datetime = date("Y-m-d  H:i:s",time());
         $db->run("insert into materials (mName, mDesc, mState, mDelDate, mPrice, mQuantity, jobs_jId)
             values ('$title','$note','$state','$delivery','$price','$count','$id')");
+        
+        $uname = $user->getUsername();
+        $datetime = date("Y-m-d  H:i:s",time());
+        $db->run("insert into history (hTime, hType, hText, jobs_jId)
+            values ('$datetime', 'Neues Material', '$uname hat neues Material hinzugefügt: $count mal \"$title\" à $price Fr.', '$id')");
 
         $outputMsgs["errors"] = "false";
         echo json_encode($outputMsgs);

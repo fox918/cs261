@@ -215,11 +215,11 @@ CREATE  TABLE IF NOT EXISTS `ordermgmt`.`users` (
                                     `hType` VARCHAR(45) NOT NULL ,
                                     `hText` TEXT NOT NULL ,
                                     `jobs_jId` INT NOT NULL ,
-                                    `materials_mId` INT NOT NULL ,
-                                    `shedule_sId` INT NOT NULL ,
-                                    `comments_coId` INT NOT NULL ,
-                                    `comWork_coWorkId` INT NOT NULL ,
-                                    `comAttach_coAtId` INT NOT NULL ,
+                                    `materials_mId` INT,
+                                    `shedule_sId` INT,
+                                    `comments_coId` INT,
+                                    `comWork_coWorkId` INT,
+                                    `comAttach_coAtId` INT,
                                     PRIMARY KEY (`hId`),
                                     FOREIGN KEY (`jobs_jId` )
                                     REFERENCES `ordermgmt`.`jobs` (`jId` )

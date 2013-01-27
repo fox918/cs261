@@ -42,3 +42,5 @@ define('DEBUG', 1);                    //DANGER DANGER HIGH VOLTAGE
  * CONSTANTS
  */
 define('ACCESS',1);
+
+define('GLOBAL_SALT','öäü2o3');

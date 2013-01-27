@@ -48,6 +48,12 @@ if(isset($_REQUEST["cr_id"]) && isset($_REQUEST["cr_date_id"]))
     if(isset($row["jId"]))
     {
         $db->run("DELETE FROM shedule WHERE jobs_jId = '$id' and sId = '$nid'");
+        
+        $uname = $user->getUsername();
+        $datetime = date("Y-m-d  H:i:s",time());
+        $db->run("insert into history (hTime, hType, hText, jobs_jId)
+            values ('$datetime', 'Kalendereintrag entfernt', '$uname hat einen Kalendereintrag gelöscht.', '$id')");
+        
         $outputMsgs["errors"] = "false";
         echo json_encode($outputMsgs);
         die();

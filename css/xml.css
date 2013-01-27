@@ -1,0 +1,25 @@
+history {
+    display: table;
+    border: 1px solid gray;
+    margin: 10px;
+}
+
+dr {
+    display: table-row;
+}
+
+dr:nth-child(odd) {
+    background: #ddd;
+}
+
+dh, dc {
+    display: table-cell;
+    padding: 5px;
+    border: 1px solid gray;
+}
+
+dh {
+ font-weight: bold;
+ background: gray;
+ color: #fff;
+}

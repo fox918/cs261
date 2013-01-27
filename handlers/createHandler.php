@@ -22,7 +22,7 @@ if(isset($_SESSION['user']) && isset($_SESSION['auth']))
 {
     //user needs to be authenticate
     if( !$user->authenticate($_SESSION['user'], $_SESSION['auth'])){
-        // TODO die;   
+        // TODO die;
     }
 } else {
     //user is not logged in

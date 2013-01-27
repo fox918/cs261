@@ -35,7 +35,8 @@ class user
         //TODO real auth; compare password
         $db = new Database();
         $qry = $db->escape($username);
-        $statement = "select * from users where uName=\"$qry\";";
+        $pw = md5($password.GLOBAL_SALT);
+        $statement = "select * from users where uName='$qry' and uPw='$pw'";
         $ret = $db->run($statement);
         $row = $ret->fetch_assoc();
         
@@ -49,7 +50,9 @@ class user
             
             /*updating DB*/
             $datetime = date("Y-m-d  H:i:s",time());
-            $db->run("UPDATE `users` SET `uAuthToken`='$this->authToken', `uLastLogin`='$datetime' WHERE `uId`='$this->id';");
+            $db->run("UPDATE users SET uAuthToken='$this->authToken', uLastLogin='$datetime' WHERE uId='$this->id';");
+            return true;
+            
         }
         return false;
     }

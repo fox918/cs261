@@ -67,6 +67,12 @@ if(isset($_REQUEST["cr_id"]) && isset($_REQUEST["cr_note_title"]) && isset($_REQ
         $datetime = date("Y-m-d  H:i:s",time());
         $db->run("insert into comText (coTitle, coText, coDate, jobs_jId, users_uId)
                           values ('$title', '$note', '$datetime', '$id', '$uid')");
+        
+        $uname = $user->getUsername();
+        $datetime = date("Y-m-d  H:i:s",time());
+        $db->run("insert into history (hTime, hType, hText, jobs_jId)
+            values ('$datetime', 'Neue Notiz', '$uname hat eine neue Notiz mit dem Titel \"$title\" hinzugefügt.', '$id')");
+        
         $outputMsgs["errors"] = "false";
         echo json_encode($outputMsgs);
         die();

@@ -116,6 +116,11 @@ if(isset($_REQUEST["date"])
         $db->run("update shedule set 
             sStart='$date $start', sStop='$date $stop', sComment='$desc', users_uId='$uid'
             where sId = '$eid'");
+        
+        $uname = $user->getUsername();
+        $datetime = date("Y-m-d  H:i:s",time());
+        $db->run("insert into history (hTime, hType, hText, jobs_jId)
+            values ('$datetime', 'Kalendereintrag aktualisiert', '$uname hat einen Kalendereintrag aktualisiert.', '$id')");
 
         $outputMsgs["errors"] = "false";
         echo json_encode($outputMsgs);

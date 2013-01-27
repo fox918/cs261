@@ -47,6 +47,12 @@ if(isset($_REQUEST["cr_id"]) && isset($_REQUEST["cr_note_id"]))
     if(isset($row["jId"]))
     {
         $db->run("DELETE FROM comText WHERE jobs_jId = '$id' and coTextId = '$nid'");
+        
+        $uname = $user->getUsername();
+        $datetime = date("Y-m-d  H:i:s",time());
+        $db->run("insert into history (hTime, hType, hText, jobs_jId)
+            values ('$datetime', 'Notiz entfernt', '$uname hat eine Notiz gelöscht.', '$id')");
+        
         $outputMsgs["errors"] = "false";
         echo json_encode($outputMsgs);
         die();
