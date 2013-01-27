@@ -543,8 +543,8 @@ class newOrder
         
         //TODO remove this debug
         //TODO check why the files are not posted
-        file_put_contents("../uploads/info.txt", print_r($_FILES, true));
-        file_put_contents("../uploads/info.txt", print_r($_REQUEST, true), FILE_APPEND);
+        //file_put_contents("../uploads/info.txt", print_r($_FILES, true));
+        //file_put_contents("../uploads/info.txt", print_r($_REQUEST, true), FILE_APPEND);
     
         while(isset($_FILES["cr_file_$i"]))
         {
