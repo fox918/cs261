@@ -121,6 +121,8 @@ $(function() {
 
         dataString = $("#createForm").serialize();
 
+        $("#notifications").empty();
+
         $.ajax({
             type: "POST",
             url: "./handlers/createHandler.php",
