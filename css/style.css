@@ -431,6 +431,15 @@ column-gap: 3em;
     margin: 5px auto 5px auto; 
     width: 300px;
 }
+
+#edit p.address span span{
+    color: #000;
+    top:0px;
+}
+#edit p#contact span span{
+    color:#000;
+    top:0px;
+}
 #edit p>span{
     display:block;
     margin:10px;

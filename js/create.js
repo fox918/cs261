@@ -118,8 +118,10 @@ $(function() {
 
     $("#createForm").submit(function(e){
         e.preventDefault();
+        console.log("submitting data");
 
         dataString = $("#createForm").serialize();
+        console.log(dataString);
 
         $("#notifications").empty();
 
@@ -129,6 +131,7 @@ $(function() {
             data: dataString,
             dataType: "json",
             success: function(data) {
+                console.log(data);
                 if(data.errors == false){
                     var msg=document.createElement("div");
                     msg.innerHTML="Auftrag erfolgreich erstellt, Sie werden in Kürze weitergeleitet";

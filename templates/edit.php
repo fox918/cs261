@@ -57,53 +57,47 @@ echo "
             <legend>Adresse</legend> 
             <p class='address'>
             <span>
-                <label for=\"cr_address\">Strasse</label> 
-                <input type=\"text\" name=\"cr_address\" id=\"cr_address\" value=\"$street\" />
+                <label>Strasse</label> 
+                <span>$street</span>
             </span>
             <span>
-                <label for=\"cr_city\">Ortschaft</label>
-                <input type=\"text\" name=\"cr_city\" id=\"cr_city\" value=\"$city\" />
+                <label>Ortschaft</label>
+                    <span>$city</span>
             </span>
             </p>
         </fieldset>
         <fieldset>
             <legend id='floatleft'>Kontakt</legend>
             <p id=\"contact\">
-            <span> <label for=\"cr_gender\">Anrede</label>
-                <select name=\"cr_gender\" id=\"cr_gender\">";
+            <span> <label>Anrede</label>
+                <span>";
 switch($gender)
 {
     case "m":
-        echo "      <option>Frau</option>
-                    <option selected='selected'>Herr</option>
-                    <option>Firma</option>";
+        echo "Herr";
         break;
     
     case "f":
-        echo "      <option selected='selected'>Frau</option>
-                    <option>Herr</option>
-                    <option>Firma</option>";
+        echo "Frau";
         break;
     
     default:
-        echo "      <option>Frau</option>
-                    <option>Herr</option>
-                    <option selected='selected'>Firma</option>";
+        echo "Firma";
         break;
 }
-echo "                </select>
+echo "                </span>
             </span>
             <span>
-                <label for=\"cr_name\">Name</label>
-                <input type=\"text\" name=\"cr_name\" id=\"cr_name\" value=\"$name\" />
+                <label>Name</label>
+                <span>$name</span>
             </span>
             <span>
-                <label for=\"cr_mobile\">Mobile</label>
-                <input type=\"text\" name=\"cr_mobile\" id=\"cr_mobile\" value=\"$mobile\" />
+                <label>Mobile</label>
+                <span>$mobile</span>
             </span>    
             <span>
-                <label for=\"cr_phone\">Telefon</label>
-                <input type=\"text\" name=\"cr_phone\" id=\"cr_phone\" value=\"$phone\" />
+                <label>Telefon</label>
+                <span>$phone</span>
             </span>
             </p>
         </fieldset>
@@ -213,13 +207,14 @@ while($row = $ret->fetch_assoc())
     
     $i++;
 }
+$i--;
+echo "</div><input type=\"hidden\" name=\"cr_mat_counter\" id=\"cr_mat_counter\" value=\"$i\" />";
 
 /*notes*/
 $i=1;
 $ret = $db->run("select * from comText where jobs_jId='$orderid'");
                 
- echo "           </div>
-            <button id=\"cr_mat_addfield\">Hinzufügen</button>
+ echo " <button id=\"cr_mat_addfield\">Hinzufügen</button>
         </fieldset>
         <fieldset id=\"notes\">
             <legend>Notizen</legend>";
@@ -230,7 +225,6 @@ $ret = $db->run("select * from comText where jobs_jId='$orderid'");
      $text = $row["coText"];
      $id = $row["coTextId"];
      
- 
     echo " <div>
                 <div class=\"note buttoncontainer\" id=\"note_$i\">
                     <fieldset>
@@ -244,10 +238,13 @@ $ret = $db->run("select * from comText where jobs_jId='$orderid'");
                     </fieldset>
                 </div>
             </div>";
+     $i++;
 }
-            
-  echo "        <button id=\"cr_note_addfield\">Hinzufügen</button>
+
+$i--;
+  echo "<button id=\"cr_note_addfield\">Hinzufügen</button>
         </fieldset>
+        <input type=\"hidden\" name=\"cr_note_counter\" id=\"cr_note_counter\" value=\"$i\" />
     </fieldset>
 
     <fieldset id=\"calendar\">
@@ -285,14 +282,18 @@ echo "          <fieldset  id=\"date_$i\" class=\"date buttoncontainer\">
                 </span>
                 </p>
             </fieldset>";
-
+$i++;
 }
             
 echo "  </div>
         <button id=\"cr_date_addfield\">Hinzufügen</button>
-    </fieldset>
+        </fieldset>";
 
-    <fieldset id=\"files\">
+$i--;
+echo "<input type=\"hidden\" name=\"cr_date_counter\" id=\"cr_date_counter\" value=\"$i\" />";
+
+
+echo " <fieldset id=\"files\">
         <legend>angehängte Dateien</legend>";
 $i=1;
 $ret = $db->run("select * from comAttach where jobs_jId='$orderid'");
@@ -307,11 +308,15 @@ echo "
             <input type=\"file\" name=\"cr_file_$i\" style=\"width:400px\"/>
             <a href=\"/handlers/download.php?id=$fid\">Download $fname<a>
             </p>
-        </div>";
+            </div>";
+    $i++;
 }
 
-echo "        <button id=\"cr_file_addfield\">Datei hinzufügen</button>
-    </fieldset>
+echo "        <button id=\"cr_file_addfield\">Datei hinzufügen</button>";
+$i--;
+echo "<input type=\"hidden\" name=\"cr_file_counter\" id=\"cr_file_counter\" value=\"$i\" />";
+
+echo " </fieldset>
     <div class=\"control\">
         <input type=\"hidden\" id='action_input' name=\"action\" value=\"save\" />
         <div>
