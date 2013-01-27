@@ -51,6 +51,8 @@ class user
             /*updating DB*/
             $datetime = date("Y-m-d  H:i:s",time());
             $db->run("UPDATE users SET uAuthToken='$this->authToken', uLastLogin='$datetime' WHERE uId='$this->id';");
+            return true;
+            
         }
         return false;
     }
