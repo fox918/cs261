@@ -72,7 +72,7 @@ class Validate
             case "cr_mat_note_":
             case "cr_file_":
                 $return = filter_var($text, FILTER_SANITIZE_STRING);
-                if(strlen($return) > 1)
+                if(strlen($return) > 0)
                 {
                     $sanitized = $return;
                     return true;
@@ -94,7 +94,7 @@ class Validate
             case "cr_mat_count_":
             case "cr_phone":
                 $return = filter_var($text, FILTER_SANITIZE_NUMBER_INT);
-                if(strlen($return) > 1)
+                if(strlen($return) > 0)
                 {
                     $sanitized = $return;
                     return true;
@@ -111,7 +111,7 @@ class Validate
             
             /*float*/
             case "cr_mat_price_":
-                $return = filter_var($text, FILTER_SANITIZE_NUMBER_FLOAT);
+                $return = filter_var($text, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
                 if(strlen($return) > 0)
                 {
                     $sanitized = $return;
@@ -259,7 +259,7 @@ class Validate
             case "cr_date_desc_":
             case "cr_file_":
                 $return = filter_var($text, FILTER_SANITIZE_STRING);
-                if(strlen($return) > 1)
+                if(strlen($return) > 0)
                 {
                     $sanitized = $return;
                     return true;
@@ -282,17 +282,17 @@ class Validate
             case "cr_mat_count_":
             case "cr_phone":
                 $return = filter_var($text, FILTER_SANITIZE_NUMBER_INT);
-                //TODO update
-          //      if(strlen($return) > 1)
-           //     {
+
+                if(strlen($return) > 0)
+               {
                     $sanitized = $return;
                     return true;
-           /*     }
+                }
                 else
                 {
                     $error = "Nicht genügend gültige Zeichen (int;$type)!";
                     return false;
-                }*/
+                }
                 break;
             case "cr_mobile":
                 $sanitized = filter_var($text, FILTER_SANITIZE_NUMBER_INT);
@@ -459,6 +459,7 @@ class newOrder
     
     private $file;
     private $file_Ids;
+    private $fileTmp;
     
     private $note_title;
     private $note;
@@ -539,12 +540,23 @@ class newOrder
         
          /*files*/
         $i = 1;
-        while(isset($_REQUEST["cr_file_$i"]) && $this->success)
-        {
-            $this->file[$i] = $this->handle("cr_file_$i");
-            $i++;
-        }
         
+        //TODO remove this debug
+        //TODO check why the files are not posted
+        file_put_contents("../uploads/info.txt", print_r($_FILES, true));
+        file_put_contents("../uploads/info.txt", print_r($_REQUEST, true), FILE_APPEND);
+    
+        while(isset($_FILES["cr_file_$i"]))
+        {
+            $file = $_FILES["cr_file_$i"];
+            if($file['error'] == UPLOAD_ERR_OK)
+            {
+                $_SESSION["cr_file_$i"] = $file['name'];
+                $this->file[$i] = $this->handle("cr_file_$i");
+                $this->fileTmp[$i] = $file['tmp_name'];
+                $i++;
+            }
+        }
         $this->writeDB();
         $this->saveFiles();
         
@@ -556,6 +568,14 @@ class newOrder
     /*saves all the attached files*/
     private function saveFiles()
     {
+        if($this->success)
+        {
+            $i = 1;
+            while(isset($this->file[$i]))
+            {
+                move_uploaded_file($this->fileTmp[$i], "../uploads/$this->file_Ids[$i]");
+            }
+        }
         //TODO implement
     }
     
@@ -564,7 +584,6 @@ class newOrder
     /*writes the contents into the database*/
     private function writeDB()
     {
-        //TODO implement
         $db = $this->db;
         $user = new user();
         $datetime = date("Y-m-d  H:i:s",time());
@@ -572,7 +591,7 @@ class newOrder
         if(isset($_SESSION['user']) && isset($_SESSION['auth']))
         {
             //user needs to be authenticate
-            if($user->authenticate($_SESSION['user'], $_SESSION['auth']))
+            if($user->authenticate($_SESSION['user'], $_SESSION['auth']) && $this->success)
             {
         
                 /*inserting client information into the database*/
@@ -654,6 +673,14 @@ class newOrder
             //              values ('$datetime', 'Neuer Auftrag', '$uname hat einen neuen Auftrag erstellt.', '$jobId')");
                 
 
+            }
+            else
+            {
+                if($this->success)
+                {
+                    $this->errmsg = "Autentifizierung fehlgeschlagen";
+                    $this->success = false;
+                }
             }
         }
         else
