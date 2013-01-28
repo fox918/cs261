@@ -265,7 +265,7 @@ echo "          <fieldset  id=\"date_$i\" class=\"date buttoncontainer\">
                 <input type=\"hidden\" name=\"cr_date_id_$i\" value=\"$id\" />
                 <legend>
                     $start
-                    <img class=\"closebutton\" src='./img/icons/x_alt_16x16.png' />
+                    <img class=\"closebutton\" src='./img/icons/x_alt_16x16.png' onclick='delDate(this)'/>
                 </legend>
                 <p>
                 <span>

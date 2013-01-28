@@ -185,15 +185,6 @@ $(function() {
         });
     });
 
-    //delete Attachment
-
-
-    //delete calendar
-
-    //delete Material
-
-    //delete Note
-
     //new Handlers:
     //add file
 
@@ -308,16 +299,47 @@ $(function() {
             });
 
 
-    //delete job
-    $("#delete").click(function(e){
-    });
-
     //edit job state
     $("#publish").click(function(){
+        var request = $.ajax({
+            url : "handlers/edit/editJobState.php",
+            type : "POST",
+            data : {cr_id:id, action: 'processing'},
+            dataType: "json"
+        });
+        request.done(function(data){
+            if(data.errors == 'false'){
+                window.setTimeout("location.reload();",50);
+            }
+        });
+
     });
     $("#billing").click(function(){
+        var request = $.ajax({
+            url : "handlers/edit/editJobState.php",
+            type : "POST",
+            data : {cr_id:id, action: 'billing'},
+            dataType: "json"
+        });
+        request.done(function(data){
+            if(data.errors == 'false'){
+                window.setTimeout("location.reload();",50);
+            }
+        });
+
     });
     $("#archive").click(function(){
+        var request = $.ajax({
+            url : "handlers/edit/editJobState.php",
+            type : "POST",
+            data : {cr_id:id, action: 'finished'},
+            dataType: "json"
+        });
+        request.done(function(data){
+            if(data.errors == 'false'){
+                window.setTimeout("location.reload();",50);
+            }
+        });
     });
 
 
