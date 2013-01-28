@@ -29,6 +29,9 @@
 \usepackage{listingsutf8} %in utf8d
 \lstset{language=Java,captionpos=b,tabsize=3,frame=lines,keywordstyle=\color{blue},commentstyle=\color{teal},stringstyle=\color{red},numbers=left,numberstyle=\tiny,numbersep=5pt,breaklines=true,showstringspaces=false,basicstyle=\footnotesize,emph={label},upquote=true} %Syntax highlighting
 
+\usepackage{dirtree} 
+
+
 %Verbatim extension (with line numbers and tab-expansion)
 \usepackage{moreverb} 
 
@@ -73,19 +76,19 @@ Für die Installation müssen folgende Schritte durchlaufen werden:
 \subsection{Installation der Datenbank} % (fold)
 \label{sub:Installation der Datenbank}
     Stellen Sie sicher, dass die in  \verb+./config.php+ angegebene Datenbank existiert.
-    Führen Sie dann die Datei  \verb+./db_setup.php+ mit PHP aus. Alternativ können Sie auch 
+    Führen Sie die Datei  \verb+./db_setup.php+ mit PHP aus. Alternativ können Sie auch 
     die url  \url{http://www.IhreWebsite.ch/Pfad_zu_db_setup.php/db_setup.php} aufrufen.
 % subsection Installation der Datenbank (end)
 \subsection{Einrichten} % (fold)
 \label{sub:Einrichten}
-    Setzen Sie die Konstante \verb+INSTALL+ in \verb+config.php+ auf 0.
-    Sie können sich nun im Webinterface mit folgenden Kenndaten anmelden: \\
-    \begin{center}
-    \begin{tabular}{ll}
-        Benutzername & Passwort \\
-        root & anderson \\
-    \end{tabular}
-    \end{center}
+	\paragraph{Root-Benutzer}
+		Es wird ein Hauptbenutzer angelegt. Sie müssen für diesen Benutzer ein Passwort festlegen. 
+		Dies geschieht mit dem Aufruf von \url{http://www.IhreWebsite.ch/Pfad_zu_setRootPass.php/setRootPass.php?passwd=IhrPasswort}.
+		Ersetzen Sie \verb+IhrPasswort+ mit einem sicheren Passwort.
+	\paragraph{Installation abschliessen}
+		Nun können Sie die Konstante \verb+INSTALL+ auf 0 setzen. Die Installation ist somit abgeschlossen.
+    
+  
 
 
 % subsection Einrichten (end)
@@ -99,7 +102,46 @@ Für die Installation müssen folgende Schritte durchlaufen werden:
 
 % subsection  (end)
 \subsection{Aufbau}
-
+	\subsubsection{Dateisystem}
+\dirtree{%
+ .1 /. 
+ .2 installfiles\DTcomment{Installationsdateien}. 
+ .2 templates\DTcomment{Vorlagen für die Seiten}. 
+ .2 css\DTcomment{CSS Dateien}. 
+ .2 js\DTcomment{Javascript Dateien}. 
+ .2 handlers\DTcomment{Ajax Handler}. 
+ .2 img\DTcomment{Bilder}. 
+ .2 uploads\DTcomment{Hochgeladene Dateien}. 
+ .2 doc\DTcomment{Dokumentation}. 
+}
+		
+	\subsubsection{Seitenaufbau}
+	\lstset{language=html}
+\begin{lstlisting}
+<html>
+	<head>
+		<!-- Hier sind alle CSS Dateien eingebunden -->
+	</head>
+	<body>
+		<div id="content">
+			<header>
+				<!-- Hier ist das Menu -->
+			</header>
+			<!-- Benachrichtigungsfeld -->
+			
+			<article>
+				<!-- hier ist der verlangte Seiteninhalt -->
+			</article>
+					
+					
+		</div>
+		<!-- Hier sind alle Javascritp Dateien eingebunden -->
+	</body>
+</html>
+	\end{lstlisting}
+	
+	\subsubsection{Benutzerführung}
+ \includegraphics[width=\textwidth]{navigation.eps}
 
 % subsection  (end)
 \subsection{Datenbank}
@@ -110,8 +152,10 @@ Für die Installation müssen folgende Schritte durchlaufen werden:
 \subsection{Verwendete Komponenten und Bibliotheken} % (fold)
 \begin{itemize}
 \item jQuery \url{http://jquery.com/}
-\item Iconic \url{https://github.com/somerandomdude/Iconic}    
-\item NicEdit \url{http://nicedit.com/}
+\item Iconic \url{https://github.com/somerandomdude/Iconic}
+\item SuperBox \url{http://pierrebertet.net/projects/jquery_superbox/}
+\item tinyMCE \url{www.tinymce.com/}
+\item AjaxFileUploader \url{https://github.com/jfeldstein/jQuery.AjaxFileUpload.js}
 \end{itemize}
 
 
@@ -143,4 +187,4 @@ Für die Installation müssen folgende Schritte durchlaufen werden:
 % subsection  (end)
 
 % section  (end)
-\end{document}]d
+\end{document}]
