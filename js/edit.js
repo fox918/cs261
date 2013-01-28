@@ -438,20 +438,74 @@ $(function() {
     });
 });
 //remove a temporary date
-
 function remDate(obj){
     console.log("remove date");
     $(obj).parent().parent().remove(); 
     $(obj).parent().parent().find("input[name*='cr_date_submit_']").val('false');
 }
+//remove a temp Note
 function remNote(obj){
     console.log("remove note")
         $(obj).parent().parent().remove(); 
     $(obj).parent().parent().find("input[name*='cr_note_submit_']").val('false');
 }
-function remMat(obj){
+
+//remove a temp Mat
+function remMat(obj)
+{
     console.log("remove material")
         $(obj).parent().remove(); 
     $(obj).parent().find("input[name*='cr_mat_submit_']").val('false');
 
 }
+
+//remove a Date
+function delDate(obj){
+    var dateId = $(obj).parent().parent().find("input[name*='cr_date_id_']").val();
+    var id = $("input[name*=cr_id]").val();
+    var request = $.ajax({
+        url : "handlers/edit/deleteCalendar.php",
+        type : "POST",
+        data : {cr_id:id, cr_date_id:dateId},
+        dataType: "json"
+    });
+    request.done(function(data){
+        if(data.errors == 'false'){
+            $(obj).parent().parent().remove();
+        }
+    });
+}
+//remove a Note
+function delNote(obj){
+    var noteId = $(obj).parent().parent().find("input[name*='cr_note_id_']").val();
+    var id = $("input[name*=cr_id]").val();
+    var request = $.ajax({
+        url : "handlers/edit/deleteNote.php",
+        type : "POST",
+        data : {cr_id:id, cr_note_id:noteId},
+        dataType: "json"
+    });
+    request.done(function(data){
+        if(data.errors == 'false'){
+            $(obj).parent().parent().remove();
+        }
+    });
+}
+
+//remove a Material
+function delMat(obj){
+    var matId = $(obj).parent().find("input[name*='cr_mat_id_']").val();
+    var id = $("input[name*=cr_id]").val();
+    var request = $.ajax({
+        url : "handlers/edit/deleteMaterial.php",
+        type : "POST",
+        data : {cr_id:id, cr_mat_id:matId},
+        dataType: "json"
+    });
+    request.done(function(data){
+        if(data.errors == 'false'){
+            $(obj).parent().remove();
+        }
+    });
+}
+//remove a file
