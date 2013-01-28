@@ -222,6 +222,7 @@ if(isset($_GET['order'])){
     <script type="text/javascript" src='./js/tiny_mce/tiny_mce.js'></script>
     <script type="text/javascript" src='./js/tiny_mce/jquery.tinymce.js'></script>
     <script type="text/javascript" src='./js/superbox/jquery.superbox-min.js'></script>
+    <script type="text/javascript" src='./js/file/jquery.ajaxfileupload.js'></script>
     <script type="text/javascript" src="./js/main.js"></script>
     <?php $page->includeJS() ?> 
 </body>
