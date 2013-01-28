@@ -118,6 +118,7 @@ while($row = $ret->fetch_assoc())
 
     $table[$jid] = $temp;
 }
-//print_r($table);
+
+$table["errors"] = false;
 echo json_encode($table);
 ?>

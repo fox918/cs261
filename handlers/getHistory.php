@@ -87,6 +87,6 @@ if(isset($_REQUEST["useXML"]))
 }
 
 
-
+$table["errors"] = false;
 echo json_encode($table);
 ?>
