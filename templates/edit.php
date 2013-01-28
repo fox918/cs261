@@ -303,10 +303,9 @@ while($row = $ret->fetch_assoc())
     $fid = $row["coAtId"];
 echo "
                    <p class=\"file\">
-            <label for=\"cr_file_$i\">Datei ersetzen: </label>
-            <input type=\"file\" name=\"cr_file_$i\" style=\"width:400px\"/>
             <input type=\"hidden\" name=\"cr_file_id_$i\" value=\"$fid\" />
             <a href=\"/handlers/download.php?id=$fid\">Download $fname</a>
+            <button value=\"$fid\" type=\"submit\">löschen</button>
             </p>";
     $i++;
 }

@@ -148,7 +148,7 @@ while($row = $ret->fetch_assoc())
     </div>
     <button id="cr_date_addfield">Hinzufügen</button>
 </fieldset>
-
+<!--
 <fieldset id="files">
     <legend>angehängte Dateien</legend>
     <div>
@@ -159,7 +159,7 @@ while($row = $ret->fetch_assoc())
     </div>
         <button id="cr_file_addfield">Datei hinzufügen</button>
 </fieldset>
-
+-->
 <input type="hidden" name="cr_mat_counter" id="cr_mat_counter" value="1" />
 <input type="hidden" name="cr_note_counter" id="cr_note_counter" value="1" />
 <input type="hidden" name="cr_date_counter" id="cr_date_counter" value="1" />

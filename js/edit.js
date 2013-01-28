@@ -156,12 +156,6 @@ $(function() {
 
     }
 
-    //edit file
-    $("input[type=\"file\"]").ajaxfileupload({
-        'action' : 'handlers/edit/addFile.php',
-    'params' : {'cr_id' : id}
-    });
-
     //delete Handlers:
     //delete job
     $("#delete").click(function(){
@@ -185,8 +179,64 @@ $(function() {
         });
     });
 
+    //delete file
+    $("#files .file button").click(function(){
+        var fileid = $(this).parent().find("input[name*=\"cr_file_id_\"]").val();
+        
+        $(this).parent().remove();
+        var request = $.ajax({
+            url : "handlers/edit/deleteAttachment.php",
+            type : "POST",
+            data : {cr_id : id, cr_file_id: fileid},
+            dataType: "json"
+        });
+        request.done(function(data){
+            var msg=document.createElement("div");
+            if(data.errors == 'true'){
+                msg.innerHTML=data.errormsgs[0];
+                msg.className="warning floating";
+            }else{
+                msg.innerHTML="Datei wurde gelöscht";
+                msg.className="success floating";
+            }
+            $('#notifications').append(msg);
+
+            window.setTimeout('$("#notifications").empty();',5000);
+
+
+
+            return false;
+        });
+    });
+
     //new Handlers:
     //add file
+    $("#cr_file_addfield").click(function() {
+        var count = $("#cr_file_counter").val();
+        count++;
+        var html = "<p>"+
+        "    <label for='cr_file_##NUMBER##'>Datei hochladen: </label>       "+
+        "    <input type='file' name='cr_file_##NUMBER##' style='width:400px'/>"+
+        "    </p>";
+    html = html.replace(/##NUMBER##/g,""+count);
+    var dom=makeDOM(html);
+    $("#files>div").append(dom);
+    $(dom).find("input[type=file]").ajaxfileupload({
+        'action' : 'handlers/edit/addFile.php',
+        'params' : {'cr_id': id},
+        'onStart' : function(){console.log("start upload");},
+        'onComplete' : function(){
+            console.log("upload successfull");
+            var msg=document.createElement("div");
+            msg.innerHTML="Datei hochgeladen";
+            msg.className="success";
+            $('#notifications').append(msg);
+        }
+    });
+    return false;
+    });
+
+
 
     //add Material
     $("#cr_mat_addfield").click(function() {
@@ -450,7 +500,7 @@ $(function() {
             msg.className = "success";
         }
         $("#notifications").append(msg);
-        //window.setTimeout("location.reload(true);",1500);
+        window.setTimeout("location.reload(true);",1500);
     });
 
 

@@ -557,6 +557,10 @@ header{
     top: 10px;
     left: 150px;
 }
+#edit .file{
+    margin: 5px 0 5px 20px;
+
+}
 #admin #list ul{
     margin: 15px 0 20px 200px;
 }
