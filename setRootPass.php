@@ -20,6 +20,6 @@ $pw = $_REQUEST["passwd"];
 $hash = md5($pw.GLOBAL_SALT);
 
 $db = new Database();
-$db->run("UPDATE users SET uPw='$hash' where uName='root'")
-echo "neues Passwort gesetzt"
+$db->run("UPDATE users SET uPw='$hash' where uName='root'");
+echo "neues Passwort gesetzt";
 ?>
