@@ -557,3 +557,23 @@ header{
     top: 10px;
     left: 150px;
 }
+#admin #list ul{
+    margin: 15px 0 20px 200px;
+}
+#admin #list ul li{
+    position: relative;
+    width: 400px;
+}
+#admin #list ul li p button{
+    position: absolute;
+    left: 200px;
+    top: 4px;
+}
+#admin #list ul li img{
+    position: absolute;
+    left: 380px;
+    top: 7px;
+}
+#admin #list ul li:nth-child(odd) {
+    background-color: #ddd;
+} 
