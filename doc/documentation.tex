@@ -30,7 +30,7 @@
 \lstset{language=Java,captionpos=b,tabsize=3,frame=lines,keywordstyle=\color{blue},commentstyle=\color{teal},stringstyle=\color{red},numbers=left,numberstyle=\tiny,numbersep=5pt,breaklines=true,showstringspaces=false,basicstyle=\footnotesize,emph={label},upquote=true} %Syntax highlighting
 
 \usepackage{dirtree} 
-
+\usepackage{lscape}
 
 %Verbatim extension (with line numbers and tab-expansion)
 \usepackage{moreverb} 
@@ -88,7 +88,8 @@ Für die Installation müssen folgende Schritte durchlaufen werden:
 	\paragraph{Installation abschliessen}
 		Nun können Sie die Konstante \verb+INSTALL+ auf 0 setzen. Die Installation ist somit abgeschlossen.
 		\paragraph{Bemerkung}
-    Das ./uploads/ Verzeichniss muss für php beschreibbar sein.
+    Das \verb+./uploads/+ Verzeichnis muss für php beschreibbar sein. Setzen Sie wenn nötig die erforderlichen Rechte
+    (zum Beispiel mit \verb+chgrp http ./uploads+). 
   
 
 
@@ -99,11 +100,31 @@ Für die Installation müssen folgende Schritte durchlaufen werden:
 
 \section{Umsetzung}
 \subsection{Funktionsumfang}
-
+	\subsubsection{Geplant}
+		\begin{enumerate}
+		\item Verschiedene Benutzer mit verschiedenen Aufgabenbereichen
+		\item Aufträge können von allen Benutzern bearbeitet werden
+		\item Jeder Auftrag soll einen Verlauf haben
+		\item Zuordnen von Aufträgen an Benutzern, weiterreichen von Aufträgen
+		\item Ein Auftrag durchläuft verschiedene Stufen
+		\end{enumerate}
+	\subsubsection{Umsetzung}
+		Hier jeweils ein kurzer Kommentar zur Umsetzung der verschiedenen Zielsetzungen
+		\begin{enumerate}
+				\item Wurde umgesetzt mit 3 Benutzergruppen (Verwaltung, Lagerist, Arbeiter)
+				\item Alle Aufträge sind von zuständigen Benutzern veränderbar
+				\item Der Verlauf wurde als XML-Datei realisiert
+				\item Aufträge können zugeordnet und weitergereicht werden, jedoch fehlt eine Art Übersicht über die Zuordnungen
+				\item Der Auftrag durchläuft verschiedene Stufen (Erfassung, Abarbeiten, Abrechnen, Archiv)
+		\end{enumerate}
 
 % subsection  (end)
 \subsection{Aufbau}
 	\subsubsection{Dateisystem}
+Unsere Ordnerstruktur ist so gestaltet, dass alle Dateien nach Funktion aufgeteilt werden.
+Das Zusammensetzen der dargestellten Seite wird dabei von der Datei \verb+index.php+ übernommen. 
+Dass heisst, fast alle Funktionalitäten unserer Seite sind über \verb+index.php+ erreichbar.
+Javascript Dateien werden nur nach Bedarf geladen.
 \dirtree{%
  .1 /. 
  .2 installfiles\DTcomment{Installationsdateien}. 
@@ -117,6 +138,10 @@ Für die Installation müssen folgende Schritte durchlaufen werden:
 }
 		
 	\subsubsection{Seitenaufbau}
+	Hier der exemplarische Aufbau unserer \verb+index.php+ Datei. 
+	Der jeweilige Seiteninhalt wird dynamisch als \verb+<article></article>+ eingebunden.
+	Javascript Dateien werden spezifisch für jede Seite eingebunden.
+	
 	\lstset{language=html}
 \begin{lstlisting}
 <html>
@@ -136,34 +161,73 @@ Für die Installation müssen folgende Schritte durchlaufen werden:
 					
 					
 		</div>
-		<!-- Hier sind alle Javascritp Dateien eingebunden -->
+		<!-- Hier sind alle Javascript Dateien eingebunden -->
 	</body>
 </html>
 	\end{lstlisting}
 	
+	\subsubsection{Benutzerinteraktionen}
+	Unsere Seite setzt sehr viel Javascript für die Benutzerinteraktionen ein. 
+	Rund 7\% unseres Codes ist Javascript. Wo möglich wurden viele Interaktionen mittels Ajax gelöst.
+	Jedoch ist ein neu laden der Seite manchmal unumgänglich. 
+	
+	
+	
 	\subsubsection{Benutzerführung}
+	Folgende Graphik zeigt unsere Benutzerführung.
+	\begin{figure}[h!]
  \includegraphics[width=\textwidth]{navigation.eps}
+\end{figure}
 
 % subsection  (end)
 \subsection{Datenbank}
+Auf folgenden Graphiken ist unser Datenbankschema dargestellt. 
+Beim Verlauf wollten wir ursprünglich noch Benachrichtigungen für Benutzer zur
+Verfügung stellen. Aus Zeitgründen haben dies jedoch nicht mehr implementiert.
+Auch die Verknüpfung des Verlaufes mit den einzelnen Datenbankeinträgen ist zwar laut Schema
+vorgesehen, jedoch nicht implementiert. Wir haben absichtlich keine Trigger / Stored Procedures verwendet, da diese
+von den meisten Hostern nicht unterstützt werden.
+\begin{figure}[hbt]
+	\centering
+	\includegraphics[scale=0.9]{./db_pdfs/history.pdf}
+	\caption{Tabellen welche für die Benachrichtigungen (Updates) und Rückverfolgbarkeit zuständig sind.}
+\end{figure}
 
+
+\begin{landscape}
+\begin{figure}[p]
+	\centering
+	\includegraphics[scale=0.6]{./db_pdfs/everything.pdf}
+	\caption{Das gesamte Datebankschema}
+\end{figure}
+\end{landscape}
+
+\begin{figure}[h!p]
+	\centering
+	\includegraphics[scale=1]{./db_pdfs/jobs.pdf}
+	\caption{Alle Tabellen in denen Informationen betreffend eines Auftrages sind.}
+\end{figure}
+
+
+
+\newpage
 
 % subsection  (end)
 % section  (end)
 \subsection{Verwendete Komponenten und Bibliotheken} % (fold)
 \begin{itemize}
-\item jQuery \url{http://jquery.com/}
-\item Iconic \url{https://github.com/somerandomdude/Iconic}
-\item SuperBox \url{http://pierrebertet.net/projects/jquery_superbox/}
-\item tinyMCE \url{www.tinymce.com/}
-\item AjaxFileUploader \url{https://github.com/jfeldstein/jQuery.AjaxFileUpload.js}
+\item jQuery \url{http://jquery.com/} (Javascript-Bibliothek)
+\item Iconic \url{https://github.com/somerandomdude/Iconic}(Icons)
+\item SuperBox \url{http://pierrebertet.net/projects/jquery_superbox/}(Javascript Overlay)
+\item tinyMCE \url{www.tinymce.com/}(Texteditor)
+\item AjaxFileUploader \url{https://github.com/jfeldstein/jQuery.AjaxFileUpload.js}(Asynchron Dateien hochladen)
 \end{itemize}
 
 
 
 \section{Benutzeroberfläche}
 \subsection{Verwaltung}
-In der Verwaltung eingeteilte User haben das Privileg neue Benutzer hinzuzufügen und Passwörter anderer User zu resetten.
+In der Verwaltung eingeteilte User haben das Privileg neue Benutzer hinzuzufügen und Passwörter anderer User zurückzusetzen.
 % subsection  (end)
 \subsection{Lagerist}
 Der Lagerist kann ihm zugewiesene Aufträge editieren, Materialien editieren, hinzufügen und den Auftrag einer andern Person zuweisen.
@@ -178,20 +242,29 @@ Der Arbeiter kann ihm zugewiesene Aufträge editieren und an andere Personen zuw
 
 \section{Fazit}
 \subsection{Einschränkungen}
+\begin{itemize}
+\item Ein Nutzer kann nur Aufträge sehen/bearbeiten, die ihm zugewiesen sind(Es handelt sich hier um eine gewollte Einschränkung).
+\item Gewisse Interaktionen sind nicht Asynchron ausgeführt
+\item Benutzerverwaltung ist rudimentär
+\end{itemize}
 
-Ein Nutzer kann nur Aufträge sehen/bearbeiten, die ihm zugewiesen sind(Es handelt sich hier um eine gewollte Einschränkung).
 % subsection  (end)
+
 \subsection{Problemstellen}
 \begin{itemize}
-\item Sind die Zugriffsrechte so gesetzt im Dateisystem, dass ./uploads/ nicht durch php mit Dateien gefüllt werden kann, so kann dies zu unerwünschtem Verhalten führen.
-\item Da php die hochgeladenen Dateien im /tmp Verzeichnis zwischenspeichert, kann dies zu Problemen führen, wenn /tmp als tmpfs gemounted ist und die Summe über die Grössen aller gleichzeitig hochgeladenen Dateien zu gross ist.
+\item Sind die Zugriffsrechte im Dateisystem so gesetzt , dass \verb+./uploads/+ nicht durch php mit Dateien gefüllt werden kann, so kann dies zu unerwünschtem Verhalten führen.
+\item Da php die hochgeladenen Dateien im \verb+/tmp+ Verzeichnis zwischenspeichert, kann dies zu Problemen führen, wenn \verb+/tmp+ als tmpfs gemounted ist und die Summe über die Grössen aller gleichzeitig hochgeladenen Dateien zu gross ist.
 \item Die Website funktioniert nicht korrekt mit alten Internet Explorer Versionen. Wir bitten IE Nutzer deshalb einen Browser mit HTML5-Unterstützung zu benutzen.
+
 \end{itemize}
 % subsection  (end)
 \subsection{Lessons learned}
 \begin{itemize}
 \item Asynchronder Dateiupload geht nicht nativ mit jQuery.
 \item Auswerten von grösseren Formularen ist sehr repetitive Arbeit. Diesbezüglich war das von uns gewählte Projekt suboptimal.
+\item Ajax benötigt klare Abmachungen der Schnittstellen und ist sehr zeitaufwendig
+\item Browser $\neq$ Browser
+\item Keine langen Unterbrüche machen (Einarbeitungszeit)
 \end{itemize}
 
 % subsection  (end)
