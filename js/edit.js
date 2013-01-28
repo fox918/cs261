@@ -503,7 +503,9 @@ $(function() {
         window.setTimeout("location.reload(true);",1500);
     });
 
-
+    $("#history").click(function(){
+        $("#historylink").click();   
+    });
     //prevent submission
     $("form").submit(function(e){
         e.preventDefault();
