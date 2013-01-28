@@ -202,7 +202,7 @@ while($row = $ret->fetch_assoc())
     echo "      </select>
                 <input style='left:560px;width:120px' type=\"text\" name=\"cr_mat_delivery_$i\" value=\"$delDate\"/>
                 <input style='left:700px;width:100px' type=\"text\" name=\"cr_mat_price_$i\" value=\"$price\"/>
-                <img class=\"closebutton\" src='./img/icons/x_alt_16x16.png' />
+                <img class=\"closebutton\" src='./img/icons/x_alt_16x16.png' onclick=\"delMat(this);\"/>
                 </p>";
     
     $i++;
@@ -217,7 +217,7 @@ $ret = $db->run("select * from comText where jobs_jId='$orderid'");
  echo " <button id=\"cr_mat_addfield\">Hinzufügen</button>
         </fieldset>
         <fieldset id=\"notes\">
-            <legend>Notizen</legend>";
+            <legend>Notizen</legend><div>";
   
  while($row = $ret->fetch_assoc())
  {
@@ -225,24 +225,24 @@ $ret = $db->run("select * from comText where jobs_jId='$orderid'");
      $text = $row["coText"];
      $id = $row["coTextId"];
      
-    echo " <div>
+    echo " 
                 <div class=\"note buttoncontainer\" id=\"note_$i\">
                     <fieldset>
                         <legend>
                             $title
-                            <img class=\"closebutton\" src='./img/icons/x_alt_16x16.png' />
+                            <img class=\"closebutton\" src='./img/icons/x_alt_16x16.png' onclick=\"delNote(this)\"/>
                         </legend>
                         <textarea name=\"cr_note_$i\" id=\"notefield_$i\" rows=\"8\" cols=\"40\">$text</textarea>
                         <input type=\"hidden\" name=\"cr_note_id_$i\" value=\"$id\" />
 
                     </fieldset>
                 </div>
-            </div>";
+            ";
      $i++;
 }
 
 $i--;
-  echo "<button id=\"cr_note_addfield\">Hinzufügen</button>
+  echo "</div><button id=\"cr_note_addfield\">Hinzufügen</button>
         </fieldset>
         <input type=\"hidden\" name=\"cr_note_counter\" id=\"cr_note_counter\" value=\"$i\" />
     </fieldset>
@@ -305,7 +305,8 @@ echo "
                    <p class=\"file\">
             <label for=\"cr_file_$i\">Datei ersetzen: </label>
             <input type=\"file\" name=\"cr_file_$i\" style=\"width:400px\"/>
-            <a href=\"/handlers/download.php?id=$fid\">Download $fname<a>
+            <input type=\"hidden\" name=\"cr_file_id_$i\" value=\"$fid\" />
+            <a href=\"/handlers/download.php?id=$fid\">Download $fname</a>
             </p>";
     $i++;
 }
@@ -318,7 +319,6 @@ echo " </fieldset>
     <div class=\"control\">
         <input type=\"hidden\" id='action_input' name=\"action\" value=\"save\" />
         <div>
-            <button id=\"save\">Auftrag speichern</button>
             <button id=\"publish\">Auftrag veröffentlichen</button>
             <button id=\"delete\">Auftrag löschen</button>
         </div>
@@ -327,10 +327,15 @@ echo " </fieldset>
             <button id=\"archive\">Auftrag ins Archiv verschieben</button>
         </div>
     </div>
-</form>
-</article>";
-
+</form>";
 
 
 
 ?>
+
+<div id = "savefloat">
+    <div>
+    <button id="save">Speichern</button>
+    </div>
+</div>
+</article>
