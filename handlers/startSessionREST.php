@@ -19,7 +19,12 @@ if(isset($_REQUEST["name"]) && isset($_REQUEST["passwd"]))
     $usr = new user();
     if($usr->login($_REQUEST["name"], $_REQUEST["passwd"]) == true)
     {
-        $outputMsgs["PHPSESSID"] = session_id();
+        if($usr->isLoggedIn())
+        {
+            $_SESSION['user'] = $usr->getUsername();
+            $_SESSION['auth'] = $usr->getAuthToken();
+            $outputMsgs["PHPSESSID"] = session_id();
+        }
     }
     else 
     {
