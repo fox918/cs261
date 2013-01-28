@@ -87,7 +87,8 @@ Für die Installation müssen folgende Schritte durchlaufen werden:
 		Ersetzen Sie \verb+IhrPasswort+ mit einem sicheren Passwort.
 	\paragraph{Installation abschliessen}
 		Nun können Sie die Konstante \verb+INSTALL+ auf 0 setzen. Die Installation ist somit abgeschlossen.
-    
+		\paragraph{Bemerkung}
+    Das ./uploads/ Verzeichniss muss für php beschreibbar sein.
   
 
 
@@ -109,7 +110,7 @@ Für die Installation müssen folgende Schritte durchlaufen werden:
  .2 templates\DTcomment{Vorlagen für die Seiten}. 
  .2 css\DTcomment{CSS Dateien}. 
  .2 js\DTcomment{Javascript Dateien}. 
- .2 handlers\DTcomment{Ajax Handler}. 
+ .2 handlers\DTcomment{Ajax Handler / REST-Interface}. 
  .2 img\DTcomment{Bilder}. 
  .2 uploads\DTcomment{Hochgeladene Dateien}. 
  .2 doc\DTcomment{Dokumentation}. 
@@ -162,15 +163,15 @@ Für die Installation müssen folgende Schritte durchlaufen werden:
 
 \section{Benutzeroberfläche}
 \subsection{Verwaltung}
-
+In der Verwaltung eingeteilte User haben das Privileg neue Benutzer hinzuzufügen und Passwörter anderer User zu resetten.
 % subsection  (end)
 \subsection{Lagerist}
-
+Der Lagerist kann ihm zugewiesene Aufträge editieren, Materialien editieren, hinzufügen und den Auftrag einer andern Person zuweisen.
 
 % subsection  (end)
 
 \subsection{Arbeiter}
-
+Der Arbeiter kann ihm zugewiesene Aufträge editieren und an andere Personen zuweisen.
 
 % subsection  (end)
 % section  (end)
@@ -178,11 +179,20 @@ Für die Installation müssen folgende Schritte durchlaufen werden:
 \section{Fazit}
 \subsection{Einschränkungen}
 
+Ein Nutzer kann nur Aufträge sehen/bearbeiten, die ihm zugewiesen sind(Es handelt sich hier um eine gewollte Einschränkung).
 % subsection  (end)
 \subsection{Problemstellen}
-
+\begin{itemize}
+\item Sind die Zugriffsrechte so gesetzt im Dateisystem, dass ./uploads/ nicht durch php mit Dateien gefüllt werden kann, so kann dies zu unerwünschtem Verhalten führen.
+\item Da php die hochgeladenen Dateien im /tmp Verzeichnis zwischenspeichert, kann dies zu Problemen führen, wenn /tmp als tmpfs gemounted ist und die Summe über die Grössen aller gleichzeitig hochgeladenen Dateien zu gross ist.
+\item Die Website funktioniert nicht korrekt mit alten Internet Explorer Versionen. Wir bitten IE Nutzer deshalb einen Browser mit HTML5-Unterstützung zu benutzen.
+\end{itemize}
 % subsection  (end)
 \subsection{Lessons learned}
+\begin{itemize}
+\item Asynchronder Dateiupload geht nicht nativ mit jQuery.
+\item Auswerten von grösseren Formularen ist sehr repetitive Arbeit. Diesbezüglich war das von uns gewählte Projekt suboptimal.
+\end{itemize}
 
 % subsection  (end)
 
