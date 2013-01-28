@@ -42,20 +42,20 @@ $db = new Database();
 
 if(isset($_REQUEST["new_name"]) && isset($_REQUEST["new_pw"]) && isset($_REQUEST["new_type"]))
 {
-    $name = $db->escape($_REQUEST["new_type"]);
+    $name = $db->escape($_REQUEST["new_name"]);
     $pw = md5($_REQUEST["new_pw"].GLOBAL_SALT);
     $type = $_REQUEST["new_type"];
     $uid = $db->escape($user->getId());
     
     switch($type)
     {
-        case "Verwaltung":
+        case "admin":
             $type="admin";
             break;
-        case "Lager":
+        case "store":
             $type="store";
             break;
-        case "Arbeiter":
+        case "worker":
             $type="worker";
             break;
         default:

@@ -72,7 +72,7 @@ echo "
     <p>
     <label for="pw">Mein Passwort ändern zu:</label>
     <input type="password" name="pw" id="pw" value="" />
-    <button type="submit">ändern</button>    
+    <button id="change_pw" type="submit">ändern</button>    
 </p>
     
 </fieldset>
