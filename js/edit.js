@@ -505,6 +505,7 @@ $(function() {
 
     $("#history").click(function(){
         $("#historylink").click();   
+        window.location = "handlers/getHistory.php?cr_id="+id+"&useXML=";
     });
     //prevent submission
     $("form").submit(function(e){

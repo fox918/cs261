@@ -321,7 +321,7 @@ echo " </fieldset>
             <button id=\"publish\">Auftrag veröffentlichen</button>
             <button id=\"delete\">Auftrag löschen</button>
             <button id=\"history\">Auftragsverlauf anzeigen </button>
-            <a id=\"historylink\" href=\"handlers/getHistory.php?cr_id=$orderid&useXML=\" rel=\"superbox[content]\" >history</a>
+            <a id=\"historylink\" href=\"handlers/getHistory.php?cr_id=$orderid&useXML=\" class=\"hide\">history</a>
         </div>
         <div>
             <button id=\"billing\">Auftrag wird abgerechnet</button>
