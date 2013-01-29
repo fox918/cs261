@@ -223,6 +223,12 @@ von den meisten Hostern nicht unterstützt werden.
 \item AjaxFileUploader \url{https://github.com/jfeldstein/jQuery.AjaxFileUpload.js}(Asynchron Dateien hochladen)
 \end{itemize}
 
+\subsection{REST-Interface}
+Um auf das REST-Interface zugreifen zu können, ist ein Login notwendig. Ein solches Login funktioniert wie folgt: \\ http://mysite.com/handlers/startSessionREST.php?name=root\&passwd=1234 \\
+(Cookies müssen aktiviert sein) \\
+Nun kann das gesammte REST-Interface genutzt werden. Die php-Skripte im /handlers/ Ordner  sind jeweils kommentiert, welche Parameter sie akzeptieren und wofür diese stehen. Zusätzlich ist es möglich mit Tools wie 'Live HTTP headers' jeweils Beispiele zu erhalten, da die Website selbst auch das REST-Interface nutzt.
+
+
 
 
 \section{Benutzeroberfläche}
